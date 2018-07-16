@@ -1,14 +1,13 @@
-package fr.eni.papeterie.dal.jdbc;
+package fr.eni.clinique.dal.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import fr.eni.papeterie.dal.Settings;
+import fr.eni.clinique.dal.Settings;
 
 public class JdbcTools {
 
-	
 	private static  String urldb;
 	private static String userdb;
 	private static String passworddb;
@@ -38,5 +37,3 @@ public class JdbcTools {
 
 
 }
-
-
