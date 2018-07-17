@@ -64,7 +64,7 @@ public class Personnel {
 		//sb.append("marque=" + marque); eviter la concatenation
 		sb.append("Code Personnel=" +CodePers);
 		sb.append(", nom=" + Nom); 
-		sb.append(", mot de passe=" + MotPasse); 
+		sb.append(", mot de passe=" + MotPasse);
 		sb.append(", rôle="+ Role); 
 		return sb.toString();
 

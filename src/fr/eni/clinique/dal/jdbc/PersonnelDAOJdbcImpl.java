@@ -15,6 +15,7 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 	
 	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,MotPasse ,Role FROM Personnels";
 	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom, MotPasse, role,archive) values(?,?,?,?);";
+	private static final String sqlSuppressionPersonnel = "DELETE FROM Personnels WHERE idArticle=?";
 
 	
 	public List<Personnel> SelectAllInfosPersonnel() {
@@ -112,4 +113,41 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 			}
 		}	
 	}
+	
+	// suppression d'une personne du personnel
+	
+	public void suppressionPersonnel(int id) {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(sqlSuppressionPersonnel);
+			
+			rqt.setInt(1, id);
+			
+
+		} catch (SQLException e) {
+			//TO DO DALException
+			//throw new DALException("selectByMotCle failed - " , e);
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null){
+				rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				//throw new DALException("close failed " , e);
+				e.printStackTrace();
+			}
+		}	
+	}
+	
 }
