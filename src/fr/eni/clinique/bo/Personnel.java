@@ -8,9 +8,8 @@ public class Personnel {
 	private Boolean Archive;
 	
 	//CONSTRUCTEUR 
-		public Personnel(int codePers, String nom, String motPasse, String role) {
+		public Personnel( String nom, String motPasse, String role) {
 			super();
-			CodePers = codePers;
 			Nom = nom;
 			MotPasse = motPasse;
 			Role = role;
@@ -48,5 +47,16 @@ public class Personnel {
 		Archive = archive;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb =new StringBuilder();
 	
+		//sb.append("marque=" + marque); eviter la concatenation
+		sb.append("Code Personnel=" +CodePers);
+		sb.append(", nom=" + Nom); 
+		sb.append(", mot de passe=" + MotPasse); 
+		sb.append(", rôle="+ Role); 
+		return sb.toString();
+
+		}
 }
