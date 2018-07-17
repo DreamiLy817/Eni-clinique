@@ -22,4 +22,7 @@ public class LoginMger {
 	private void getAccess(String saisieLogin, String saisieMotpasse) {
 		
 	}
+	//Ha
+	//Ha
+	//Ha
 }
