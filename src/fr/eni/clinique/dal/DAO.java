@@ -30,4 +30,8 @@ public abstract class DAO<T> {
 	 */
 	public abstract T delete(T obj);
 	
+	/**
+	 * Méthode vérif mot de passe
+	 */
+	public abstract String selectbyMDP(String nom);
 }

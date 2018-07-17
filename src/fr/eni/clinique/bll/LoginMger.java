@@ -1,7 +1,7 @@
 package fr.eni.clinique.bll;
 
 import fr.eni.clinique.dal.PersonnelDAO;
-import fr.eni.clinique.dal.PersonnelDAOFactory;
+import fr.eni.clinique.dal.DAOFactory;
 
 
 public class LoginMger {
@@ -16,13 +16,14 @@ public class LoginMger {
 	}
 	
 	private LoginMger(){
-		personnelDAO = PersonnelDAOFactory.getPersonnelDAO();
+		personnelDAO = DAOFactory.getPersonnelDAO();
 	}
 
-	private void getAccess(String saisieLogin, String saisieMotpasse) {
+	private Boolean getAccess(String saisieLogin, String saisieMotpasse) {
+		Boolean access = null;
+		String pass = null;
 		
+		
+		return access;
 	}
-	//Ha
-	//Ha
-	//Ha
 }
