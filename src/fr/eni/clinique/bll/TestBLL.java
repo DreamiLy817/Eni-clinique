@@ -9,7 +9,7 @@ public class TestBLL {
 	static String pass = null;
 	static Boolean access;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws BLLException {
 		LoginMger login = LoginMger.getInstance();
 		DAOAuthentification loginDAO = DAOFactory.getDAOAuthentification();
 		try {
