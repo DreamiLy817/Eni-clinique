@@ -10,7 +10,7 @@ public class AppliTestDAL {
 	public static void main(String[] args) throws DALException {
 		
 		// déclaration et instanciation de la DAO
-		PersonnelDAO personnelDAO = PersonnelDAOFactory.getPersonnelDAO();
+		PersonnelDAO personnelDAO = DAOFactory.getPersonnelDAO();
 		
 		// creer un nouveau personnel 
 		Personnel p1 = new Personnel( "azadea", "1234", "vet",false);
