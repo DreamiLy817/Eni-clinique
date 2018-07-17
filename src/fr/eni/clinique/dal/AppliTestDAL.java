@@ -10,21 +10,22 @@ public class AppliTestDAL {
 	public static void main(String[] args) throws DALException {
 		
 		// déclaration et instanciation de la DAO
-		PersonnelDAO personnelDAO = DAOFactory.getPersonnelDAO();
-		
+		//PersonnelDAO personnelDAO = DAOFactory.getPersonnelDAO();
+		DAO<Personnel> personnelDAO = DAOFactory.getPersonnelDAO();
+				
 		// creer un nouveau personnel 
 		Personnel p1 = new Personnel( "azadppioea", "1234", "vet",false);
 		Personnel p2 = new Personnel( "efrgomooommmrpb", "12o34", "vet",false);
-		personnelDAO.insertPersonnel(p1);
-		personnelDAO.insertPersonnel(p2);
+		personnelDAO.insert(p1);
+		personnelDAO.insert(p2);
 		
 		//selection de tout le personnel
-		List<Personnel> allPersonnel = personnelDAO.SelectAllInfosPersonnel();
+		List<Personnel> allPersonnel = personnelDAO.selectAll();
 		System.out.println("Selection de tous le personnel  : " + allPersonnel.toString() );
 		
 		System.out.println("Suppression de l'article  : " + p1.toString());
-		personnelDAO.suppressionPersonnel(p1.getCodePers());
-		allPersonnel = personnelDAO.SelectAllInfosPersonnel();
+		personnelDAO.supprimer(p1.getCodePers());
+		allPersonnel = personnelDAO.selectAll();
 		
 		
 		System.out.println("---------------------------------------------------------------");

@@ -10,16 +10,16 @@ import java.util.List;
 
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.PersonnelDAO;
+import fr.eni.clinique.dal.DAO;
 
-public class PersonnelDAOJdbcImpl implements PersonnelDAO {
+public class PersonnelDAOJdbcImpl implements DAO<Personnel> {
 	
 	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,MotPasse ,Role FROM Personnels";
 	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom, MotPasse, role,archive) values(?,?,?,?);";
 	private static final String sqlSuppressionPersonnel = "DELETE FROM Personnels WHERE CodePers=?";
 
 	
-	public List<Personnel> SelectAllInfosPersonnel() throws DALException{
+	public List<Personnel> selectAll() throws DALException{
 		Connection cnx = null;
 		Statement rqt = null;
 		ResultSet rs = null; 
@@ -59,9 +59,9 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 	}
 	
 	
-	
 	//// insertion d'une personne du personnel
-	public void insertPersonnel(Personnel p) throws DALException {
+	@Override
+	public void insert(Personnel p) throws DALException {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -111,15 +111,29 @@ public class PersonnelDAOJdbcImpl implements PersonnelDAO {
 			}
 		}	
 	}
-	
-	// suppression d'une personne du personnel
-	public void suppressionPersonnel(int CodePers) throws DALException {
+
+	@Override
+	public Personnel selectbyID(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Personnel update(Personnel obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public void supprimer(Integer id) throws DALException {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		try {
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(sqlSuppressionPersonnel);
-			rqt.setInt(1, CodePers);
+			rqt.setInt(1, id);
 			rqt.executeUpdate();	
 		} catch (SQLException e) {
 			//TO DO DALException

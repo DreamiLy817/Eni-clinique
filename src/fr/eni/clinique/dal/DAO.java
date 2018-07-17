@@ -1,20 +1,33 @@
 package fr.eni.clinique.dal;
 
-public abstract class DAO<T> {
+import java.util.List;
+
+import fr.eni.clinique.bo.Personnel;
+
+public interface DAO<T> {
 	
 	/**
 	 * Select en fonction de l'id (int)
 	 * @param id
 	 * @return
 	 */
-	public abstract T selectbyID(long id);
+	public abstract T selectbyID(Integer id);
 	
 	/**
 	 * Insert dans la base de donnée
 	 * @param obj
 	 * @return
+	 * @throws DALException 
 	 */
-	public abstract T add(T obj);
+	
+	/**
+	 * Select tout les éléments dans la BDD
+	 * @throws DALException 
+	 */
+	public abstract List<T> selectAll() throws DALException;
+	
+	
+	public abstract void insert(T obj) throws DALException;
 	
 	/**
 	 * Update d'un objet en base de donnée
@@ -25,13 +38,10 @@ public abstract class DAO<T> {
 	
 	/**
 	 * Delete d'un objet en base de donnée
-	 * @param obj
+	 * @param id
 	 * @return
+	 * @throws DALException 
 	 */
-	public abstract T delete(T obj);
+	public abstract void supprimer(Integer id) throws DALException;
 	
-	/**
-	 * Méthode vérif mot de passe
-	 */
-	public abstract String selectbyMDP(String nom);
 }
