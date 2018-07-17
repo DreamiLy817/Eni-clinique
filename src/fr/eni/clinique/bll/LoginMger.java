@@ -13,10 +13,11 @@ import fr.eni.clinique.dal.DAOFactory;
 
 
 public class LoginMger {
+	
 	private static LoginMger instance;
 	private static DAO<Personnel> personnelDAO;
 	
-	public static synchronized LoginMger getInstance(){
+	public static synchronized LoginMger getInstance() throws BLLException {
 		if (instance == null) {
 			instance = new LoginMger();	
 		}
@@ -27,7 +28,7 @@ public class LoginMger {
 		personnelDAO = DAOFactory.getPersonnelDAO();
 	}
 
-	private Boolean getAccess(String saisieLogin, String saisieMotpasse) {
+	private Boolean getAccess(String saisieLogin, String saisieMotpasse) throws BLLException {
 		Boolean access = null;
 		String pass = null;
 		
