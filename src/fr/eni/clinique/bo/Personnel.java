@@ -8,6 +8,8 @@ public class Personnel {
 	private Boolean Archive;
 	
 	//CONSTRUCTEUR 
+	
+	// sans codePersonne et avec les archives
 		public Personnel( String nom, String motPasse, String role, Boolean archive) {
 			super();
 			Nom = nom;
@@ -15,7 +17,17 @@ public class Personnel {
 			Role = role;
 			Archive = archive;
 		}
-
+		
+		// avec codePersonne et sans les archives
+		public Personnel( int codePers, String nom, String motPasse, String role) {
+			super();
+			CodePers = codePers;
+			Nom = nom;
+			MotPasse = motPasse;
+			Role = role;
+		}
+		
+		// sans codePersonne sans les archives
 	public Personnel( String nom, String motPasse, String role) {
 			super();
 			Nom = nom;
@@ -60,15 +72,16 @@ public class Personnel {
 	@Override
 	public String toString() {
 		StringBuilder sb =new StringBuilder();
-	
-		//sb.append("marque=" + marque); eviter la concatenation
-		sb.append("Code Personnel=" +CodePers);
-		sb.append(", nom=" + Nom); 
-		sb.append(", mot de passe=" + MotPasse);
-		sb.append(", rôle="+ Role); 
+
+		sb.append("Code Personnel  [ code = ");
+		sb.append(CodePers);
+		sb.append(",nom = ");
+		sb.append(Nom);
+		sb.append(",rôle = "); 
+		sb.append(Role);
+		sb.append("]\n");
+		
 		return sb.toString();
 
-		}
-	
-	
+		}	
 }
