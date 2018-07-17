@@ -13,11 +13,16 @@ public class AppliTestDAL {
 		PersonnelDAO personnelDAO = PersonnelDAOFactory.getPersonnelDAO();
 		
 		// creer un nouveau personnel 
-		Personnel p1 = new Personnel( "Ally", "1234", "vet");
-		personnelDAO.insertPersonnel(p1);
+		//Personnel p1 = new Personnel( "azeppr", "1234", "vet",false);
+		//Personnel p2 = new Personnel( "efrgommmrb", "12o34", "vet",false);
+		//personnelDAO.insertPersonnel(p1);
+		//personnelDAO.insertPersonnel(p2);
 		
-
-
+		
+		//selection de tout le personnel
+		List<Personnel> allPersonnel = personnelDAO.SelectAllInfosPersonnel();
+		System.out.println("Selection de tous le personnel  : " + allPersonnel.toString() );
+	
 	}
 
 }

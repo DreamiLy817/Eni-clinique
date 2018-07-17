@@ -22,8 +22,8 @@ public class AppliTestBO {
 		personnelListe = new ArrayList<Personnel>();
 		
 		//Test de la création d'objet type Animal
-		Personnel p1 = new Personnel("De Jeu Odette", "3685", "vet");
-		Personnel p2 = new Personnel("Bosapin Edmond", "4325", "adm");
+		Personnel p1 = new Personnel("De Jeu Odette", "3685", "vet", false);
+		Personnel p2 = new Personnel("Bosapin Edmond", "4325", "adm",false);
 		personnelListe.add(p1);
 		personnelListe.add(p2);
 		

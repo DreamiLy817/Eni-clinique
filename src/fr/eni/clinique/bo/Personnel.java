@@ -8,12 +8,22 @@ public class Personnel {
 	private Boolean Archive;
 	
 	//CONSTRUCTEUR 
-		public Personnel( String nom, String motPasse, String role) {
+		public Personnel( String nom, String motPasse, String role, Boolean archive) {
+			super();
+			Nom = nom;
+			MotPasse = motPasse;
+			Role = role;
+			Archive = archive;
+		}
+
+	public Personnel( String nom, String motPasse, String role) {
 			super();
 			Nom = nom;
 			MotPasse = motPasse;
 			Role = role;
 		}
+
+
 
 	// GETTER AND SETTER
 	public int getCodePers() {
@@ -59,4 +69,6 @@ public class Personnel {
 		return sb.toString();
 
 		}
+	
+	
 }
