@@ -2,8 +2,6 @@ package fr.eni.clinique.dal;
 
 import java.util.List;
 
-import fr.eni.clinique.bo.Personnel;
-
 public interface DAO<T> {
 	
 	/**
@@ -19,15 +17,14 @@ public interface DAO<T> {
 	 * @return
 	 * @throws DALException 
 	 */
+	public abstract void insert(T obj) throws DALException;
 	
 	/**
 	 * Select tout les éléments dans la BDD
 	 * @throws DALException 
 	 */
 	public abstract List<T> selectAll() throws DALException;
-	
-	
-	public abstract void insert(T obj) throws DALException;
+
 	
 	/**
 	 * Update d'un objet en base de donnée

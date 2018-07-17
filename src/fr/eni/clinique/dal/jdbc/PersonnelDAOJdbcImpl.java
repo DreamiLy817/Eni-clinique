@@ -11,13 +11,14 @@ import java.util.List;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
+import fr.eni.clinique.dal.DAOAuthentification;
 
-public class PersonnelDAOJdbcImpl implements DAO<Personnel> {
+public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification {
 	
 	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,MotPasse ,Role FROM Personnels";
 	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom, MotPasse, role,archive) values(?,?,?,?);";
 	private static final String sqlSuppressionPersonnel = "DELETE FROM Personnels WHERE CodePers=?";
-
+	private static final String sqlSelectByMDP = "SELECT MotPasse FROM Personnels WHERE Nom=?";
 	
 	public List<Personnel> selectAll() throws DALException{
 		Connection cnx = null;
@@ -151,5 +152,25 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel> {
 			}
 		}	
 	}
-	
+
+
+	@Override
+	public String selectbyMDP(String nom) throws DALException {
+				Connection cnx = null;
+				PreparedStatement rqt = null;
+				ResultSet rs = null;
+				String pass = null;
+				try {
+					cnx=JdbcTools.getConnection();
+					rqt=cnx.prepareStatement(sqlSelectByMDP);
+					rqt.setString(1, nom);
+					rs=rqt.executeQuery();
+					pass = rs.toString();
+					}	
+				catch (SQLException e) {
+				throw new DALException("Error on authentification - " , e);
+				}
+				
+			return pass;
+	}
 }
