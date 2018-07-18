@@ -15,8 +15,8 @@ import fr.eni.clinique.dal.DAOAuthentification;
 
 public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification {
 	
-	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,MotPasse ,Role FROM Personnels";
-	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom, MotPasse, role,archive) values(?,?,?,?);";
+	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels";
+	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom,Prenom, MotPasse, role,archive) values(?,?,?,?, ?);";
 	private static final String sqlSuppressionPersonnel = "DELETE FROM Personnels WHERE CodePers=?";
 	private static final String sqlSelectByMDP = "SELECT role FROM Personnels WHERE Nom=? AND MotPasse=?";
 	
@@ -35,6 +35,7 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification
 			while(rs.next()) {
 				personne = new Personnel(rs.getInt("codePers"),
 						rs.getString("Nom"),
+						rs.getString("Prenom"),
 						rs.getString("MotPasse"),
 						rs.getString("Role"));
 				listePersonnel.add(personne);

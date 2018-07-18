@@ -14,8 +14,8 @@ public class AppliTestDAL {
 		DAO<Personnel> personnelDAO = DAOFactory.getPersonnelDAO();
 				
 		// creer un nouveau personnel 
-		Personnel p1 = new Personnel( "vfrmooh", "1234", "vet",false);
-		//Personnel p2 = new Personnel( "ezaez", "12o34", "vet",false);
+		Personnel p1 = new Personnel( "vfrpoomooh", "frgr", "1234", "vet",false);
+		//Personnel p2 = new Personnel( "ezaez","frgr", "12o34", "vet",false);
 		//personnelDAO.insert(p1);
 		//personnelDAO.insert(p2);
 		
@@ -35,7 +35,9 @@ public class AppliTestDAL {
 			sb.append("Membre du personnel   [id = ");
 			sb.append(pers.getCodePers());
 			sb.append(", nom = ");
-			sb.append(pers.getNom()).append("]\n");
+			sb.append(pers.getNom());
+			sb.append(", prenom = ");
+			sb.append(pers.getPrenom()).append("]\n");
 		}
 		System.out.println(sb.toString());
 		System.out.println("---------------------------------------------------------------");
