@@ -16,7 +16,6 @@ public class CliniqueApp {
 				ecranLogin.setTitle("Connexion");
 				ecranLogin.setVisible(true);
 			}
-
 		});
 	}
 
