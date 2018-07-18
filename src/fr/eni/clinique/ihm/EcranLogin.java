@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAOAuthentification;
+import fr.eni.clinique.dal.DAOPersonnel;
 import fr.eni.clinique.dal.DAOFactory;
 
 public class EcranLogin extends JFrame {
@@ -37,7 +37,7 @@ public class EcranLogin extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					login = textLogin.getText();
 					pass = textPass.getText();
-					DAOAuthentification loginDAO = DAOFactory.getDAOAuthentification();
+					DAOPersonnel loginDAO = DAOFactory.getDAOAuthentification();
 					try {
 						testLogin=loginDAO.selectbyMDP(login, pass);
 							if (testLogin) {

@@ -1,14 +1,14 @@
 package fr.eni.clinique.bll;
 
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAOAuthentification;
+import fr.eni.clinique.dal.DAOPersonnel;
 import fr.eni.clinique.dal.DAOFactory;
 
 
 public class LoginMger {
 	
 	private static LoginMger instance;
-	private static DAOAuthentification personnelDAO;
+	private static DAOPersonnel personnelDAO;
 	
 	public static synchronized LoginMger getInstance(){
 		if (instance == null) {
@@ -18,7 +18,7 @@ public class LoginMger {
 	}
 	
 	private LoginMger(){
-		personnelDAO = DAOFactory.getDAOAuthentification();
+		personnelDAO = DAOFactory.getDAOPersonnel();
 	}
 
 //	Boolean getAccess(String saisieLogin, String saisieMotpasse) throws BLLException {

@@ -30,8 +30,9 @@ public interface DAO<T> {
 	 * Update d'un objet en base de donnée
 	 * @param obj
 	 * @return
+	 * @throws DALException 
 	 */
-	public abstract T update(T obj);
+	public abstract T update(T obj) throws DALException;
 	
 	/**
 	 * Delete d'un objet en base de donnée

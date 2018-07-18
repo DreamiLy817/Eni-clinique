@@ -9,8 +9,8 @@ public class DAOFactory {
 		return personnelDAO;
 	}
 	
-	public static DAOAuthentification getDAOAuthentification() {
-		DAOAuthentification personnelDAO = new PersonnelDAOJdbcImpl();
+	public static DAOPersonnel getDAOPersonnel() {
+		DAOPersonnel personnelDAO = new PersonnelDAOJdbcImpl();
 		return personnelDAO;
 	}
 
