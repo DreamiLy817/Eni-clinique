@@ -16,7 +16,7 @@ import fr.eni.clinique.dal.DAOAuthentification;
 public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification {
 	
 	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels";
-	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom,Prenom, MotPasse, role,archive) values(?,?,?,?, ?);";
+	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom,Prenom, MotPasse, role,archive) values(?,?,?,?,?);";
 	private static final String sqlSuppressionPersonnel = "DELETE FROM Personnels WHERE CodePers=?";
 	private static final String sqlSelectByMDP = "SELECT role FROM Personnels WHERE Nom=? AND MotPasse=?";
 	
@@ -73,15 +73,17 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification
 			rqt = cnx.prepareStatement(sqlInsertPersonnel,Statement.RETURN_GENERATED_KEYS);
 	 
 			String nom = p.getNom();
+			String prenom = p.getPrenom();
 			String motpasse = p.getMotPasse();
 			String role = p.getRole();
 			Boolean archive = p.getArchive();
 			
 	
 			rqt.setString(1, nom);
-			rqt.setString(2, motpasse);
-			rqt.setString(3, role);
-			rqt.setBoolean(4, archive);
+			rqt.setString(2, prenom);
+			rqt.setString(3, motpasse);
+			rqt.setString(4, role);
+			rqt.setBoolean(5, archive);
 			
 		
 			int nbRows = rqt.executeUpdate();
