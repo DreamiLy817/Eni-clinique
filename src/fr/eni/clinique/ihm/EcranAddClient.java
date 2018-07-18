@@ -34,6 +34,7 @@ public class EcranAddClient extends JFrame {
 	private JLabel labelVille;
 
 	private JButton validerButton;
+	private JButton annulerButton;
 	private String login;
 	private String pass;
 	private Boolean testLogin;
@@ -49,6 +50,19 @@ public class EcranAddClient extends JFrame {
 			});
 		}
 		return validerButton;
+	}
+	
+	public JButton getAnnulerButton() {
+		if (annulerButton == null) {
+			annulerButton = new JButton("Annuler");
+			annulerButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+				}
+			});
+		}
+		return annulerButton;
 	}
 	
 
@@ -158,24 +172,87 @@ public class EcranAddClient extends JFrame {
 		panelPrincipal.setOpaque(false);
 		GridBagConstraints gbc = new GridBagConstraints();
 
-		// login
+		// label code
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		panelPrincipal.add(getLabelCode(), gbc);
+		
+		// input code
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		panelPrincipal.add(getTextCode(), gbc);
+		
+		// label nom
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		panelPrincipal.add(getLabelNom(), gbc);
+		
+		// input nom
 		gbc.gridx = 1;
 		gbc.gridy = 1;
 		panelPrincipal.add(getTextNom(), gbc);
+		
+		//label Prenom
 		gbc.gridx = 0;
 		gbc.gridy = 2;
-		gbc.gridwidth = 2;
+		panelPrincipal.add(getLabelPrenom(), gbc);
+		
+		// input prenom
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		panelPrincipal.add(getTextPrenom(), gbc);
+		
+		//label adresse 1 
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		panelPrincipal.add(getLabelAdresse1(), gbc);
+		
+		// input adresse 1
+		gbc.gridx = 1;
+		gbc.gridy = 3;
+		panelPrincipal.add(getTextAdresse1(), gbc);
+		
+		// input adresse 2
+		gbc.gridx = 1;
+		gbc.gridy = 4;
+		panelPrincipal.add(getTextAdresse2(), gbc);
+		
+		//label code postal
+		gbc.gridx = 0;
+		gbc.gridy = 5;
+		panelPrincipal.add(getLabelCodePostal(), gbc);
+		
+		// input code postal
+		gbc.gridx = 1;
+		gbc.gridy = 5;
+		panelPrincipal.add(getTextCodePostal(), gbc);
+		
+		// labelville 
+		gbc.gridx = 0;
+		gbc.gridy = 6;
+		panelPrincipal.add(getLabelVille(), gbc);
+		
+		// input ville
+		gbc.gridx = 1;
+		gbc.gridy = 6;
+		panelPrincipal.add(getTextVille(), gbc);
+				
+		
+		// bouton validé
+		gbc.gridx = 1;
+		gbc.gridy = 7;
+		gbc.gridwidth = 1;
 		gbc.anchor = GridBagConstraints.EAST;
 		panelPrincipal.add(getValiderButton(), gbc);
+		
+		// bouton annuler 
+		
+		gbc.gridx = 2;
+		gbc.gridy = 7;
+		gbc.gridwidth = 1;
+		gbc.anchor = GridBagConstraints.EAST;
+		panelPrincipal.add(getAnnulerButton(), gbc);
+		
 		this.setContentPane(panelPrincipal);
 
 	}

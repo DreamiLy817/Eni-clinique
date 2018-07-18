@@ -8,7 +8,7 @@ public class CliniqueApp {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				EcranLogin ecranLogin = new EcranLogin();
+				EcranAddClient ecranLogin = new EcranAddClient();
 				ecranLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				ecranLogin.setLocationRelativeTo(null);
 				ecranLogin.setSize(600, 600);
