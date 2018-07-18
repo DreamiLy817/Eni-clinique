@@ -15,9 +15,15 @@ public class AppliTestDAL {
 				
 		// creer un nouveau personnel 
 		Personnel p1 = new Personnel( "vfrpoomooh", "frgr", "1234", "vet",false);
-		//Personnel p2 = new Personnel( "ezaez","frgr", "12o34", "vet",false);
-		//personnelDAO.insert(p1);
-		//personnelDAO.insert(p2);
+		Personnel p2 = new Personnel( "ezaez","frgr", "12o34", "vet",false);
+		Personnel p3 = new Personnel( "eoz","frgr", "12o34", "vet",false);
+		Personnel p4 = new Personnel( "azade","foorgr", "12o34", "vet",false);
+		Personnel p5 = new Personnel( "ez","frgr", "12o34", "vet",false);
+		personnelDAO.insert(p1);
+		personnelDAO.insert(p2);
+		personnelDAO.insert(p3);
+		personnelDAO.insert(p4);
+		personnelDAO.insert(p5);
 		
 		//selection de tout le personnel
 		List<Personnel> allPersonnel = personnelDAO.selectAll();
