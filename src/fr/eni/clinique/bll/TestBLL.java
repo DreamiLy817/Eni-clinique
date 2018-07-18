@@ -14,7 +14,7 @@ public class TestBLL {
 		DAOAuthentification loginDAO = DAOFactory.getDAOAuthentification();
 		try {
 			pass = loginDAO.selectbyMDP(nom);
-			access = login.getAccess(nom, "1234");
+			access = login.getAccess(nom, "12o34");
 			if (access) {
 				System.out.println("Connexion acceptée!");
 			}
