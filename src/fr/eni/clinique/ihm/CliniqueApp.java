@@ -8,13 +8,13 @@ public class CliniqueApp {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				EcranLogin ecranLogin = new EcranLogin();
-				ecranLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				ecranLogin.setLocationRelativeTo(null);
-				ecranLogin.setSize(500, 400);
-				ecranLogin.setResizable(false);
-				ecranLogin.setTitle("Connexion");
-				ecranLogin.setVisible(true);
+				EcranPersonnel ecranPerso = new EcranPersonnel();
+				ecranPerso.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				ecranPerso.setLocationRelativeTo(null);
+				ecranPerso.setSize(500, 400);
+				ecranPerso.setResizable(false);
+				ecranPerso.setTitle("Connexion");
+				ecranPerso.setVisible(true);
 			}
 
 		});
