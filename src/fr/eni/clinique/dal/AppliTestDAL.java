@@ -24,7 +24,7 @@ public class AppliTestDAL {
 		personnelDAO.insert(p3);
 		personnelDAO.insert(p4);
 		personnelDAO.insert(p5);
-		
+
 		//selection de tout le personnel
 		List<Personnel> allPersonnel = personnelDAO.selectAll();
 		System.out.println("Selection de tous le personnel  : " + allPersonnel.toString() );

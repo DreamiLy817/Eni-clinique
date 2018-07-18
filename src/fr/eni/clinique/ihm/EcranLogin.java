@@ -2,11 +2,20 @@ package fr.eni.clinique.ihm;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dal.DAOAuthentification;
+import fr.eni.clinique.dal.DAOFactory;
 
 public class EcranLogin extends JFrame {
 
@@ -15,10 +24,42 @@ public class EcranLogin extends JFrame {
 	private JLabel labelLogin;
 	private JLabel labelPass;
 	private JButton validerButton;
+	private String login;
+	private String pass;
+	private Boolean testLogin;
 
 	public JButton getValiderButton() {
 		if (validerButton == null) {
 			validerButton = new JButton("Ok");
+			validerButton.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					login = textLogin.getText();
+					pass = textPass.getText();
+					DAOAuthentification loginDAO = DAOFactory.getDAOAuthentification();
+					try {
+						testLogin=loginDAO.selectbyMDP(login, pass);
+							if (testLogin) {
+								JOptionPane.showMessageDialog(EcranLogin.this, "Connexion réussie");
+							}
+							else {
+								JOptionPane.showMessageDialog(EcranLogin.this, "Connexion échouée, identifiant ou mot de passe incorrect");
+							}
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+//						a = cm.getArticle(index);
+//						a.setReference(jtRef.getText());
+//						a.setMarque(jtMar.getText());
+//						a.setDesignation(jtDesig.getText());
+//						a.setQteStock(Integer.parseInt(jtStock.getText()));
+//						a.setPrixUnitaire(Float.parseFloat(jtPrix.getText()));
+//						((Stylo) a).setCouleur(jliCouleur.toString());
+//						cm.updateArticle(a);
+				}
+			});
 		}
 		return validerButton;
 	}

@@ -30,9 +30,7 @@ public class EcranPersonnel extends JFrame{
 	
 	private JButton getSupprimerButton() {
 		if (supprimerButton == null) {
-			ImageIcon image = new ImageIcon(
-					Toolkit.getDefaultToolkit().getImage(getClass().getResource("/IconesBoutons/Icons8-Windows-8-Science-Minus2-Math.png")));
-			supprimerButton = new JButton(image);
+			supprimerButton = new JButton("Supprimer");
 		}
 		return supprimerButton;
 	}
@@ -46,9 +44,7 @@ public class EcranPersonnel extends JFrame{
 	
 	private JButton getReinitialiserButton() {
 		if (reinitialiserButton == null) {
-			ImageIcon image = new ImageIcon(
-					Toolkit.getDefaultToolkit().getImage(getClass().getResource("/IconesBoutons/89647-200.png")));
-			reinitialiserButton = new JButton(image);
+			reinitialiserButton = new JButton("Reinitialiser");
 		}
 		return reinitialiserButton;
 	}
@@ -62,9 +58,7 @@ public class EcranPersonnel extends JFrame{
 	
 	private JButton getAjouterButton() {
 		if (ajouterButton == null) {
-			ImageIcon image = new ImageIcon(
-					Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/plus.png")));
-			ajouterButton = new JButton(image);
+			ajouterButton = new JButton("Ajouter");
 		}
 		return ajouterButton;
 	}
@@ -114,5 +108,6 @@ public class EcranPersonnel extends JFrame{
 		gbc.gridheight = 2;
 		panelPrincipal.add(panelBoutons, gbc);
 		this.setContentPane(panelPrincipal);
+		
 	}
 }

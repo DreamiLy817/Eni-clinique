@@ -5,7 +5,7 @@ import fr.eni.clinique.dal.DAOAuthentification;
 import fr.eni.clinique.dal.DAOFactory;
 
 public class TestBLL {
-	static String nom = "efrgomooommmrpb";
+	static String nom = "ezaez";
 	static String pass = "12o34";
 	static Boolean access;
 	
@@ -14,7 +14,6 @@ public class TestBLL {
 		DAOAuthentification loginDAO = DAOFactory.getDAOAuthentification();
 		try {
 			boolean connexionEtat = loginDAO.selectbyMDP(nom, pass);
-
 			if (connexionEtat == true) {
 				System.out.println("Connexion acceptée!");
 			}

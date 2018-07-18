@@ -13,14 +13,12 @@ import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
 import fr.eni.clinique.dal.DAOAuthentification;
-import fr.eni.papeterie.bo.Ramette;
-import fr.eni.papeterie.bo.Stylo;
-import fr.eni.papeterie.dal.jdbc.JdbcTools;
+
 
 public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification {
 	
 	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels";
-	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom,Prenom, MotPasse, role,archive) values(?,?,?,?, ?);";
+	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom,Prenom, MotPasse, role,archive) values(?,?,?,?,?);";
 	private static final String sqlSuppressionPersonnel = "DELETE FROM Personnels WHERE CodePers=?";
 	private static final String sqlSelectByMDP = "SELECT role FROM Personnels WHERE Nom=? AND MotPasse=?";
 	private static final String sqlMiseAJourMDP = "SELECT role FROM Personnels WHERE Nom=? AND MotPasse=?";
@@ -77,15 +75,17 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification
 			rqt = cnx.prepareStatement(sqlInsertPersonnel,Statement.RETURN_GENERATED_KEYS);
 	 
 			String nom = p.getNom();
+			String prenom = p.getPrenom();
 			String motpasse = p.getMotPasse();
 			String role = p.getRole();
 			Boolean archive = p.getArchive();
 			
 	
 			rqt.setString(1, nom);
-			rqt.setString(2, motpasse);
-			rqt.setString(3, role);
-			rqt.setBoolean(4, archive);
+			rqt.setString(2, prenom);
+			rqt.setString(3, motpasse);
+			rqt.setString(4, role);
+			rqt.setBoolean(5, archive);
 			
 		
 			int nbRows = rqt.executeUpdate();
@@ -126,46 +126,47 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification
 
 	@Override
 	public Personnel update(Personnel obj) {
-		Connection cnx = null;
-		PreparedStatement rqt = null;
-		try {
-			cnx = JdbcTools.getConnection();
-			rqt = cnx.prepareStatement(sqlUpdate);
-			rqt.setString(1, data.getReference());
-			rqt.setString(2, data.getMarque());
-			rqt.setString(3, data.getDesignation());
-			rqt.setFloat(4, data.getPrixUnitaire());
-			rqt.setInt(5, data.getQteStock());
-			rqt.setInt(8, data.getIdArticle());
-			if (data instanceof Ramette) {
-				Ramette r = (Ramette) data;
-				rqt.setInt(6, r.getGrammage());
-				rqt.setNull(7, Types.VARCHAR);
-			}
-			if (data instanceof Stylo) {
-				Stylo s = (Stylo) data;
-				rqt.setNull(6, Types.INTEGER);
-				rqt.setString(7, s.getCouleur());
-			}
-
-			rqt.executeUpdate();
-
-		} catch (SQLException e) {
-			throw new DALException("Update article failed - " + data, e);
-		} finally {
-			try {
-				if (rqt != null){
-					rqt.close();
-				}
-				if(cnx !=null){
-					cnx.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		}
-	}
+//		Connection cnx = null;
+//		PreparedStatement rqt = null;
+//		try {
+//			cnx = JdbcTools.getConnection();
+//			rqt = cnx.prepareStatement(sqlUpdate);
+//			rqt.setString(1, data.getReference());
+//			rqt.setString(2, data.getMarque());
+//			rqt.setString(3, data.getDesignation());
+//			rqt.setFloat(4, data.getPrixUnitaire());
+//			rqt.setInt(5, data.getQteStock());
+//			rqt.setInt(8, data.getIdArticle());
+//			if (data instanceof Ramette) {
+//				Ramette r = (Ramette) data;
+//				rqt.setInt(6, r.getGrammage());
+//				rqt.setNull(7, Types.VARCHAR);
+//			}
+//			if (data instanceof Stylo) {
+//				Stylo s = (Stylo) data;
+//				rqt.setNull(6, Types.INTEGER);
+//				rqt.setString(7, s.getCouleur());
+//			}
+//
+//			rqt.executeUpdate();
+//
+//		} catch (SQLException e) {
+//			throw new DALException("Update article failed - " + data, e);
+//		} finally {
+//			try {
+//				if (rqt != null){
+//					rqt.close();
+//				}
+//				if(cnx !=null){
+//					cnx.close();
+//				}
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+//
+//		}
+		return null;
+}
 
 	// suppression d'un membre du personnel
 	@Override
