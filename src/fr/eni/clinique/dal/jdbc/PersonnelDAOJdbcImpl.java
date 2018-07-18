@@ -1,6 +1,7 @@
 package fr.eni.clinique.dal.jdbc;
 
 import java.sql.Statement;
+import java.sql.Types;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,14 +12,16 @@ import java.util.List;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
-import fr.eni.clinique.dal.DAOAuthentification;
+import fr.eni.clinique.dal.DAOPersonnel;
 
-public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification {
+
+public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOPersonnel {
 	
 	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels";
 	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom,Prenom, MotPasse, role,archive) values(?,?,?,?,?);";
 	private static final String sqlSuppressionPersonnel = "DELETE FROM Personnels WHERE CodePers=?";
 	private static final String sqlSelectByMDP = "SELECT role FROM Personnels WHERE Nom=? AND MotPasse=?";
+	private static final String sqlMiseAJourMDP = "update Personnels set MotPasse=? where Nom=?";
 	
 	public List<Personnel> selectAll() throws DALException{
 		Connection cnx = null;
@@ -59,7 +62,6 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification
 		}
 		return listePersonnel;	
 	}
-	
 	
 	//// insertion d'une personne du personnel
 	@Override
@@ -122,14 +124,37 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification
 		return null;
 	}
 
+	// Réinitialiser le mot de passe de l'employé
 	@Override
-	public Personnel update(Personnel obj) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public void reinitialiserPersonnel(Personnel personne, String mdp) throws DALException {
+	Connection cnx = null;
+		PreparedStatement rqt = null;
+		try {
+		cnx = JdbcTools.getConnection();
+		rqt = cnx.prepareStatement(sqlMiseAJourMDP);
+			rqt.setString(1, personne.getMotPasse());
+			rqt.setString(2, personne.getNom());
+	
+			rqt.executeUpdate();
 
+		} catch (SQLException e) {
+			throw new DALException("Update personnel failed - " + personne , e);
+		} finally {
+			try {
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx !=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}	
+}
 
-
+	// suppression d'un membre du personnel
+	// TODO - archivage
 	@Override
 	public void supprimer(Integer id) throws DALException {
 		Connection cnx = null;
@@ -155,7 +180,6 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification
 			}
 		}	
 	}
-
 
 	@Override
 	public Boolean selectbyMDP(String nom,String motDePasse)throws DALException{
@@ -191,5 +215,11 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification
 					}
 				
 			return ok;
+	}
+
+	@Override
+	public Personnel update(Personnel obj) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

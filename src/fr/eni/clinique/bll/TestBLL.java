@@ -1,7 +1,7 @@
 package fr.eni.clinique.bll;
 
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAOAuthentification;
+import fr.eni.clinique.dal.DAOPersonnel;
 import fr.eni.clinique.dal.DAOFactory;
 
 public class TestBLL {
@@ -11,7 +11,7 @@ public class TestBLL {
 	
 	public static void main(String[] args) throws BLLException {
 		LoginMger login = LoginMger.getInstance();
-		DAOAuthentification loginDAO = DAOFactory.getDAOAuthentification();
+		DAOPersonnel loginDAO = DAOFactory.getDAOPersonnel();
 		try {
 			boolean connexionEtat = loginDAO.selectbyMDP(nom, pass);
 			if (connexionEtat == true) {
