@@ -25,7 +25,6 @@ public class TestBLL {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 
 	}
 
