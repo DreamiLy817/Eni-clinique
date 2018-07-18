@@ -37,7 +37,7 @@ public class EcranLogin extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					login = textLogin.getText();
 					pass = textPass.getText();
-					DAOPersonnel loginDAO = DAOFactory.getDAOAuthentification();
+					DAOPersonnel loginDAO = DAOFactory.getDAOPersonnel();
 					try {
 						testLogin=loginDAO.selectbyMDP(login, pass);
 							if (testLogin) {

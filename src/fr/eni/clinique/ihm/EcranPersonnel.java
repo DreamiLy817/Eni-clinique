@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import fr.eni.clinique.bo.Personnel;
+import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
 import fr.eni.clinique.dal.DAOFactory;
 
@@ -72,11 +73,16 @@ public class EcranPersonnel extends JFrame {
 
 	public EcranPersonnel() {
 		super();
-		initIHM();
+		try {
+			initIHM();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
-	private void initIHM() {
+	private void initIHM() throws DALException {
 		// Initialisation de l'IHM, déclaration des panneaux
 		JPanel panelPrincipal = new JPanel();
 		JPanel panelBoutons = new JPanel();
@@ -98,7 +104,7 @@ public class EcranPersonnel extends JFrame {
         String tampon = null;
         for (Personnel employe : catalogue){
         	tampon = employe.getNom();
-        	lignes = tampon;
+     //   	lignes = tampon;
         }
 //        for (int i = 0; i < 100; i++) {
 //        	lignes.add(e)
