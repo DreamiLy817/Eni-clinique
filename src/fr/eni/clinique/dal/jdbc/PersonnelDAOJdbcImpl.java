@@ -18,7 +18,7 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification
 	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,MotPasse ,Role FROM Personnels";
 	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom, MotPasse, role,archive) values(?,?,?,?);";
 	private static final String sqlSuppressionPersonnel = "DELETE FROM Personnels WHERE CodePers=?";
-	private static final String sqlSelectByMDP = "SELECT MotPasse FROM Personnels WHERE Nom=?";
+	private static final String sqlSelectByMDP = "SELECT role FROM Personnels WHERE Nom=? AND MotPasse=?";
 	
 	public List<Personnel> selectAll() throws DALException{
 		Connection cnx = null;
@@ -155,22 +155,38 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOAuthentification
 
 
 	@Override
-	public String selectbyMDP(String nom) throws DALException {
+	public Boolean selectbyMDP(String nom,String motDePasse)throws DALException{
 				Connection cnx = null;
 				PreparedStatement rqt = null;
 				ResultSet rs = null;
-				String pass = null;
+				boolean ok = false;
+	
 				try {
-					cnx=JdbcTools.getConnection();
-					rqt=cnx.prepareStatement(sqlSelectByMDP);
+					cnx = JdbcTools.getConnection();
+					rqt = cnx.prepareStatement(sqlSelectByMDP);
 					rqt.setString(1, nom);
-					rs=rqt.executeQuery();
-					pass = rs.toString();
-					}	
-				catch (SQLException e) {
-				throw new DALException("Error on authentification - " , e);
-				}
+					rqt.setString(2, motDePasse);
+					
+					rs = rqt.executeQuery();
+					ok = rs.next();
+					} catch (SQLException e) {
+						throw new DALException("selectByMdp failed - id = " + nom  , e);
+					} finally {
+						try {
+							if (rs != null){
+								rs.close();
+							}
+							if (rqt != null){
+								rqt.close();
+							}
+							if(cnx!=null){
+								cnx.close();
+							}
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
 				
-			return pass;
+			return ok;
 	}
 }

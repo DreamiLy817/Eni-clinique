@@ -6,16 +6,16 @@ import fr.eni.clinique.dal.DAOFactory;
 
 public class TestBLL {
 	static String nom = "efrgomooommmrpb";
-	static String pass = null;
+	static String pass = "12o34";
 	static Boolean access;
 	
 	public static void main(String[] args) throws BLLException {
 		LoginMger login = LoginMger.getInstance();
 		DAOAuthentification loginDAO = DAOFactory.getDAOAuthentification();
 		try {
-			pass = loginDAO.selectbyMDP(nom);
-			access = login.getAccess(nom, "1234");
-			if (access) {
+			boolean connexionEtat = loginDAO.selectbyMDP(nom, pass);
+
+			if (connexionEtat == true) {
 				System.out.println("Connexion acceptée!");
 			}
 			else {

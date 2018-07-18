@@ -21,20 +21,18 @@ public class LoginMger {
 		personnelDAO = DAOFactory.getDAOAuthentification();
 	}
 
-	Boolean getAccess(String saisieLogin, String saisieMotpasse) throws BLLException {
-		Boolean access = null;
-		String pass = null;
-		
-		try {
-			pass = personnelDAO.selectbyMDP(saisieLogin).toString();
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (saisieLogin == pass) {
-			access = true;
-		}
-		
-		return access;
-	}
+//	Boolean getAccess(String saisieLogin, String saisieMotpasse) throws BLLException {
+//		Boolean access = false;
+//		String pass = null;
+//		
+//		try {
+//			pass = personnelDAO.selectbyMDP(saisieLogin);
+//			System.out.println(pass);
+//		} catch (DALException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		return access;
+//	}
 }
