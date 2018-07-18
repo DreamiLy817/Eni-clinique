@@ -14,7 +14,7 @@ public class AppliTestDAL {
 		DAO<Personnel> personnelDAO = DAOFactory.getPersonnelDAO();
 				
 		// creer un nouveau personnel 
-		Personnel p1 = new Personnel( "o65769", "frgr", "1234", "vet",false);
+		Personnel p1 = new Personnel( "Antoinette", "Marie", "946575", "vet",false);
 		//Personnel p2 = new Personnel( "ezaez","frgr", "12o34", "vet",false);
 		//Personnel p3 = new Personnel( "eoz","frgr", "12o34", "vet",false);
 		//Personnel p4 = new Personnel( "azade","foorgr", "12o34", "vet",false);

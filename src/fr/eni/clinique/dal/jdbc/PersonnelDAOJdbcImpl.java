@@ -19,7 +19,7 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOPersonnel {
 	
 	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels";
 	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom,Prenom, MotPasse, role,archive) values(?,?,?,?,?);";
-	private static final String sqlSuppressionPersonnel = "DELETE FROM Personnels WHERE CodePers=?";
+	private static final String sqlSuppressionPersonnel = "UPDATE Personnels SET Archive= ? WHERE Nom= ?";
 	private static final String sqlSelectByMDP = "SELECT role FROM Personnels WHERE Nom=? AND MotPasse=?";
 	private static final String sqlMiseAJourMDP = "update Personnels set MotPasse=? where Nom=?";
 	
@@ -132,9 +132,8 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOPersonnel {
 		try {
 		cnx = JdbcTools.getConnection();
 		rqt = cnx.prepareStatement(sqlMiseAJourMDP);
-			rqt.setString(1, personne.getMotPasse());
+			rqt.setString(1, mdp);
 			rqt.setString(2, personne.getNom());
-	
 			rqt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -154,7 +153,7 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOPersonnel {
 }
 
 	// suppression d'un membre du personnel
-	// TODO - archivage
+	// TODO - Vérif RDV pour vet avant archivage
 	@Override
 	public void supprimer(Integer id) throws DALException {
 		Connection cnx = null;
