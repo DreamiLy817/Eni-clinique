@@ -2,7 +2,7 @@ package fr.eni.clinique.bo;
 
 public class Client {
 	private int CodeClient;
-	private String Client;
+	private String NomClient;
 	private String PrenomClient;
 	private String Adresse1;
 	private String Adresse2;
@@ -15,36 +15,58 @@ public class Client {
 	private Boolean Archive;
 	
 	//CONSTRUCTEUR 
-	public Client(int codeClient, String client, String prenomClient, String adresse1, String codePostal, String ville,
-			String numTel, String assurance, String email) {
+	
+	public Client(String nomClient, String prenomClient, String adresse1, String adresse2, String codePostal,
+			String ville, String numTel, String assurance, String email, String remarque, Boolean archive) {
 		super();
-		CodeClient = codeClient;
-		Client = client;
+		NomClient = nomClient;
 		PrenomClient = prenomClient;
 		Adresse1 = adresse1;
+		Adresse2 = adresse2;
 		CodePostal = codePostal;
 		Ville = ville;
 		NumTel = numTel;
 		Assurance = assurance;
 		Email = email;
+		Remarque = remarque;
+		Archive = archive;
 	}
 
-	
+
+
+	public Client(int codeClient, String nomClient, String prenomClient, String adresse1, String adresse2,
+			String codePostal, String ville, String numTel, String assurance, String email, String remarque) {
+		super();
+		CodeClient = codeClient;
+		NomClient = nomClient;
+		PrenomClient = prenomClient;
+		Adresse1 = adresse1;
+		Adresse2 = adresse2;
+		CodePostal = codePostal;
+		Ville = ville;
+		NumTel = numTel;
+		Assurance = assurance;
+		Email = email;
+		Remarque = remarque;
+	}
+
+
+
 	// GETTE ET SETTER 
 	public int getCodeClient() {
 		return CodeClient;
 	}
-
+	
 	public void setCodeClient(int codeClient) {
 		CodeClient = codeClient;
 	}
 
-	public String getClient() {
-		return Client;
+	public String getNomClient() {
+		return NomClient;
 	}
 
-	public void setClient(String client) {
-		Client = client;
+	public void setNomClient(String nomClient) {
+		NomClient = nomClient;
 	}
 
 	public String getPrenomClient() {

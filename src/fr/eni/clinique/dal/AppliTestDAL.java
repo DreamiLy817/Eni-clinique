@@ -3,6 +3,7 @@ package fr.eni.clinique.dal;
 
 import java.util.List;
 
+import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Personnel;
 
 public class AppliTestDAL {
@@ -12,14 +13,16 @@ public class AppliTestDAL {
 		// déclaration et instanciation de la DAO
 		DAOPersonnel personnelDAO2 = DAOFactory.getDAOPersonnel();
 		DAO<Personnel> personnelDAO = DAOFactory.getPersonnelDAO();
+		
+		DAO<Client>  clientDAO = DAOFactory.getClientDAO();
 				
 		// creer un nouveau personnel 
-		Personnel p1 = new Personnel( "Antoinette", "Marie", "946575", "vet",false);
+		//Personnel p1 = new Personnel( "Antoinette", "Marie", "946575", "vet",false);
 		//Personnel p2 = new Personnel( "ezaez","frgr", "12o34", "vet",false);
 		//Personnel p3 = new Personnel( "eoz","frgr", "12o34", "vet",false);
 		//Personnel p4 = new Personnel( "azade","foorgr", "12o34", "vet",false);
 		//Personnel p5 = new Personnel( "ez","frgr", "12o34", "vet",false);
-		personnelDAO.insert(p1);
+		//personnelDAO.insert(p1);
 		//personnelDAO.insert(p2);
 		//personnelDAO.insert(p3);
 		//personnelDAO.insert(p4);
@@ -29,7 +32,7 @@ public class AppliTestDAL {
 		List<Personnel> allPersonnel = personnelDAO.selectAll();
 		System.out.println("Selection de tous le personnel  : " + allPersonnel.toString() );
 		
-		System.out.println("Suppression de l'article  : " + p1.toString());
+		//System.out.println("Suppression de l'article  : " + p1.toString());
 		//personnelDAO.supprimer(p1.getCodePers());
 		allPersonnel = personnelDAO.selectAll();
 		
@@ -49,9 +52,12 @@ public class AppliTestDAL {
 		System.out.println("---------------------------------------------------------------");
 
 		// mise a jour personnel 
-		personnelDAO2.reinitialiserPersonnel(p1, "nouveau");
-		System.out.println(p1);
-	
+		//personnelDAO2.reinitialiserPersonnel(p1, "nouveau");
+		//System.out.println(p1);
+		
+		// ajouter un client 
+		 Client c1 = new Client("AZErty", "alex", "6 chemin du calvaire", "batiment 45 app 12", "84230", "Random", "0658789512", "toutrisque", "all@fef.fr", "", false);
+		clientDAO.insert(c1);
 	}
 
 }
