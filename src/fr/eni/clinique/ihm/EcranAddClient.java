@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import fr.eni.clinique.dal.DALException;
@@ -28,7 +29,7 @@ public class EcranAddClient extends JFrame {
 	private JTextField textNum;
 	private JTextField textAssurance;
 	private JTextField textEmail;
-	private JTextField textRemarque;
+	private JTextArea textRemarque;
 	private JLabel labelCode;
 	private JLabel labelNom;
 	private JLabel labelPrenom;
@@ -97,42 +98,42 @@ public class EcranAddClient extends JFrame {
 
 	public JTextField getTextAdresse1() {
 		if (textAdresse1 == null) {
-			textAdresse1 = new JTextField(20);
+			textAdresse1 = new JTextField(30);
 		}
 		return textAdresse1;
 	}
 
 	public JTextField getTextAdresse2() {
 		if (textAdresse2 == null) {
-			textAdresse2 = new JTextField(20);
+			textAdresse2 = new JTextField(30);
 		}
 		return textAdresse2;
 	}
 
 	public JTextField getTextCodePostal() {
 		if (textCodePostal == null) {
-			textCodePostal = new JTextField(20);
+			textCodePostal = new JTextField(6);
 		}
 		return textCodePostal;
 	}
 
 	public JTextField getTextVille() {
 		if (textVille == null) {
-			textVille = new JTextField(20);
+			textVille = new JTextField(25);
 		}
 		return textVille;
 	}
 
 	public JTextField getTextNum() {
 		if (textNum == null) {
-			textNum = new JTextField(20);
+			textNum = new JTextField(15);
 		}
-		return textVille;
+		return textNum;
 	}
 
 	public JTextField getTextAssurance() {
 		if (textAssurance == null) {
-			textAssurance = new JTextField(20);
+			textAssurance = new JTextField(30);
 		}
 		return textAssurance;
 	}
@@ -144,9 +145,9 @@ public class EcranAddClient extends JFrame {
 		return textEmail;
 	}
 
-	public JTextField getTextRemarque() {
+	public JTextArea getTextRemarque() {
 		if (textRemarque == null) {
-			textRemarque = new JTextField(20);
+			textRemarque = new JTextArea("ceci est une zone de texte de 5 lignes et 50 colonnes",10,3);
 		}
 		return textRemarque;
 	}
@@ -236,11 +237,13 @@ public class EcranAddClient extends JFrame {
 		// label code
 		gbc.gridx = 0;
 		gbc.gridy = 0;
+		
 		panelPrincipal.add(getLabelCode(), gbc);
 
 		// input code
 		gbc.gridx = 1;
 		gbc.gridy = 0;
+		gbc.gridwidth = 1;
 		panelPrincipal.add(getTextCode(), gbc);
 
 		// label nom
@@ -251,6 +254,7 @@ public class EcranAddClient extends JFrame {
 		// input nom
 		gbc.gridx = 1;
 		gbc.gridy = 1;
+		 gbc.gridwidth = 1;
 		panelPrincipal.add(getTextNom(), gbc);
 
 		// label Prenom
@@ -261,6 +265,7 @@ public class EcranAddClient extends JFrame {
 		// input prenom
 		gbc.gridx = 1;
 		gbc.gridy = 2;
+		 gbc.gridwidth = 3;
 		panelPrincipal.add(getTextPrenom(), gbc);
 
 		// label adresse 1
@@ -271,11 +276,13 @@ public class EcranAddClient extends JFrame {
 		// input adresse 1
 		gbc.gridx = 1;
 		gbc.gridy = 3;
+		 gbc.gridwidth = 1;
 		panelPrincipal.add(getTextAdresse1(), gbc);
 
 		// input adresse 2
 		gbc.gridx = 1;
 		gbc.gridy = 4;
+		 gbc.gridwidth = 1;
 		panelPrincipal.add(getTextAdresse2(), gbc);
 
 		// label code postal
@@ -286,6 +293,7 @@ public class EcranAddClient extends JFrame {
 		// input code postal
 		gbc.gridx = 1;
 		gbc.gridy = 5;
+		gbc.gridwidth = 1;
 		panelPrincipal.add(getTextCodePostal(), gbc);
 
 		// label ville
@@ -294,8 +302,9 @@ public class EcranAddClient extends JFrame {
 		panelPrincipal.add(getLabelVille(), gbc);
 
 		// input ville
-		gbc.gridx = 2;
+		gbc.gridx = 1;
 		gbc.gridy = 6;
+		gbc.gridwidth = 1;
 		panelPrincipal.add(getTextVille(), gbc);
 
 		// label num
@@ -306,6 +315,7 @@ public class EcranAddClient extends JFrame {
 		// input num
 		gbc.gridx = 1;
 		gbc.gridy = 7;
+		gbc.gridwidth = 1;
 		panelPrincipal.add(getTextNum(), gbc);
 
 		// label assurance
@@ -316,6 +326,7 @@ public class EcranAddClient extends JFrame {
 		// input assurance
 		gbc.gridx = 1;
 		gbc.gridy = 8;
+		gbc.gridwidth = 1;
 		panelPrincipal.add(getTextAssurance(), gbc);
 
 		// label email
@@ -326,7 +337,9 @@ public class EcranAddClient extends JFrame {
 		// input email
 		gbc.gridx = 1;
 		gbc.gridy = 9;
+		gbc.gridwidth = 1;
 		panelPrincipal.add(getTextEmail(), gbc);
+		
 		// label remarque
 		gbc.gridx = 0;
 		gbc.gridy = 10;
@@ -335,22 +348,23 @@ public class EcranAddClient extends JFrame {
 		// input assurance
 		gbc.gridx = 1;
 		gbc.gridy = 10;
+		gbc.gridwidth = 1;
 		panelPrincipal.add(getTextRemarque(), gbc);
 
-		// bouton validé
-		// gbc.gridx = 1;
-		// gbc.gridy = 7;
-		// gbc.gridwidth = 1;
-		// gbc.anchor = GridBagConstraints.EAST;
-		// panelPrincipal.add(getValiderButton(), gbc);
-		//
-		// // bouton annuler
-		//
-		// gbc.gridx = 2;
-		// gbc.gridy = 7;
-		// gbc.gridwidth = 1;
-		// gbc.anchor = GridBagConstraints.EAST;
-		// panelPrincipal.add(getAnnulerButton(), gbc);
+		 //bouton validé
+		 gbc.gridx = 1;
+		 gbc.gridy = 11;
+		 gbc.gridwidth = 1;
+		 gbc.anchor = GridBagConstraints.EAST;
+		 panelPrincipal.add(getValiderButton(), gbc);
+		
+		 // bouton annuler
+		
+		 gbc.gridx = 2;
+		 gbc.gridy = 11;
+		 gbc.gridwidth = 1;
+		 gbc.anchor = GridBagConstraints.EAST;
+		 panelPrincipal.add(getAnnulerButton(), gbc);
 
 		this.setContentPane(panelPrincipal);
 

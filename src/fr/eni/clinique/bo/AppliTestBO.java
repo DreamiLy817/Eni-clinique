@@ -32,10 +32,9 @@ public class AppliTestBO {
 		clientListe = new ArrayList<Client>();
 				
 		//Test de la création d'objet type Animal
-		Client c1 = new Client(0, "Honnete", "Camille", "25, rue des Magnolias", "44200", "Nantes", "02.40.80.50.12", "xx", "honnete.camille@gmail.com");
-		Client c2 = new Client(1, "Fissile", "Teddy", "4, boulevard des Anglais", "44000", "Nantes", "06.50.74.21.29", "xx", "fissile.teddy@gmail.com");
+		 Client c1 = new Client("SAZIC", "alex", "6 chemin du calvaire", "batiment 45 app 12", "84230", "Random", "0658789512", "toutrisque", "all@fef.fr", "", false);
 		clientListe.add(c1);
-		clientListe.add(c2);
+
 		
 		
 	
