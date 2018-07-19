@@ -19,8 +19,10 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOPersonnel {
 	
 	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels";
 	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom,Prenom, MotPasse, role,archive) values(?,?,?,?,?);";
-	private static final String sqlSuppressionPersonnel = "UPDATE Personnels SET Archive= ? WHERE Nom= ?";
+	private static final String sqlSuppressionPersonnel = "UPDATE Personnels SET Archive= ? WHERE CodePers= ?";
 	private static final String sqlSelectByMDP = "SELECT role FROM Personnels WHERE Nom=? AND MotPasse=?";
+	private static final String sqlSelectByNom = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels WHERE Nom= ?";
+	private static final String sqlSelectByID = "SELECT CodePers FROM Personnels WHERE Nom= ?";
 	private static final String sqlMiseAJourMDP = "update Personnels set MotPasse=? where Nom=?";
 	
 	public List<Personnel> selectAll() throws DALException{
@@ -161,7 +163,8 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOPersonnel {
 		try {
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(sqlSuppressionPersonnel);
-			rqt.setInt(1, id);
+			rqt.setBoolean(1, true);
+			rqt.setInt(2, id);
 			rqt.executeUpdate();	
 		} catch (SQLException e) {
 			//TO DO DALException
@@ -220,5 +223,85 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOPersonnel {
 	public Personnel update(Personnel obj) throws DALException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Personnel selectbyNom(String nom) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		Personnel ok = new Personnel();
+
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectByNom);
+			rqt.setString(1, nom);
+			
+			rs = rqt.executeQuery();
+			if (rs.next()) {
+				ok.setCodePers(rs.getInt("CodePers"));
+				ok.setNom(rs.getString("Nom"));
+				ok.setPrenom(rs.getString("Prenom"));
+				ok.setMotPasse(rs.getString("MotPasse"));
+				ok.setRole(rs.getString("Role"));
+			}
+			} catch (SQLException e) {
+				throw new DALException("selectByNom failed - id = " + nom  , e);
+			} finally {
+				try {
+					if (rs != null){
+						rs.close();
+					}
+					if (rqt != null){
+						rqt.close();
+					}
+					if(cnx!=null){
+						cnx.close();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		
+	return ok;
+	
+	}
+
+	@Override
+	public int selectbyNomGiveID(String nom) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		int ok = 0;
+
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectByNom);
+			rqt.setString(1, nom);
+			
+			rs = rqt.executeQuery();
+			if (rs.next()) {
+				ok = rs.getInt("CodePers");
+				
+			}
+			} catch (SQLException e) {
+				throw new DALException("selectByNom failed - id = " + nom  , e);
+			} finally {
+				try {
+					if (rs != null){
+						rs.close();
+					}
+					if (rqt != null){
+						rqt.close();
+					}
+					if(cnx!=null){
+						cnx.close();
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		
+	return ok;
 	}
 }

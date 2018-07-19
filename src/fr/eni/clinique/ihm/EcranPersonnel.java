@@ -1,6 +1,7 @@
 package fr.eni.clinique.ihm;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -24,6 +25,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.text.DefaultCaret;
@@ -40,35 +43,66 @@ public class EcranPersonnel extends JFrame {
 	private JButton supprimerButton;
 	private JButton reinitialiserButton;
 	private JTextField zoneTextePass = new JTextField(20);
+	private JTextField zoneTexteNouveauPass = new JTextField(20);
+	private JTextField zoneTextePrenom = new JTextField(20);
 	private JButton buttonAnnuler;
-	private JButton buttonOk;
-	private JLabel labelUtilisateur = new JLabel("Utilisateur:");
+	private JButton buttonOkAjout;
+	private JButton buttonOkReinit;
+	private JLabel labelUtilisateur = new JLabel("Nom:");
+	private JLabel labelNewPassword = new JLabel("Nouveau mot de passe:");
+	private JLabel labelPrenom = new JLabel("Prénom:");
 	private JTextField zoneTexteUtilisateur = new JTextField(20);
 	private JLabel labelNewPass = new JLabel("Mot de passe:");
 	private JTextField zoneTexteRole = new JTextField(20);
 	private JLabel labelNewRole = new JLabel("Rôle:");
+	JFrame frame = new JFrame("Ajout d'utilisateur");
+	JFrame frame1 = new JFrame("Réinitialisation du mot de passe");
 	DAO<Personnel> loginDAO = DAOFactory.getPersonnelDAO();
+	DAOPersonnel loginDAO1 = DAOFactory.getDAOPersonnel();
+	String selectTable = new String();
+	String tampon = new String();
 
 	private JButton getSupprimerButton() {
 		if (supprimerButton == null) {
 			supprimerButton = new JButton("Supprimer");
+			supprimerButton.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (selectTable != null) {
+						tampon = zoneTexteNouveauPass.getText();
+						try {
+							loginDAO.supprimer(loginDAO1.selectbyNomGiveID(selectTable));
+						} catch (DALException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} else {
+						JOptionPane.showMessageDialog(EcranPersonnel.this,
+								"Veuillez sélectionner un employé dans la liste avant de l'archiver.");
+					}
+
+				}
+			});
 		}
 		return supprimerButton;
 	}
 
 	private JButton getOkButton() {
-		if (buttonOk == null) {
-			buttonOk = new JButton("Ok");
-			buttonOk.addActionListener(new ActionListener() {
+		if (buttonOkAjout == null) {
+			buttonOkAjout = new JButton("Ok");
+			buttonOkAjout.addActionListener(new ActionListener() {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					String tamponNom = zoneTexteUtilisateur.getText();
+					String tamponPrénom = zoneTextePrenom.getText();
 					String tamponPass = zoneTextePass.getText();
 					String tamponRole = zoneTexteRole.getText();
-					Personnel nouveau = null;
+					Personnel nouveau = new Personnel();
 					nouveau.setMotPasse(tamponPass);
 					nouveau.setNom(tamponNom);
+					nouveau.setPrenom(tamponPrénom);
 					nouveau.setRole(tamponRole);
 					nouveau.setArchive(false);
 					try {
@@ -82,7 +116,7 @@ public class EcranPersonnel extends JFrame {
 				}
 			});
 		}
-		return buttonOk;
+		return buttonOkAjout;
 	}
 
 	private JButton getAnnulerButton() {
@@ -91,9 +125,7 @@ public class EcranPersonnel extends JFrame {
 			buttonAnnuler.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					 getContentPane().removeAll(); //gets rid of first panel
-				     getContentPane().add(rootPane); //adds desired panel to frame
-				      validate();
+					frame.dispose();
 
 				}
 			});
@@ -105,7 +137,6 @@ public class EcranPersonnel extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				JFrame frame = new JFrame("Ajout d'utilisateur");
 				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -117,8 +148,9 @@ public class EcranPersonnel extends JFrame {
 				GridBagConstraints gbc = new GridBagConstraints();
 				panelAjout.setOpaque(true);
 				frame.getContentPane().add(BorderLayout.CENTER, panelAjout);
+				frame.setSize(500, 300);
 				frame.setVisible(true);
-				frame.setResizable(true);
+				frame.setResizable(false);
 
 				// Création du panel AjoutUtilisateur
 				gbc.gridx = 0;
@@ -129,23 +161,30 @@ public class EcranPersonnel extends JFrame {
 				panelAjout.add(zoneTexteUtilisateur, gbc);
 				gbc.gridx = 0;
 				gbc.gridy = 1;
-				panelAjout.add(labelNewPass, gbc);
+				panelAjout.add(labelPrenom, gbc);
 				gbc.gridx = 1;
 				gbc.gridy = 1;
+				panelAjout.add(zoneTextePrenom, gbc);
+				gbc.gridx = 0;
+				gbc.gridy = 2;
+				panelAjout.add(labelNewPass, gbc);
+				gbc.gridx = 1;
+				gbc.gridy = 2;
 				panelAjout.add(zoneTextePass, gbc);
 				gbc.gridx = 0;
-				gbc.gridy = 2;
+				gbc.gridy = 3;
 				panelAjout.add(labelNewRole, gbc);
 				gbc.gridx = 1;
-				gbc.gridy = 2;
+				gbc.gridy = 3;
 				panelAjout.add(zoneTexteRole, gbc);
 				gbc.gridx = 0;
-				gbc.gridy = 3;
+				gbc.gridy = 4;
 				panelAjout.add(getOkButton(), gbc);
 				gbc.gridx = 1;
-				gbc.gridy = 3;
+				gbc.gridy = 4;
 				panelAjout.add(getAnnulerButton(), gbc);
 			}
+
 		});
 	}
 
@@ -153,41 +192,59 @@ public class EcranPersonnel extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				JFrame frame = new JFrame("Test");
-				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				frame1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				JPanel panel = new JPanel();
-				panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-				panel.setOpaque(true);
-				JTextArea textArea = new JTextArea(15, 50);
-				textArea.setWrapStyleWord(true);
-				textArea.setEditable(false);
-				textArea.setFont(Font.getFont(Font.SANS_SERIF));
-				JScrollPane scroller = new JScrollPane(textArea);
-				scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-				scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-				JPanel inputpanel = new JPanel();
-				inputpanel.setLayout(new FlowLayout());
-				JTextField input = new JTextField(20);
-				JButton button = new JButton("Enter");
-				DefaultCaret caret = (DefaultCaret) textArea.getCaret();
-				caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-				panel.add(scroller);
-				inputpanel.add(input);
-				inputpanel.add(button);
-				panel.add(inputpanel);
-				frame.getContentPane().add(BorderLayout.CENTER, panel);
-				frame.pack();
-				frame.setLocationByPlatform(true);
-				frame.setVisible(true);
-				frame.setResizable(false);
-				input.requestFocus();
+				JPanel panelReinit = new JPanel();
+				panelReinit.setLayout(new GridBagLayout());
+				GridBagConstraints gbc = new GridBagConstraints();
+				panelReinit.setOpaque(true);
+				frame1.getContentPane().add(BorderLayout.CENTER, panelReinit);
+				frame1.setSize(500, 500);
+				frame1.setVisible(true);
+				frame1.setResizable(false);
+
+				// Création du panel Réinitialiser Mot de Passe
+				gbc.gridx = 0;
+				gbc.gridy = 0;
+				panelReinit.add(labelNewPassword);
+				gbc.gridx = 1;
+				gbc.gridy = 0;
+				panelReinit.add(zoneTexteNouveauPass);
+				gbc.gridx = 0;
+				gbc.gridy = 1;
+				gbc.gridwidth = 2;
+				panelReinit.add(getbuttonOkReinit());
+
 			}
 		});
+	}
+
+	private JButton getbuttonOkReinit() {
+		if (buttonOkReinit == null) {
+			buttonOkReinit = new JButton("Ok");
+			buttonOkReinit.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (selectTable != null) {
+						tampon = zoneTexteNouveauPass.getText();
+						try {
+							loginDAO1.reinitialiserPersonnel(loginDAO1.selectbyNom(selectTable), tampon);
+						} catch (DALException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} else {
+						JOptionPane.showMessageDialog(EcranPersonnel.this,
+								"Veuillez sélectionner un employé dans la liste avant de changer son mot de passe.");
+					}
+				}
+			});
+		}
+		return buttonOkReinit;
 	}
 
 	private JButton getReinitialiserButton() {
@@ -199,7 +256,6 @@ public class EcranPersonnel extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
 					createFrameReinit();
 
 				}
@@ -252,6 +308,7 @@ public class EcranPersonnel extends JFrame {
 		final String[][] data = new String[taille][3];
 		int i = 0;
 		for (Personnel employe : catalogue) {
+//			if (employe.getArchive() == false) {
 			String tamponNom = employe.getNom();
 			String tamponRole = employe.getRole();
 			String tamponPass = employe.getMotPasse();
@@ -259,11 +316,21 @@ public class EcranPersonnel extends JFrame {
 			data[i][1] = tamponRole;
 			data[i][2] = tamponPass;
 			i++;
-		}
+			}
+//		}
 		// TODO Essayer de masquer le mot de passe des utilisateurs
 		// Création d'un modèle personnalisé de JTable
 		TableModel tableModel = new DefaultTableModel(data, colonne);
-		JTable table = new JTable(tableModel);
+		final JTable table = new JTable(tableModel);
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent event) {
+				selectTable = table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()).toString();
+				if (table.getSelectedRow() > -1) {
+					System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
+				}
+			}
+		});
 
 		// Intégration de la table dans le panneau principal
 		panelTable.setLayout(new BorderLayout());
