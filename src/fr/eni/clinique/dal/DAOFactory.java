@@ -21,5 +21,10 @@ public class DAOFactory {
 		return clientDAO;
 	}
 
+	public static DAOClient getDAOClient() {
+		DAOClient clientDAO = new ClientDAOJdbcImpl();
+		return clientDAO;
+	}
+
 
 }

@@ -13,27 +13,31 @@ import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
+import fr.eni.clinique.dal.DAOClient;
 
 
-public class ClientDAOJdbcImpl implements DAO<Client> {
+public class ClientDAOJdbcImpl implements DAO<Client>, DAOClient {
 
-	 private static final String sqlSelectAllClient = "select CodeClient, NomClient ,PrenomClient,Adresse1,Adresse2 ,CodePostal ,Ville,NumTel,Assurance,Email,Remarque,Archive from Clients";
-	
+	private static final String sqlSelectAllClient = "select CodeClient, NomClient ,PrenomClient,Adresse1,Adresse2 ,CodePostal ,Ville,NumTel,Assurance,Email,Remarque,Archive from Clients";
 	private static final String sqlInsertClient = "insert into Clients (NomClient ,PrenomClient,Adresse1,Adresse2 ,CodePostal ,Ville,NumTel,Assurance,Email,Remarque,Archive) values(?,?,?,?,?,?,?,?,?,?,?)";
-	// private static final String sqlSuppressionPersonnel = "UPDATE Personnels
-	// SET Archive= ? WHERE Nom= ?";
-	// private static final String sqlSelectByMDP = "SELECT role FROM Personnels
-	// WHERE Nom=? AND MotPasse=?";
-	 private static final String sqlMiseAJourClient = "update Clients set NomClient = ? ,PrenomClient = ?,Adresse1 = ?,Adresse2 = ?,CodePostal = ? ,Ville = ?,NumTel = ?,Assurance = ?,Email = ?,Remarque = ? where CodeClient=?";
-
+	private static final String sqlMiseAJourClient = "update Clients set NomClient = ? ,PrenomClient = ?,Adresse1 = ?,Adresse2 = ?,CodePostal = ? ,Ville = ?,NumTel = ?,Assurance = ?,Email = ?,Remarque = ? where CodeClient=?";
+	private static final String sqlRechercher = "SELECT  * FROM Clients WHERE NomClient LIKE ?";
 	 
-	 
+	 /*
+	  * (non-Javadoc)
+	  * @see fr.eni.clinique.dal.DAO#selectbyID(java.lang.Integer)
+	  */
 	@Override
 	public Client selectbyID(Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	/*
+	 * (non-Javadoc)
+	 * @see fr.eni.clinique.dal.DAO#insert(java.lang.Object)
+	 * return void
+	 */
 	@Override
 	public void insert(Client client) throws DALException {
 		Connection cnx = null;
@@ -98,6 +102,11 @@ public class ClientDAOJdbcImpl implements DAO<Client> {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see fr.eni.clinique.dal.DAO#selectAll()
+	 * return listClient
+	 */
 	@Override
 	public List<Client> selectAll() throws DALException {
 		Connection cnx = null;
@@ -146,6 +155,11 @@ public class ClientDAOJdbcImpl implements DAO<Client> {
 		return listeClient;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see fr.eni.clinique.dal.DAO#update(java.lang.Object)
+	 * return client
+	 */
 	@Override
 	public Client update(Client client) throws DALException {
 		Connection cnx = null;
@@ -186,10 +200,65 @@ public class ClientDAOJdbcImpl implements DAO<Client> {
 		return client;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see fr.eni.clinique.dal.DAO#supprimer(java.lang.Integer)
+	 */
 	@Override
 	public void supprimer(Integer id) throws DALException {
 		// TODO Auto-generated method stub
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * @see fr.eni.clinique.dal.DAOClient#rechercherClient(java.lang.String)
+	 * return listClient
+	 */
+	@Override
+	public List<Client> rechercherClient(String recherche) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null; 
+		List<Client> listeClient = new ArrayList<Client>();
+		Client client = null;
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(sqlRechercher);
+			rqt.setString(1, "%" + recherche + "%");
+			rs = rqt.executeQuery();
+		
+			while(rs.next()) {
+				client = new Client(rs.getInt("codeClient"),
+						rs.getString("NomClient"),
+						rs.getString("PrenomClient"),
+						rs.getString("Adresse1"),
+						rs.getString("Adresse2"),
+						rs.getString("CodePostal"),
+						rs.getString("Ville"),
+						rs.getString("NumTel"),
+						rs.getString("Assurance"),
+						rs.getString("Email"),
+						rs.getString("Remarque"),
+						rs.getBoolean("Archive"));
+				listeClient.add(client);
+			}
+		} catch (SQLException e) {
+			throw new DALException("Recherche Client failed - " + recherche , e);
+		} finally {
+			try {
+				if (rqt != null) {
+					rqt.close();
+				}
+				if (cnx != null) {
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return listeClient;
+		
 	}
 
 }

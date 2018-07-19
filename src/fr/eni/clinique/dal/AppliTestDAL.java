@@ -14,7 +14,8 @@ public class AppliTestDAL {
 		DAOPersonnel personnelDAO2 = DAOFactory.getDAOPersonnel();
 		DAO<Personnel> personnelDAO = DAOFactory.getPersonnelDAO();
 		
-		DAO<Client>  clientDAO = DAOFactory.getClientDAO();
+		DAO<Client> clientDAO = DAOFactory.getClientDAO();
+		DAOClient clientDAO2 = DAOFactory.getDAOClient();
 				
 		// creer un nouveau personnel 
 		//Personnel p1 = new Personnel( "Antoinette", "Marie", "946575", "vet",false);
@@ -74,6 +75,9 @@ public class AppliTestDAL {
 		c1.setNomClient("nouveauNom");
 		clientDAO.update(c1);
 		System.out.println("Client apres modification : "  + c1.toString());
+		
+		//clientDAO2.rechercherClient("po");
+		System.out.println(clientDAO2.rechercherClient("po"));
 	}
 
 }
