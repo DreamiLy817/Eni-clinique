@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import fr.eni.clinique.dal.DALException;
@@ -20,7 +21,7 @@ import fr.eni.clinique.dal.DAOFactory;
 public class EcranLogin extends JFrame {
 
 	private JTextField textLogin;
-	private JTextField textPass;
+	private JPasswordField textPass;
 	private JLabel labelLogin;
 	private JLabel labelPass;
 	private JButton validerButton;
@@ -47,17 +48,8 @@ public class EcranLogin extends JFrame {
 								JOptionPane.showMessageDialog(EcranLogin.this, "Connexion échouée, identifiant ou mot de passe incorrect");
 							}
 					} catch (DALException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-//						a = cm.getArticle(index);
-//						a.setReference(jtRef.getText());
-//						a.setMarque(jtMar.getText());
-//						a.setDesignation(jtDesig.getText());
-//						a.setQteStock(Integer.parseInt(jtStock.getText()));
-//						a.setPrixUnitaire(Float.parseFloat(jtPrix.getText()));
-//						((Stylo) a).setCouleur(jliCouleur.toString());
-//						cm.updateArticle(a);
 				}
 			});
 		}
@@ -71,9 +63,10 @@ public class EcranLogin extends JFrame {
 		return textLogin;
 	}
 
-	public JTextField getTextPass() {
+	public JPasswordField getPasswordFieldPass() {
 		if (textPass == null) {
-			textPass = new JTextField(20);
+			textPass = new JPasswordField(20);
+			textPass.setEchoChar('*');
 		}
 		return textPass;
 	}
@@ -115,7 +108,7 @@ public class EcranLogin extends JFrame {
 		panelPrincipal.add(getLabelPass(), gbc);
 		gbc.gridx = 1;
 		gbc.gridy = 1;
-		panelPrincipal.add(getTextPass(), gbc);
+		panelPrincipal.add(getPasswordFieldPass(), gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		gbc.gridwidth = 2;
