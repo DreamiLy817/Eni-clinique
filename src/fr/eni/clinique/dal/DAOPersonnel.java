@@ -8,4 +8,8 @@ public interface DAOPersonnel {
 	
 	public abstract void reinitialiserPersonnel(Personnel personne, String motDePasse) throws DALException;
 
+	public abstract Personnel selectbyNom(String nom) throws DALException;
+	
+	public abstract int selectbyNomGiveID(String nom) throws DALException;
+	
 }

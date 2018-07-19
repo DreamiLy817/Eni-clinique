@@ -41,6 +41,10 @@ public class Personnel {
 
 
 
+	public Personnel() {
+		// TODO Auto-generated constructor stub
+	}
+
 	// GETTER AND SETTER
 	public String getPrenom() {
 		return Prenom;
