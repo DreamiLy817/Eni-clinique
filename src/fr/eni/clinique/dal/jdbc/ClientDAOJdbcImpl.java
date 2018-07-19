@@ -258,7 +258,5 @@ public class ClientDAOJdbcImpl implements DAO<Client>, DAOClient {
 			}
 		}
 		return listeClient;
-		
 	}
-
 }
