@@ -32,6 +32,13 @@ public class AppliTestDAL {
 		List<Personnel> allPersonnel = personnelDAO.selectAll();
 		System.out.println("Selection de tous le personnel  : " + allPersonnel.toString() );
 		
+		//selection de tous les clients
+		List<Client> allClient = clientDAO.selectAll();
+		System.out.println("Selection de tous les clients  : " + allClient.toString() );
+		
+		
+		
+		
 		//System.out.println("Suppression de l'article  : " + p1.toString());
 		//personnelDAO.supprimer(p1.getCodePers());
 		allPersonnel = personnelDAO.selectAll();
@@ -56,8 +63,17 @@ public class AppliTestDAL {
 		//System.out.println(p1);
 		
 		// ajouter un client 
-		 Client c1 = new Client("AZErty", "alex", "6 chemin du calvaire", "batiment 45 app 12", "84230", "Random", "0658789512", "toutrisque", "all@fef.fr", "", false);
+		 Client c1 = new Client("test", "alex", "6 chemin du calvaire", "batiment 45 app 12", "84230", "Random", "0658789512", "toutrisque", "all@fef.fr", "", false);
 		clientDAO.insert(c1);
+		
+		
+		System.out.println("Client avant modification : "  + c1.toString());
+		c1.setAdresse1("nouveau");
+		c1.setAdresse2("nouveau 2");
+		c1.setPrenomClient("AlainNouveau");
+		c1.setNomClient("nouveauNom");
+		clientDAO.update(c1);
+		System.out.println("Client apres modification : "  + c1.toString());
 	}
 
 }

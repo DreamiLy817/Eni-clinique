@@ -50,9 +50,25 @@ public class Client {
 		Remarque = remarque;
 	}
 
+	public Client(int codeClient, String nomClient, String prenomClient, String adresse1, String adresse2,
+			String codePostal, String ville, String numTel, String assurance, String email, String remarque,
+			Boolean archive) {
+		super();
+		CodeClient = codeClient;
+		NomClient = nomClient;
+		PrenomClient = prenomClient;
+		Adresse1 = adresse1;
+		Adresse2 = adresse2;
+		CodePostal = codePostal;
+		Ville = ville;
+		NumTel = numTel;
+		Assurance = assurance;
+		Email = email;
+		Remarque = remarque;
+		Archive = archive;
+	}
 
-
-	// GETTE ET SETTER 
+	// GETTER ET SETTER 
 	public int getCodeClient() {
 		return CodeClient;
 	}
@@ -150,7 +166,39 @@ public class Client {
 	} 
 	
 	
-	
+	@Override
+	public String toString() {
+		StringBuilder sb =new StringBuilder();
+
+		sb.append("Code Client  [ code = ");
+		sb.append(CodeClient);
+		sb.append(",nom = ");
+		sb.append(NomClient);
+		sb.append(", prenom = ");
+		sb.append(PrenomClient);
+		sb.append(",Adresse = "); 
+		sb.append(Adresse1);
+		sb.append(",Adresse 2  = "); 
+		sb.append(Adresse2);
+		sb.append(",CodePostal = "); 
+		sb.append(CodePostal);
+		sb.append(",Ville = "); 
+		sb.append(Ville);
+		sb.append(",Numero de telephone = "); 
+		sb.append(NumTel);
+		sb.append(",Assurance = "); 
+		sb.append(Assurance);
+		sb.append(",Email = "); 
+		sb.append(Email);
+		sb.append(",Remarque = "); 
+		sb.append(Remarque);
+		sb.append(",Archive = "); 
+		sb.append(Archive);
+		sb.append("]\n");
+		
+		return sb.toString();
+
+		}
 	
 	
 	
