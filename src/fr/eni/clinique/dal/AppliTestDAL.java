@@ -3,11 +3,16 @@ package fr.eni.clinique.dal;
 
 import java.util.List;
 
+import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.bo.Personnel;
 
 public class AppliTestDAL {
 
+	/**
+	 * @param args
+	 * @throws DALException
+	 */
 	public static void main(String[] args) throws DALException {
 		
 		// déclaration et instanciation de la DAO
@@ -16,6 +21,9 @@ public class AppliTestDAL {
 		
 		DAO<Client> clientDAO = DAOFactory.getClientDAO();
 		DAOClient clientDAO2 = DAOFactory.getDAOClient();
+		
+		DAO<Animal> animalDAO = DAOFactory.getAnimalDAO();
+		DAOAnimal animalDAO2 = DAOFactory.getDAOAnimal();
 				
 		// creer un nouveau personnel 
 		//Personnel p1 = new Personnel( "Antoinette", "Marie", "946575", "vet",false);
@@ -78,6 +86,25 @@ public class AppliTestDAL {
 		
 		//clientDAO2.rechercherClient("po");
 		System.out.println(clientDAO2.rechercherClient("po"));
+		
+		
+		
+//		//Création d'animaux
+//		Animal a1 = new Animal("Bill", 'H', "Rouge", "Cocker", "Chien", 1, "", "");
+//		Animal a2 = new Animal("Azraël", 'F', "Brun", "De Gouttière", "Chat", 1, "", "");
+//		Animal a3 = new Animal("Willy", 'H', "Noir et blanc", "Non déterminé", "Orque", 1, "", "");
+//		
+//		//Insert d'animal dans la base
+//		animalDAO.insert(a1);
+//		animalDAO.insert(a2);
+//		animalDAO.insert(a3);
+//		
+//		//Select All des animaux
+//		animalDAO.selectbyID(1);
+		
+		//Mise en archive d'un animal
+		animalDAO.supprimer(4);
+		
 	}
 
 }

@@ -34,5 +34,10 @@ public class DAOFactory {
 		return clientDAO;
 	}
 
+	public static DAOAnimal getDAOAnimal() {
+		DAOAnimal animalDAO = new AnimalDAOJdbcImpl();
+		return animalDAO;
+	}
+
 
 }
