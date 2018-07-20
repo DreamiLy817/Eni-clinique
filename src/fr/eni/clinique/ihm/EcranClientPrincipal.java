@@ -30,18 +30,18 @@ import javax.swing.JInternalFrame;
 public class EcranClientPrincipal extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
+	private JTextField textFieldCode;
+	private JTextField textFieldNom;
+	private JTextField textFieldPrenom;
+	private JTextField textFieldAdresse1;
+	private JTextField textFieldAdresse2;
+	private JTextField textFieldCodeP;
+	private JTextField textFieldVille;
+	private JTextField textFieldNum;
+	private JTextField textFieldAssurance;
+	private JTextField textFieldEmail;
 	private DAO<Client> clientDAO = DAOFactory.getClientDAO();
-	private JTable table;
+	private JTable ListeAnimaux;
 
 	/**
 	 * Launch the application.
@@ -146,28 +146,28 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_lblCode.gridy = 2;
 		contentPane.add(lblCode, gbc_lblCode);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.anchor = GridBagConstraints.NORTH;
-		gbc_textField.gridwidth = 2;
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.gridx = 2;
-		gbc_textField.gridy = 2;
-		contentPane.add(textField, gbc_textField);
-		textField.setColumns(10);
+		textFieldCode = new JTextField();
+		GridBagConstraints gbc_textFieldCode = new GridBagConstraints();
+		gbc_textFieldCode.anchor = GridBagConstraints.NORTH;
+		gbc_textFieldCode.gridwidth = 2;
+		gbc_textFieldCode.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCode.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldCode.gridx = 2;
+		gbc_textFieldCode.gridy = 2;
+		contentPane.add(textFieldCode, gbc_textFieldCode);
+		textFieldCode.setColumns(10);
 		
 		TableModel tableModel = new DefaultTableModel();
 		
-		table = new JTable();
-		GridBagConstraints gbc_table = new GridBagConstraints();
-		gbc_table.gridheight = 7;
-		gbc_table.gridwidth = 3;
-		gbc_table.insets = new Insets(0, 0, 5, 5);
-		gbc_table.fill = GridBagConstraints.BOTH;
-		gbc_table.gridx = 5;
-		gbc_table.gridy = 2;
-		contentPane.add(table, gbc_table);
+		ListeAnimaux = new JTable();
+		GridBagConstraints gbc_ListeAnimaux = new GridBagConstraints();
+		gbc_ListeAnimaux.gridheight = 7;
+		gbc_ListeAnimaux.gridwidth = 3;
+		gbc_ListeAnimaux.insets = new Insets(0, 0, 5, 5);
+		gbc_ListeAnimaux.fill = GridBagConstraints.BOTH;
+		gbc_ListeAnimaux.gridx = 5;
+		gbc_ListeAnimaux.gridy = 2;
+		contentPane.add(ListeAnimaux, gbc_ListeAnimaux);
 		
 		JLabel lblNom = new JLabel("Nom");
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
@@ -177,15 +177,15 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_lblNom.gridy = 3;
 		contentPane.add(lblNom, gbc_lblNom);
 		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.gridwidth = 2;
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.gridx = 2;
-		gbc_textField_1.gridy = 3;
-		contentPane.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		textFieldNom = new JTextField();
+		GridBagConstraints gbc_textFieldNom = new GridBagConstraints();
+		gbc_textFieldNom.gridwidth = 2;
+		gbc_textFieldNom.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldNom.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldNom.gridx = 2;
+		gbc_textFieldNom.gridy = 3;
+		contentPane.add(textFieldNom, gbc_textFieldNom);
+		textFieldNom.setColumns(10);
 		
 		JLabel lblPrenom = new JLabel("Prenom");
 		GridBagConstraints gbc_lblPrenom = new GridBagConstraints();
@@ -195,15 +195,15 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_lblPrenom.gridy = 4;
 		contentPane.add(lblPrenom, gbc_lblPrenom);
 		
-		textField_2 = new JTextField();
-		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.gridwidth = 2;
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_2.gridx = 2;
-		gbc_textField_2.gridy = 4;
-		contentPane.add(textField_2, gbc_textField_2);
-		textField_2.setColumns(10);
+		textFieldPrenom = new JTextField();
+		GridBagConstraints gbc_textFieldPrenom = new GridBagConstraints();
+		gbc_textFieldPrenom.gridwidth = 2;
+		gbc_textFieldPrenom.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldPrenom.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldPrenom.gridx = 2;
+		gbc_textFieldPrenom.gridy = 4;
+		contentPane.add(textFieldPrenom, gbc_textFieldPrenom);
+		textFieldPrenom.setColumns(10);
 		
 		JLabel lblAdresse = new JLabel("Adresse");
 		GridBagConstraints gbc_lblAdresse = new GridBagConstraints();
@@ -213,25 +213,25 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_lblAdresse.gridy = 5;
 		contentPane.add(lblAdresse, gbc_lblAdresse);
 		
-		textField_3 = new JTextField();
-		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.gridwidth = 2;
-		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_3.gridx = 2;
-		gbc_textField_3.gridy = 5;
-		contentPane.add(textField_3, gbc_textField_3);
-		textField_3.setColumns(10);
+		textFieldAdresse1 = new JTextField();
+		GridBagConstraints gbc_textFieldAdresse1 = new GridBagConstraints();
+		gbc_textFieldAdresse1.gridwidth = 2;
+		gbc_textFieldAdresse1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldAdresse1.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldAdresse1.gridx = 2;
+		gbc_textFieldAdresse1.gridy = 5;
+		contentPane.add(textFieldAdresse1, gbc_textFieldAdresse1);
+		textFieldAdresse1.setColumns(10);
 		
-		textField_4 = new JTextField();
-		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.gridwidth = 2;
-		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_4.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_4.gridx = 2;
-		gbc_textField_4.gridy = 6;
-		contentPane.add(textField_4, gbc_textField_4);
-		textField_4.setColumns(10);
+		textFieldAdresse2 = new JTextField();
+		GridBagConstraints gbc_textFieldAdresse2 = new GridBagConstraints();
+		gbc_textFieldAdresse2.gridwidth = 2;
+		gbc_textFieldAdresse2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldAdresse2.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldAdresse2.gridx = 2;
+		gbc_textFieldAdresse2.gridy = 6;
+		contentPane.add(textFieldAdresse2, gbc_textFieldAdresse2);
+		textFieldAdresse2.setColumns(10);
 		
 		JLabel lblCodePostal = new JLabel("Code postal");
 		GridBagConstraints gbc_lblCodePostal = new GridBagConstraints();
@@ -241,15 +241,15 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_lblCodePostal.gridy = 7;
 		contentPane.add(lblCodePostal, gbc_lblCodePostal);
 		
-		textField_5 = new JTextField();
-		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.gridwidth = 2;
-		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_5.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_5.gridx = 2;
-		gbc_textField_5.gridy = 7;
-		contentPane.add(textField_5, gbc_textField_5);
-		textField_5.setColumns(10);
+		textFieldCodeP = new JTextField();
+		GridBagConstraints gbc_textFieldCodeP = new GridBagConstraints();
+		gbc_textFieldCodeP.gridwidth = 2;
+		gbc_textFieldCodeP.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCodeP.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldCodeP.gridx = 2;
+		gbc_textFieldCodeP.gridy = 7;
+		contentPane.add(textFieldCodeP, gbc_textFieldCodeP);
+		textFieldCodeP.setColumns(10);
 		
 		JLabel lblVille = new JLabel("Ville");
 		GridBagConstraints gbc_lblVille = new GridBagConstraints();
@@ -259,15 +259,15 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_lblVille.gridy = 8;
 		contentPane.add(lblVille, gbc_lblVille);
 		
-		textField_6 = new JTextField();
-		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-		gbc_textField_6.gridwidth = 2;
-		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_6.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_6.gridx = 2;
-		gbc_textField_6.gridy = 8;
-		contentPane.add(textField_6, gbc_textField_6);
-		textField_6.setColumns(10);
+		textFieldVille = new JTextField();
+		GridBagConstraints gbc_textFieldVille = new GridBagConstraints();
+		gbc_textFieldVille.gridwidth = 2;
+		gbc_textFieldVille.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVille.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVille.gridx = 2;
+		gbc_textFieldVille.gridy = 8;
+		contentPane.add(textFieldVille, gbc_textFieldVille);
+		textFieldVille.setColumns(10);
 		
 		JLabel lblNum = new JLabel("Num");
 		GridBagConstraints gbc_lblNum = new GridBagConstraints();
@@ -277,15 +277,15 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_lblNum.gridy = 9;
 		contentPane.add(lblNum, gbc_lblNum);
 		
-		textField_7 = new JTextField();
-		GridBagConstraints gbc_textField_7 = new GridBagConstraints();
-		gbc_textField_7.gridwidth = 2;
-		gbc_textField_7.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_7.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_7.gridx = 2;
-		gbc_textField_7.gridy = 9;
-		contentPane.add(textField_7, gbc_textField_7);
-		textField_7.setColumns(10);
+		textFieldNum = new JTextField();
+		GridBagConstraints gbc_textFieldNum = new GridBagConstraints();
+		gbc_textFieldNum.gridwidth = 2;
+		gbc_textFieldNum.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldNum.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldNum.gridx = 2;
+		gbc_textFieldNum.gridy = 9;
+		contentPane.add(textFieldNum, gbc_textFieldNum);
+		textFieldNum.setColumns(10);
 		
 		JLabel lblAssurance = new JLabel("Assurance");
 		GridBagConstraints gbc_lblAssurance = new GridBagConstraints();
@@ -295,15 +295,15 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_lblAssurance.gridy = 10;
 		contentPane.add(lblAssurance, gbc_lblAssurance);
 		
-		textField_8 = new JTextField();
-		GridBagConstraints gbc_textField_8 = new GridBagConstraints();
-		gbc_textField_8.gridwidth = 2;
-		gbc_textField_8.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_8.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_8.gridx = 2;
-		gbc_textField_8.gridy = 10;
-		contentPane.add(textField_8, gbc_textField_8);
-		textField_8.setColumns(10);
+		textFieldAssurance = new JTextField();
+		GridBagConstraints gbc_textFieldAssurance = new GridBagConstraints();
+		gbc_textFieldAssurance.gridwidth = 2;
+		gbc_textFieldAssurance.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldAssurance.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldAssurance.gridx = 2;
+		gbc_textFieldAssurance.gridy = 10;
+		contentPane.add(textFieldAssurance, gbc_textFieldAssurance);
+		textFieldAssurance.setColumns(10);
 		
 		JButton btnAjouterUnAnimal = new JButton("Ajouter un animal");
 		btnAjouterUnAnimal.setForeground(new Color(255, 255, 255));
@@ -346,15 +346,15 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_lblEmail.gridy = 11;
 		contentPane.add(lblEmail, gbc_lblEmail);
 		
-		textField_9 = new JTextField();
-		GridBagConstraints gbc_textField_9 = new GridBagConstraints();
-		gbc_textField_9.gridwidth = 2;
-		gbc_textField_9.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_9.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_9.gridx = 2;
-		gbc_textField_9.gridy = 11;
-		contentPane.add(textField_9, gbc_textField_9);
-		textField_9.setColumns(10);
+		textFieldEmail = new JTextField();
+		GridBagConstraints gbc_textFieldEmail = new GridBagConstraints();
+		gbc_textFieldEmail.gridwidth = 2;
+		gbc_textFieldEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldEmail.gridx = 2;
+		gbc_textFieldEmail.gridy = 11;
+		contentPane.add(textFieldEmail, gbc_textFieldEmail);
+		textFieldEmail.setColumns(10);
 		
 		JLabel lblRemarque = new JLabel("Remarque");
 		GridBagConstraints gbc_lblRemarque = new GridBagConstraints();
@@ -364,14 +364,14 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_lblRemarque.gridy = 12;
 		contentPane.add(lblRemarque, gbc_lblRemarque);
 		
-		JTextArea textArea = new JTextArea();
-		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.gridwidth = 2;
-		gbc_textArea.insets = new Insets(0, 0, 0, 5);
-		gbc_textArea.fill = GridBagConstraints.BOTH;
-		gbc_textArea.gridx = 2;
-		gbc_textArea.gridy = 12;
-		contentPane.add(textArea, gbc_textArea);
+		JTextArea textAreaRemarque = new JTextArea();
+		GridBagConstraints gbc_textAreaRemarque = new GridBagConstraints();
+		gbc_textAreaRemarque.gridwidth = 2;
+		gbc_textAreaRemarque.insets = new Insets(0, 0, 0, 5);
+		gbc_textAreaRemarque.fill = GridBagConstraints.BOTH;
+		gbc_textAreaRemarque.gridx = 2;
+		gbc_textAreaRemarque.gridy = 12;
+		contentPane.add(textAreaRemarque, gbc_textAreaRemarque);
 	}
 
 	private void getRowCount() {
