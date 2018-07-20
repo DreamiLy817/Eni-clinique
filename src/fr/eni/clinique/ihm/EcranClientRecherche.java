@@ -1,40 +1,44 @@
 package fr.eni.clinique.ihm;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Frame;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOClient;
 import fr.eni.clinique.dal.DAOFactory;
-import fr.eni.clinique.dal.DAOPersonnel;
-
-import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
 import java.awt.GridBagConstraints;
 import javax.swing.JList;
 import java.awt.Insets;
-import javax.swing.JLabel;
 import java.awt.Color;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class EcranClientRecherche extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4493708876814854468L;
 	private JPanel contentPane;
 	private JTextField inputRecherche;
+	private EcranClientRecherche frame;
 	DAOClient client = DAOFactory.getDAOClient();
 	
 	
@@ -96,7 +100,14 @@ public class EcranClientRecherche extends JFrame {
 		btnRechercher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					System.out.println(client.rechercherClient(inputRecherche.getText()));
+					listModelClient.removeAllElements();
+					List<Client> listeObjClients = client.rechercherClient(inputRecherche.getText());
+					
+					for(Client client : listeObjClients){
+						System.out.println(client);
+						 listModelClient.addElement(client);
+					}
+					
 				} catch (DALException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -108,6 +119,7 @@ public class EcranClientRecherche extends JFrame {
 		btnRechercher.setBackground(new Color(0, 204, 153));
 		btnRechercher.setIcon(new ImageIcon(EcranClientRecherche.class.getResource("/images/loupe.png")));
 		GridBagConstraints gbc_btnRechercher = new GridBagConstraints();
+		gbc_btnRechercher.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnRechercher.insets = new Insets(0, 0, 5, 0);
 		gbc_btnRechercher.gridx = 2;
 		gbc_btnRechercher.gridy = 0;
@@ -118,25 +130,31 @@ public class EcranClientRecherche extends JFrame {
 		
 		// entrer des données dans mon modele de liste
 		 listModelClient = new DefaultListModel();
-		 listModelClient.addElement("Jane Doe");
-		 listModelClient.addElement("John Smith");
-		 listModelClient.addElement("Kathy Green");
 		
 		//creation de la liste et la mettre dans un scroll pane
 		 listClient = new JList(listModelClient);
+		 listClient.addMouseListener(new MouseAdapter() {
+		 	@Override
+		 	public void mouseClicked(MouseEvent arg0) {
+		 		//clientSelectionne = listClient.getSelectedValue();
+		 		new EcranClientPrincipal().setVisible(true);
+		 		EcranClientRecherche.this.dispose();
+		 		
+		
+		 	}
+		 });
 		 listClient.setBorder(null);
 		listClient.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listClient.setLayoutOrientation(JList.VERTICAL);
 		listClient.setSelectedIndex(0);
-		listClient.setVisibleRowCount(5);
+		listClient.setVisibleRowCount(15);
 		
 		 JScrollPane listScrollPane = new JScrollPane(listClient);
 		 
 		 
 		GridBagConstraints gbc_listeClient = new GridBagConstraints();
-		gbc_listeClient.anchor = GridBagConstraints.WEST;
 		gbc_listeClient.insets = new Insets(0, 0, 0, 5);
-		gbc_listeClient.fill = GridBagConstraints.VERTICAL;
+		gbc_listeClient.fill = GridBagConstraints.BOTH;
 		gbc_listeClient.gridx = 1;
 		gbc_listeClient.gridy = 1;
 		contentPane.add(listScrollPane, gbc_listeClient);

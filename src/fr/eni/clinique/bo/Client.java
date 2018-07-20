@@ -170,31 +170,15 @@ public class Client {
 	public String toString() {
 		StringBuilder sb =new StringBuilder();
 
-		sb.append("Code Client  [ code = ");
-		sb.append(CodeClient);
-		sb.append(",nom = ");
+		sb.append("nom = ");
 		sb.append(NomClient);
-		sb.append(", prenom = ");
+		sb.append(" - prenom = ");
 		sb.append(PrenomClient);
-		sb.append(",Adresse = "); 
-		sb.append(Adresse1);
-		sb.append(",Adresse 2  = "); 
-		sb.append(Adresse2);
-		sb.append(",CodePostal = "); 
+		sb.append(" - CodePostal = "); 
 		sb.append(CodePostal);
-		sb.append(",Ville = "); 
+		sb.append(" - Ville = "); 
 		sb.append(Ville);
-		sb.append(",Numero de telephone = "); 
-		sb.append(NumTel);
-		sb.append(",Assurance = "); 
-		sb.append(Assurance);
-		sb.append(",Email = "); 
-		sb.append(Email);
-		sb.append(",Remarque = "); 
-		sb.append(Remarque);
-		sb.append(",Archive = "); 
-		sb.append(Archive);
-		sb.append("]\n");
+
 		
 		return sb.toString();
 
