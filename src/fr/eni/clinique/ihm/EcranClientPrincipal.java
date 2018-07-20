@@ -17,6 +17,9 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 public class EcranClientPrincipal extends JFrame {
 
@@ -31,6 +34,7 @@ public class EcranClientPrincipal extends JFrame {
 	private JTextField textField_7;
 	private JTextField textField_8;
 	private JTextField textField_9;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -59,18 +63,19 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWidths = new int[]{0, 0, 136, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JButton btnRechercher = new JButton("rechercher");
+		btnRechercher.setForeground(new Color(255, 255, 255));
 		btnRechercher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnRechercher.setBackground(new Color(102, 205, 170));
+		btnRechercher.setBackground(new Color(0, 204, 153));
 		btnRechercher.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/loupe.png")));
 		GridBagConstraints gbc_btnRechercher = new GridBagConstraints();
 		gbc_btnRechercher.anchor = GridBagConstraints.WEST;
@@ -79,7 +84,14 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_btnRechercher.gridy = 0;
 		contentPane.add(btnRechercher, gbc_btnRechercher);
 		
-		JButton btnAjouter = new JButton("ajouter");
+		JButton btnAjouter = new JButton("Ajouter");
+		btnAjouter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAjouter.setForeground(new Color(255, 255, 255));
+		btnAjouter.setBackground(new Color(0, 204, 153));
+		btnAjouter.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/plus.png")));
 		GridBagConstraints gbc_btnAjouter = new GridBagConstraints();
 		gbc_btnAjouter.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAjouter.gridx = 3;
@@ -87,6 +99,9 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(btnAjouter, gbc_btnAjouter);
 		
 		JButton btnSupprimer = new JButton("supprimer");
+		btnSupprimer.setForeground(new Color(255, 255, 255));
+		btnSupprimer.setBackground(new Color(0, 204, 153));
+		btnSupprimer.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/minus.png")));
 		GridBagConstraints gbc_btnSupprimer = new GridBagConstraints();
 		gbc_btnSupprimer.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSupprimer.gridx = 4;
@@ -94,6 +109,9 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(btnSupprimer, gbc_btnSupprimer);
 		
 		JButton btnValider = new JButton("valider");
+		btnValider.setForeground(new Color(255, 255, 255));
+		btnValider.setBackground(new Color(0, 204, 153));
+		btnValider.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/check.png")));
 		GridBagConstraints gbc_btnValider = new GridBagConstraints();
 		gbc_btnValider.insets = new Insets(0, 0, 5, 5);
 		gbc_btnValider.gridx = 6;
@@ -101,6 +119,9 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(btnValider, gbc_btnValider);
 		
 		JButton btnAnnuler = new JButton("annuler");
+		btnAnnuler.setBackground(new Color(0, 204, 153));
+		btnAnnuler.setForeground(new Color(255, 255, 255));
+		btnAnnuler.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/back.png")));
 		GridBagConstraints gbc_btnAnnuler = new GridBagConstraints();
 		gbc_btnAnnuler.insets = new Insets(0, 0, 5, 0);
 		gbc_btnAnnuler.gridx = 7;
@@ -109,7 +130,7 @@ public class EcranClientPrincipal extends JFrame {
 		
 		JLabel lblCode = new JLabel("Code");
 		GridBagConstraints gbc_lblCode = new GridBagConstraints();
-		gbc_lblCode.anchor = GridBagConstraints.EAST;
+		gbc_lblCode.anchor = GridBagConstraints.WEST;
 		gbc_lblCode.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCode.gridx = 1;
 		gbc_lblCode.gridy = 2;
@@ -117,16 +138,25 @@ public class EcranClientPrincipal extends JFrame {
 		
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.gridx = 2;
 		gbc_textField.gridy = 2;
 		contentPane.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
+		TableModel tableModel = new DefaultTableModel();
+		table = new JTable();
+		GridBagConstraints gbc_table = new GridBagConstraints();
+		gbc_table.insets = new Insets(0, 0, 5, 5);
+		gbc_table.fill = GridBagConstraints.BOTH;
+		gbc_table.gridx = 4;
+		gbc_table.gridy = 2;
+		contentPane.add(table, gbc_table);
+		
 		JLabel lblNom = new JLabel("Nom");
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
-		gbc_lblNom.anchor = GridBagConstraints.EAST;
+		gbc_lblNom.anchor = GridBagConstraints.WEST;
 		gbc_lblNom.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNom.gridx = 1;
 		gbc_lblNom.gridy = 3;
@@ -134,8 +164,8 @@ public class EcranClientPrincipal extends JFrame {
 		
 		textField_1 = new JTextField();
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_1.gridx = 2;
 		gbc_textField_1.gridy = 3;
 		contentPane.add(textField_1, gbc_textField_1);
@@ -143,7 +173,7 @@ public class EcranClientPrincipal extends JFrame {
 		
 		JLabel lblPrenom = new JLabel("Prenom");
 		GridBagConstraints gbc_lblPrenom = new GridBagConstraints();
-		gbc_lblPrenom.anchor = GridBagConstraints.EAST;
+		gbc_lblPrenom.anchor = GridBagConstraints.WEST;
 		gbc_lblPrenom.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPrenom.gridx = 1;
 		gbc_lblPrenom.gridy = 4;
@@ -151,8 +181,8 @@ public class EcranClientPrincipal extends JFrame {
 		
 		textField_2 = new JTextField();
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
-		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_2.gridx = 2;
 		gbc_textField_2.gridy = 4;
 		contentPane.add(textField_2, gbc_textField_2);
@@ -160,7 +190,7 @@ public class EcranClientPrincipal extends JFrame {
 		
 		JLabel lblAdresse = new JLabel("Adresse");
 		GridBagConstraints gbc_lblAdresse = new GridBagConstraints();
-		gbc_lblAdresse.anchor = GridBagConstraints.EAST;
+		gbc_lblAdresse.anchor = GridBagConstraints.WEST;
 		gbc_lblAdresse.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAdresse.gridx = 1;
 		gbc_lblAdresse.gridy = 5;
@@ -168,8 +198,8 @@ public class EcranClientPrincipal extends JFrame {
 		
 		textField_3 = new JTextField();
 		GridBagConstraints gbc_textField_3 = new GridBagConstraints();
-		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_3.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_3.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_3.gridx = 2;
 		gbc_textField_3.gridy = 5;
 		contentPane.add(textField_3, gbc_textField_3);
@@ -177,8 +207,8 @@ public class EcranClientPrincipal extends JFrame {
 		
 		textField_4 = new JTextField();
 		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
-		gbc_textField_4.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_4.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_4.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_4.gridx = 2;
 		gbc_textField_4.gridy = 6;
 		contentPane.add(textField_4, gbc_textField_4);
@@ -186,7 +216,7 @@ public class EcranClientPrincipal extends JFrame {
 		
 		JLabel lblCodePostal = new JLabel("Code postal");
 		GridBagConstraints gbc_lblCodePostal = new GridBagConstraints();
-		gbc_lblCodePostal.anchor = GridBagConstraints.EAST;
+		gbc_lblCodePostal.anchor = GridBagConstraints.WEST;
 		gbc_lblCodePostal.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCodePostal.gridx = 1;
 		gbc_lblCodePostal.gridy = 7;
@@ -194,8 +224,8 @@ public class EcranClientPrincipal extends JFrame {
 		
 		textField_5 = new JTextField();
 		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
-		gbc_textField_5.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_5.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_5.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_5.gridx = 2;
 		gbc_textField_5.gridy = 7;
 		contentPane.add(textField_5, gbc_textField_5);
@@ -203,7 +233,7 @@ public class EcranClientPrincipal extends JFrame {
 		
 		JLabel lblVille = new JLabel("Ville");
 		GridBagConstraints gbc_lblVille = new GridBagConstraints();
-		gbc_lblVille.anchor = GridBagConstraints.EAST;
+		gbc_lblVille.anchor = GridBagConstraints.WEST;
 		gbc_lblVille.insets = new Insets(0, 0, 5, 5);
 		gbc_lblVille.gridx = 1;
 		gbc_lblVille.gridy = 8;
@@ -211,8 +241,8 @@ public class EcranClientPrincipal extends JFrame {
 		
 		textField_6 = new JTextField();
 		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
-		gbc_textField_6.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_6.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_6.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_6.gridx = 2;
 		gbc_textField_6.gridy = 8;
 		contentPane.add(textField_6, gbc_textField_6);
@@ -220,7 +250,7 @@ public class EcranClientPrincipal extends JFrame {
 		
 		JLabel lblNum = new JLabel("Num");
 		GridBagConstraints gbc_lblNum = new GridBagConstraints();
-		gbc_lblNum.anchor = GridBagConstraints.EAST;
+		gbc_lblNum.anchor = GridBagConstraints.WEST;
 		gbc_lblNum.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNum.gridx = 1;
 		gbc_lblNum.gridy = 9;
@@ -228,8 +258,8 @@ public class EcranClientPrincipal extends JFrame {
 		
 		textField_7 = new JTextField();
 		GridBagConstraints gbc_textField_7 = new GridBagConstraints();
-		gbc_textField_7.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_7.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_7.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_7.gridx = 2;
 		gbc_textField_7.gridy = 9;
 		contentPane.add(textField_7, gbc_textField_7);
@@ -237,7 +267,7 @@ public class EcranClientPrincipal extends JFrame {
 		
 		JLabel lblAssurance = new JLabel("Assurance");
 		GridBagConstraints gbc_lblAssurance = new GridBagConstraints();
-		gbc_lblAssurance.anchor = GridBagConstraints.EAST;
+		gbc_lblAssurance.anchor = GridBagConstraints.WEST;
 		gbc_lblAssurance.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAssurance.gridx = 1;
 		gbc_lblAssurance.gridy = 10;
@@ -245,8 +275,8 @@ public class EcranClientPrincipal extends JFrame {
 		
 		textField_8 = new JTextField();
 		GridBagConstraints gbc_textField_8 = new GridBagConstraints();
-		gbc_textField_8.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_8.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_8.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_8.gridx = 2;
 		gbc_textField_8.gridy = 10;
 		contentPane.add(textField_8, gbc_textField_8);
@@ -254,7 +284,7 @@ public class EcranClientPrincipal extends JFrame {
 		
 		JLabel lblEmail = new JLabel("Email");
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
-		gbc_lblEmail.anchor = GridBagConstraints.EAST;
+		gbc_lblEmail.anchor = GridBagConstraints.WEST;
 		gbc_lblEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEmail.gridx = 1;
 		gbc_lblEmail.gridy = 11;
@@ -262,8 +292,8 @@ public class EcranClientPrincipal extends JFrame {
 		
 		textField_9 = new JTextField();
 		GridBagConstraints gbc_textField_9 = new GridBagConstraints();
-		gbc_textField_9.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_9.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_9.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_9.gridx = 2;
 		gbc_textField_9.gridy = 11;
 		contentPane.add(textField_9, gbc_textField_9);
@@ -284,6 +314,11 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textArea.gridx = 2;
 		gbc_textArea.gridy = 12;
 		contentPane.add(textArea, gbc_textArea);
+	}
+
+	private void getRowCount() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
