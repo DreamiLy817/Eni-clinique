@@ -87,6 +87,18 @@ public class Animal {
 		this.codeClient = codeClient;
 	}
 	
+	public Animal(int codeAnimal, String nomAnimal, char sexe, String couleur, String race, String espece,
+			String tatouage) {
+		super();
+		this.codeAnimal = codeAnimal;
+		this.nomAnimal = nomAnimal;
+		this.sexe = sexe;
+		this.couleur = couleur;
+		this.race = race;
+		this.espece = espece;
+		this.tatouage = tatouage;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb =new StringBuilder();
