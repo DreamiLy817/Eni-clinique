@@ -1,10 +1,7 @@
 package fr.eni.clinique.ihm;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Toolkit;
@@ -12,38 +9,33 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import javax.swing.text.DefaultCaret;
-
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
 import fr.eni.clinique.dal.DAOFactory;
 import fr.eni.clinique.dal.DAOPersonnel;
 
+@SuppressWarnings("serial")
 public class EcranPersonnel extends JFrame {
 
 	private JButton ajouterButton;
 	private JButton supprimerButton;
 	private JButton reinitialiserButton;
 	private JTextField zoneTextePass = new JTextField(20);
-	private JTextField zoneTexteNouveauPass = new JTextField(20);
+	private JPasswordField zoneTexteNouveauPass = new JPasswordField(20);
 	private JTextField zoneTextePrenom = new JTextField(20);
 	private JButton buttonAnnuler;
 	private JButton buttonOkAjout;
@@ -55,12 +47,15 @@ public class EcranPersonnel extends JFrame {
 	private JLabel labelNewPass = new JLabel("Mot de passe:");
 	private JTextField zoneTexteRole = new JTextField(20);
 	private JLabel labelNewRole = new JLabel("Rôle:");
-	JFrame frame = new JFrame("Ajout d'utilisateur");
-	JFrame frame1 = new JFrame("Réinitialisation du mot de passe");
-	DAO<Personnel> loginDAO = DAOFactory.getPersonnelDAO();
-	DAOPersonnel loginDAO1 = DAOFactory.getDAOPersonnel();
-	String selectTable = new String();
-	String tampon = new String();
+	private JFrame frame = new JFrame("Ajout d'utilisateur");
+	private JFrame frame1 = new JFrame("Réinitialisation du mot de passe");
+	private DAO<Personnel> loginDAO = DAOFactory.getPersonnelDAO();
+	private DAOPersonnel loginDAO1 = DAOFactory.getDAOPersonnel();
+	private String selectTable = new String();
+	private String tampon = new String();
+	private JTable table;
+	private int recupRow = 0;
+	private JPanel panelTable;
 
 	private JButton getSupprimerButton() {
 		if (supprimerButton == null) {
@@ -69,12 +64,13 @@ public class EcranPersonnel extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					selectTable = table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()).toString();
 					if (selectTable != null) {
-						tampon = zoneTexteNouveauPass.getText();
 						try {
 							loginDAO.supprimer(loginDAO1.selectbyNomGiveID(selectTable));
+							deleteRow();
+
 						} catch (DALException e1) {
-							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 					} else {
@@ -108,6 +104,7 @@ public class EcranPersonnel extends JFrame {
 					try {
 						System.out.println(nouveau.getNom().toString());
 						loginDAO.insert(nouveau);
+						addRow(tamponNom, tamponRole);
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -227,8 +224,10 @@ public class EcranPersonnel extends JFrame {
 		if (buttonOkReinit == null) {
 			buttonOkReinit = new JButton("Ok");
 			buttonOkReinit.addActionListener(new ActionListener() {
+				@SuppressWarnings("deprecation")
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					selectTable = table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()).toString();
 					if (selectTable != null) {
 						tampon = zoneTexteNouveauPass.getText();
 						try {
@@ -292,45 +291,14 @@ public class EcranPersonnel extends JFrame {
 		// Initialisation de l'IHM, déclaration des panneaux
 		JPanel panelPrincipal = new JPanel();
 		JPanel panelBoutons = new JPanel();
-		JPanel panelTable = new JPanel();
+		panelTable = new JPanel();
 		panelPrincipal.setOpaque(false);
 		panelPrincipal.setLayout(new GridBagLayout());
 		panelBoutons.setOpaque(false);
 		panelBoutons.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
-
-		// Préparation des données à mettre dans la JTable
-		DAO<Personnel> personnelDAO = DAOFactory.getPersonnelDAO();
-		List<Personnel> catalogue = personnelDAO.selectAll();
-		// List<String[]> lignes = new ArrayList<String[]>();
-		final String[] colonne = new String[] { "Nom", "Rôle", "Mot de Passe" };
-		int taille = catalogue.size();
-		final String[][] data = new String[taille][3];
-		int i = 0;
-		for (Personnel employe : catalogue) {
-//			if (employe.getArchive() == false) {
-			String tamponNom = employe.getNom();
-			String tamponRole = employe.getRole();
-			String tamponPass = employe.getMotPasse();
-			data[i][0] = tamponNom;
-			data[i][1] = tamponRole;
-			data[i][2] = tamponPass;
-			i++;
-			}
-//		}
-		// TODO Essayer de masquer le mot de passe des utilisateurs
-		// Création d'un modèle personnalisé de JTable
-		TableModel tableModel = new DefaultTableModel(data, colonne);
-		final JTable table = new JTable(tableModel);
-		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent event) {
-				selectTable = table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()).toString();
-				if (table.getSelectedRow() > -1) {
-					System.out.println(table.getValueAt(table.getSelectedRow(), 0).toString());
-				}
-			}
-		});
+		updateTable();
+		table.setDefaultEditor(Object.class, null);
 
 		// Intégration de la table dans le panneau principal
 		panelTable.setLayout(new BorderLayout());
@@ -358,5 +326,34 @@ public class EcranPersonnel extends JFrame {
 		gbc.gridy = 1;
 		panelPrincipal.add(panelTable, gbc);
 		this.setContentPane(panelPrincipal);
+	}
+
+	public void addRow(String a, String b) throws DALException {
+		((DefaultTableModel) table.getModel()).addRow(new Object[] { a, b, "*****" });
+	}
+
+	public void deleteRow() throws DALException {
+		recupRow = table.getSelectedRow();
+		((DefaultTableModel) table.getModel()).removeRow(recupRow);
+	}
+
+	public void updateTable() throws DALException {
+		List<Personnel> catalogue = loginDAO1.selectAllArchi();
+		final String[] colonne = new String[] { "Nom", "Rôle", "Mot de Passe" };
+		int taille = catalogue.size();
+		final String[][] data = new String[taille][3];
+		int i = 0;
+		for (Personnel employe : catalogue) {
+			String tamponNom = employe.getNom();
+			String tamponRole = employe.getRole();
+			String tamponPass = "*****";
+			data[i][0] = tamponNom;
+			data[i][1] = tamponRole;
+			data[i][2] = tamponPass;
+			i++;
+		}
+		// Création d'un modèle personnalisé de JTable
+		TableModel tableModel = new DefaultTableModel(data, colonne);
+		table = new JTable(tableModel);
 	}
 }

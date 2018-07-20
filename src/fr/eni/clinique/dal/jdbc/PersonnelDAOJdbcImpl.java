@@ -18,6 +18,7 @@ import fr.eni.clinique.dal.DAOPersonnel;
 public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOPersonnel {
 	
 	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels";
+	private static final String sqlSelectAllSansArchivage = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels WHERE Archive=?";
 	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom,Prenom, MotPasse, role,archive) values(?,?,?,?,?);";
 	private static final String sqlSuppressionPersonnel = "UPDATE Personnels SET Archive= ? WHERE CodePers= ?";
 	private static final String sqlSelectByMDP = "SELECT role FROM Personnels WHERE Nom=? AND MotPasse=?";
@@ -304,4 +305,46 @@ public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOPersonnel {
 		
 	return ok;
 	}
+
+	@Override
+	public List<Personnel> selectAllArchi() throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+			List<Personnel> listePersonnel = new ArrayList<Personnel>();
+			
+			try {
+				cnx = JdbcTools.getConnection();
+				rqt = cnx.prepareStatement(sqlSelectAllSansArchivage);
+				rqt.setBoolean(1, false);
+				rs = rqt.executeQuery();
+				Personnel personne = null; 
+				
+				while(rs.next()) {
+					personne = new Personnel(rs.getInt("codePers"),
+							rs.getString("Nom"),
+							rs.getString("Prenom"),
+							rs.getString("MotPasse"),
+							rs.getString("Role"));
+					listePersonnel.add(personne);
+				}
+			} catch (SQLException e) {
+				throw new DALException("SelectAllSansArchivage failed - " , e);
+			} finally {
+				try {
+					if (rs != null){
+						rs.close();
+					}
+					if (rqt != null){
+						rqt.close();
+					}
+					if(cnx!=null){
+						cnx.close();
+					}
+				} catch (SQLException e) {
+					throw new DALException("close failed " , e);
+				}
+			}
+			return listePersonnel;	
+		}
 }
