@@ -42,6 +42,7 @@ public class EcranClientPrincipal extends JFrame {
 	private JTextField textFieldEmail;
 	private DAO<Client> clientDAO = DAOFactory.getClientDAO();
 	private JTable ListeAnimaux;
+	private Client client;
 
 	/**
 	 * Launch the application.
@@ -50,7 +51,7 @@ public class EcranClientPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EcranClientPrincipal frame = new EcranClientPrincipal();
+					EcranClientPrincipal frame = new EcranClientPrincipal(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,8 +62,10 @@ public class EcranClientPrincipal extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param clientSelectionne 
 	 */
-	public EcranClientPrincipal() {
+	public EcranClientPrincipal(Client clientSelectionne) {
+		client = clientSelectionne;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 834, 484);
@@ -96,6 +99,8 @@ public class EcranClientPrincipal extends JFrame {
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				EcranAddClient panelAjoutClient = new EcranAddClient();
+				panelAjoutClient.setVisible(true);
 			}
 		});
 		btnAjouter.setForeground(new Color(255, 255, 255));
@@ -159,6 +164,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(textFieldCode, gbc_textFieldCode);
 		textFieldCode.setColumns(10);
 		
+	
 		TableModel tableModel = new DefaultTableModel();
 		
 		ListeAnimaux = new JTable();
@@ -188,6 +194,7 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textFieldNom.gridy = 3;
 		contentPane.add(textFieldNom, gbc_textFieldNom);
 		textFieldNom.setColumns(10);
+		
 		
 		JLabel lblPrenom = new JLabel("Prenom");
 		GridBagConstraints gbc_lblPrenom = new GridBagConstraints();

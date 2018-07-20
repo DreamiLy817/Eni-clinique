@@ -136,8 +136,8 @@ public class EcranClientRecherche extends JFrame {
 		 listClient.addMouseListener(new MouseAdapter() {
 		 	@Override
 		 	public void mouseClicked(MouseEvent arg0) {
-		 		//clientSelectionne = listClient.getSelectedValue();
-		 		new EcranClientPrincipal().setVisible(true);
+		 		Client clientSelectionne = (Client)listClient.getSelectedValue();
+		 		new EcranClientPrincipal(clientSelectionne).setVisible(true);
 		 		EcranClientRecherche.this.dispose();
 		 		
 		

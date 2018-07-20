@@ -1,372 +1,265 @@
 package fr.eni.clinique.ihm;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
+import java.awt.GridBagLayout;
 import javax.swing.JTextField;
-
-import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAOFactory;
-import fr.eni.clinique.dal.DAOPersonnel;
+import java.awt.GridBagConstraints;
+import javax.swing.JButton;
+import java.awt.Insets;
+import javax.swing.ImageIcon;
+import java.awt.Color;
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 public class EcranAddClient extends JFrame {
 
-	private JTextField textCode;
-	private JTextField textNom;
-	private JTextField textPrenom;
-	private JTextField textAdresse1;
-	private JTextField textAdresse2;
-	private JTextField textCodePostal;
-	private JTextField textVille;
-	private JTextField textNum;
-	private JTextField textAssurance;
-	private JTextField textEmail;
-	private JTextArea textRemarque;
-	private JLabel labelCode;
-	private JLabel labelNom;
-	private JLabel labelPrenom;
-	private JLabel labelAdresse1;
-	private JLabel labelAdresse2;
-	private JLabel labelCodePostal;
-	private JLabel labelVille;
-	private JLabel labelNum;
-	private JLabel labelAssurance;
-	private JLabel labelEmail;
-	private JLabel labelRemarque;
+	private JPanel contentPane;
+	private JTextField textFieldCodePers;
+	private JTextField textFieldNom;
+	private JTextField textFieldPrenom;
+	private JTextField textFieldAdresse1;
+	private JTextField textFieldAdresse2;
+	private JTextField textFieldCodePostal;
+	private JTextField textFieldVille;
+	private JTextField textFieldNumero;
+	private JTextField textFieldAssurance;
+	private JTextField textFieldEmail;
 
-	private JButton validerButton;
-	private JButton annulerButton;
-	private String login;
-	private String pass;
-	private Boolean testLogin;
-
-	public JButton getValiderButton() {
-		if (validerButton == null) {
-			validerButton = new JButton("Ok");
-			validerButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					EcranAddClient frame = new EcranAddClient();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-			});
-		}
-		return validerButton;
+			}
+		});
 	}
 
-	public JButton getAnnulerButton() {
-		if (annulerButton == null) {
-			annulerButton = new JButton("Annuler");
-			annulerButton.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					// TODO Auto-generated method stub
-				}
-			});
-		}
-		return annulerButton;
-	}
-
-	// texte field
-	public JTextField getTextCode() {
-		if (textCode == null) {
-			textCode = new JTextField(20);
-		}
-		return textCode;
-	}
-
-	public JTextField getTextNom() {
-		if (textNom == null) {
-			textNom = new JTextField(20);
-		}
-		return textNom;
-	}
-
-	public JTextField getTextPrenom() {
-		if (textPrenom == null) {
-			textPrenom = new JTextField(20);
-		}
-		return textPrenom;
-	}
-
-	public JTextField getTextAdresse1() {
-		if (textAdresse1 == null) {
-			textAdresse1 = new JTextField(30);
-		}
-		return textAdresse1;
-	}
-
-	public JTextField getTextAdresse2() {
-		if (textAdresse2 == null) {
-			textAdresse2 = new JTextField(30);
-		}
-		return textAdresse2;
-	}
-
-	public JTextField getTextCodePostal() {
-		if (textCodePostal == null) {
-			textCodePostal = new JTextField(6);
-		}
-		return textCodePostal;
-	}
-
-	public JTextField getTextVille() {
-		if (textVille == null) {
-			textVille = new JTextField(25);
-		}
-		return textVille;
-	}
-
-	public JTextField getTextNum() {
-		if (textNum == null) {
-			textNum = new JTextField(15);
-		}
-		return textNum;
-	}
-
-	public JTextField getTextAssurance() {
-		if (textAssurance == null) {
-			textAssurance = new JTextField(30);
-		}
-		return textAssurance;
-	}
-
-	public JTextField getTextEmail() {
-		if (textEmail == null) {
-			textEmail = new JTextField(20);
-		}
-		return textEmail;
-	}
-
-	public JTextArea getTextRemarque() {
-		if (textRemarque == null) {
-			textRemarque = new JTextArea("ceci est une zone de texte de 5 lignes et 50 colonnes",10,3);
-		}
-		return textRemarque;
-	}
-
-	//////// label //////////
-	public JLabel getLabelCode() {
-		if (labelCode == null) {
-			labelCode = new JLabel("Code: ");
-		}
-		return labelCode;
-	}
-
-	public JLabel getLabelNom() {
-		if (labelNom == null) {
-			labelNom = new JLabel("Nom: ");
-		}
-		return labelNom;
-	}
-
-	public JLabel getLabelPrenom() {
-		if (labelPrenom == null) {
-			labelPrenom = new JLabel("Prenom: ");
-		}
-		return labelPrenom;
-	}
-
-	public JLabel getLabelAdresse1() {
-		if (labelAdresse1 == null) {
-			labelAdresse1 = new JLabel("Adresse: ");
-		}
-		return labelAdresse1;
-	}
-
-	public JLabel getLabelCodePostal() {
-		if (labelCodePostal == null) {
-			labelCodePostal = new JLabel("Code postal: ");
-		}
-		return labelCodePostal;
-	}
-
-	public JLabel getLabelVille() {
-		if (labelVille == null) {
-			labelVille = new JLabel("Ville: ");
-		}
-		return labelVille;
-	}
-
-	public JLabel getLabelNum() {
-		if (labelNum == null) {
-			labelNum = new JLabel("Numero: ");
-		}
-		return labelNum;
-	}
-
-	public JLabel getLabelAssurance() {
-		if (labelAssurance == null) {
-			labelAssurance = new JLabel("Assurance: ");
-		}
-		return labelAssurance;
-	}
-
-	public JLabel getLabelEmail() {
-		if (labelEmail == null) {
-			labelEmail = new JLabel("Email: ");
-		}
-		return labelEmail;
-	}
-
-	public JLabel getLabelRemarque() {
-		if (labelRemarque == null) {
-			labelRemarque = new JLabel("Remarque: ");
-		}
-		return labelRemarque;
-	}
-
+	/**
+	 * Create the frame.
+	 */
 	public EcranAddClient() {
-		super();
-		initIhm();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 629, 651);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		GridBagLayout gbl_contentPane = new GridBagLayout();
+		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		contentPane.setLayout(gbl_contentPane);
+		
+		JButton btnValider = new JButton("Valider");
+		btnValider.setForeground(new Color(255, 255, 255));
+		btnValider.setBackground(new Color(0, 204, 153));
+		btnValider.setIcon(new ImageIcon(EcranAddClient.class.getResource("/images/check.png")));
+		GridBagConstraints gbc_btnValider = new GridBagConstraints();
+		gbc_btnValider.insets = new Insets(0, 0, 5, 5);
+		gbc_btnValider.gridx = 10;
+		gbc_btnValider.gridy = 0;
+		contentPane.add(btnValider, gbc_btnValider);
+		
+		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.setForeground(new Color(255, 255, 255));
+		btnAnnuler.setBackground(new Color(0, 204, 153));
+		btnAnnuler.setIcon(new ImageIcon(EcranAddClient.class.getResource("/images/back.png")));
+		GridBagConstraints gbc_btnAnnuler = new GridBagConstraints();
+		gbc_btnAnnuler.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAnnuler.gridx = 11;
+		gbc_btnAnnuler.gridy = 0;
+		contentPane.add(btnAnnuler, gbc_btnAnnuler);
+		
+		JLabel lblCode = new JLabel("Code");
+		GridBagConstraints gbc_lblCode = new GridBagConstraints();
+		gbc_lblCode.anchor = GridBagConstraints.EAST;
+		gbc_lblCode.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCode.gridx = 2;
+		gbc_lblCode.gridy = 2;
+		contentPane.add(lblCode, gbc_lblCode);
+		
+		
+		textFieldCodePers = new JTextField();
+		GridBagConstraints gbc_textFieldCodePers = new GridBagConstraints();
+		gbc_textFieldCodePers.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldCodePers.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCodePers.gridx = 3;
+		gbc_textFieldCodePers.gridy = 2;
+		contentPane.add(textFieldCodePers, gbc_textFieldCodePers);
+		textFieldCodePers.setColumns(10);
+		
+		JLabel lblNom = new JLabel("Nom");
+		GridBagConstraints gbc_lblNom = new GridBagConstraints();
+		gbc_lblNom.anchor = GridBagConstraints.EAST;
+		gbc_lblNom.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNom.gridx = 2;
+		gbc_lblNom.gridy = 3;
+		contentPane.add(lblNom, gbc_lblNom);
+		
+		textFieldNom = new JTextField();
+		GridBagConstraints gbc_textFieldNom = new GridBagConstraints();
+		gbc_textFieldNom.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldNom.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldNom.gridx = 3;
+		gbc_textFieldNom.gridy = 3;
+		contentPane.add(textFieldNom, gbc_textFieldNom);
+		textFieldNom.setColumns(10);
+		
+		JLabel lblPrenom = new JLabel("Prenom");
+		GridBagConstraints gbc_lblPrenom = new GridBagConstraints();
+		gbc_lblPrenom.anchor = GridBagConstraints.EAST;
+		gbc_lblPrenom.insets = new Insets(0, 0, 5, 5);
+		gbc_lblPrenom.gridx = 2;
+		gbc_lblPrenom.gridy = 4;
+		contentPane.add(lblPrenom, gbc_lblPrenom);
+		
+		textFieldPrenom = new JTextField();
+		GridBagConstraints gbc_textFieldPrenom = new GridBagConstraints();
+		gbc_textFieldPrenom.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldPrenom.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldPrenom.gridx = 3;
+		gbc_textFieldPrenom.gridy = 4;
+		contentPane.add(textFieldPrenom, gbc_textFieldPrenom);
+		textFieldPrenom.setColumns(10);
+		
+		JLabel lblAdresse = new JLabel("Adresse");
+		GridBagConstraints gbc_lblAdresse = new GridBagConstraints();
+		gbc_lblAdresse.anchor = GridBagConstraints.EAST;
+		gbc_lblAdresse.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAdresse.gridx = 2;
+		gbc_lblAdresse.gridy = 5;
+		contentPane.add(lblAdresse, gbc_lblAdresse);
+		
+		textFieldAdresse1 = new JTextField();
+		GridBagConstraints gbc_textFieldAdresse1 = new GridBagConstraints();
+		gbc_textFieldAdresse1.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldAdresse1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldAdresse1.gridx = 3;
+		gbc_textFieldAdresse1.gridy = 5;
+		contentPane.add(textFieldAdresse1, gbc_textFieldAdresse1);
+		textFieldAdresse1.setColumns(10);
+		
+		textFieldAdresse2 = new JTextField();
+		GridBagConstraints gbc_textFieldAdresse2 = new GridBagConstraints();
+		gbc_textFieldAdresse2.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldAdresse2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldAdresse2.gridx = 3;
+		gbc_textFieldAdresse2.gridy = 6;
+		contentPane.add(textFieldAdresse2, gbc_textFieldAdresse2);
+		textFieldAdresse2.setColumns(10);
+		
+		JLabel lblCodePostal = new JLabel("Code Postal");
+		GridBagConstraints gbc_lblCodePostal = new GridBagConstraints();
+		gbc_lblCodePostal.anchor = GridBagConstraints.EAST;
+		gbc_lblCodePostal.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCodePostal.gridx = 2;
+		gbc_lblCodePostal.gridy = 7;
+		contentPane.add(lblCodePostal, gbc_lblCodePostal);
+		
+		textFieldCodePostal = new JTextField();
+		GridBagConstraints gbc_textFieldCodePostal = new GridBagConstraints();
+		gbc_textFieldCodePostal.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldCodePostal.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCodePostal.gridx = 3;
+		gbc_textFieldCodePostal.gridy = 7;
+		contentPane.add(textFieldCodePostal, gbc_textFieldCodePostal);
+		textFieldCodePostal.setColumns(10);
+		
+		JLabel lblVille = new JLabel("Ville");
+		GridBagConstraints gbc_lblVille = new GridBagConstraints();
+		gbc_lblVille.anchor = GridBagConstraints.EAST;
+		gbc_lblVille.insets = new Insets(0, 0, 5, 5);
+		gbc_lblVille.gridx = 2;
+		gbc_lblVille.gridy = 8;
+		contentPane.add(lblVille, gbc_lblVille);
+		
+		textFieldVille = new JTextField();
+		GridBagConstraints gbc_textFieldVille = new GridBagConstraints();
+		gbc_textFieldVille.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldVille.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldVille.gridx = 3;
+		gbc_textFieldVille.gridy = 8;
+		contentPane.add(textFieldVille, gbc_textFieldVille);
+		textFieldVille.setColumns(10);
+		
+		JLabel lblNumero = new JLabel("Numero");
+		GridBagConstraints gbc_lblNumero = new GridBagConstraints();
+		gbc_lblNumero.anchor = GridBagConstraints.EAST;
+		gbc_lblNumero.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNumero.gridx = 2;
+		gbc_lblNumero.gridy = 9;
+		contentPane.add(lblNumero, gbc_lblNumero);
+		
+		textFieldNumero = new JTextField();
+		GridBagConstraints gbc_textFieldNumero = new GridBagConstraints();
+		gbc_textFieldNumero.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldNumero.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldNumero.gridx = 3;
+		gbc_textFieldNumero.gridy = 9;
+		contentPane.add(textFieldNumero, gbc_textFieldNumero);
+		textFieldNumero.setColumns(10);
+		
+		JLabel lblAssurance = new JLabel("Assurance");
+		GridBagConstraints gbc_lblAssurance = new GridBagConstraints();
+		gbc_lblAssurance.anchor = GridBagConstraints.EAST;
+		gbc_lblAssurance.insets = new Insets(0, 0, 5, 5);
+		gbc_lblAssurance.gridx = 2;
+		gbc_lblAssurance.gridy = 10;
+		contentPane.add(lblAssurance, gbc_lblAssurance);
+		
+		textFieldAssurance = new JTextField();
+		GridBagConstraints gbc_textFieldAssurance = new GridBagConstraints();
+		gbc_textFieldAssurance.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldAssurance.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldAssurance.gridx = 3;
+		gbc_textFieldAssurance.gridy = 10;
+		contentPane.add(textFieldAssurance, gbc_textFieldAssurance);
+		textFieldAssurance.setColumns(10);
+		
+		JLabel lblEmail = new JLabel("Email");
+		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
+		gbc_lblEmail.anchor = GridBagConstraints.EAST;
+		gbc_lblEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEmail.gridx = 2;
+		gbc_lblEmail.gridy = 11;
+		contentPane.add(lblEmail, gbc_lblEmail);
+		
+		textFieldEmail = new JTextField();
+		GridBagConstraints gbc_textFieldEmail = new GridBagConstraints();
+		gbc_textFieldEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldEmail.gridx = 3;
+		gbc_textFieldEmail.gridy = 11;
+		contentPane.add(textFieldEmail, gbc_textFieldEmail);
+		textFieldEmail.setColumns(10);
+		
+		JLabel lblRemarque = new JLabel("Remarque");
+		GridBagConstraints gbc_lblRemarque = new GridBagConstraints();
+		gbc_lblRemarque.anchor = GridBagConstraints.EAST;
+		gbc_lblRemarque.insets = new Insets(0, 0, 0, 5);
+		gbc_lblRemarque.gridx = 2;
+		gbc_lblRemarque.gridy = 12;
+		contentPane.add(lblRemarque, gbc_lblRemarque);
+		
+		JTextArea textArea = new JTextArea();
+		GridBagConstraints gbc_textArea = new GridBagConstraints();
+		gbc_textArea.insets = new Insets(0, 0, 0, 5);
+		gbc_textArea.fill = GridBagConstraints.BOTH;
+		gbc_textArea.gridx = 3;
+		gbc_textArea.gridy = 12;
+		contentPane.add(textArea, gbc_textArea);
 	}
 
-	private void initIhm() {
-		JPanel panelPrincipal = new JPanel();
-		panelPrincipal.setLayout(new GridBagLayout());
-		panelPrincipal.setOpaque(false);
-		GridBagConstraints gbc = new GridBagConstraints();
-
-		// label code
-		gbc.gridx = 0;
-		gbc.gridy = 0;
-		
-		panelPrincipal.add(getLabelCode(), gbc);
-
-		// input code
-		gbc.gridx = 1;
-		gbc.gridy = 0;
-		gbc.gridwidth = 1;
-		panelPrincipal.add(getTextCode(), gbc);
-
-		// label nom
-		gbc.gridx = 0;
-		gbc.gridy = 1;
-		panelPrincipal.add(getLabelNom(), gbc);
-
-		// input nom
-		gbc.gridx = 1;
-		gbc.gridy = 1;
-		 gbc.gridwidth = 1;
-		panelPrincipal.add(getTextNom(), gbc);
-
-		// label Prenom
-		gbc.gridx = 0;
-		gbc.gridy = 2;
-		panelPrincipal.add(getLabelPrenom(), gbc);
-
-		// input prenom
-		gbc.gridx = 1;
-		gbc.gridy = 2;
-		 gbc.gridwidth = 3;
-		panelPrincipal.add(getTextPrenom(), gbc);
-
-		// label adresse 1
-		gbc.gridx = 0;
-		gbc.gridy = 3;
-		panelPrincipal.add(getLabelAdresse1(), gbc);
-
-		// input adresse 1
-		gbc.gridx = 1;
-		gbc.gridy = 3;
-		 gbc.gridwidth = 1;
-		panelPrincipal.add(getTextAdresse1(), gbc);
-
-		// input adresse 2
-		gbc.gridx = 1;
-		gbc.gridy = 4;
-		 gbc.gridwidth = 1;
-		panelPrincipal.add(getTextAdresse2(), gbc);
-
-		// label code postal
-		gbc.gridx = 0;
-		gbc.gridy = 5;
-		panelPrincipal.add(getLabelCodePostal(), gbc);
-
-		// input code postal
-		gbc.gridx = 1;
-		gbc.gridy = 5;
-		gbc.gridwidth = 1;
-		panelPrincipal.add(getTextCodePostal(), gbc);
-
-		// label ville
-		gbc.gridx = 0;
-		gbc.gridy = 6;
-		panelPrincipal.add(getLabelVille(), gbc);
-
-		// input ville
-		gbc.gridx = 1;
-		gbc.gridy = 6;
-		gbc.gridwidth = 1;
-		panelPrincipal.add(getTextVille(), gbc);
-
-		// label num
-		gbc.gridx = 0;
-		gbc.gridy = 7;
-		panelPrincipal.add(getLabelNum(), gbc);
-
-		// input num
-		gbc.gridx = 1;
-		gbc.gridy = 7;
-		gbc.gridwidth = 1;
-		panelPrincipal.add(getTextNum(), gbc);
-
-		// label assurance
-		gbc.gridx = 0;
-		gbc.gridy = 8;
-		panelPrincipal.add(getLabelAssurance(), gbc);
-
-		// input assurance
-		gbc.gridx = 1;
-		gbc.gridy = 8;
-		gbc.gridwidth = 1;
-		panelPrincipal.add(getTextAssurance(), gbc);
-
-		// label email
-		gbc.gridx = 0;
-		gbc.gridy = 9;
-		panelPrincipal.add(getLabelEmail(), gbc);
-
-		// input email
-		gbc.gridx = 1;
-		gbc.gridy = 9;
-		gbc.gridwidth = 1;
-		panelPrincipal.add(getTextEmail(), gbc);
-		
-		// label remarque
-		gbc.gridx = 0;
-		gbc.gridy = 10;
-		panelPrincipal.add(getLabelRemarque(), gbc);
-
-		// input assurance
-		gbc.gridx = 1;
-		gbc.gridy = 10;
-		gbc.gridwidth = 1;
-		panelPrincipal.add(getTextRemarque(), gbc);
-
-		 //bouton validé
-		 gbc.gridx = 1;
-		 gbc.gridy = 11;
-		 gbc.gridwidth = 1;
-		 gbc.anchor = GridBagConstraints.EAST;
-		 panelPrincipal.add(getValiderButton(), gbc);
-		
-		 // bouton annuler
-		
-		 gbc.gridx = 2;
-		 gbc.gridy = 11;
-		 gbc.gridwidth = 1;
-		 gbc.anchor = GridBagConstraints.EAST;
-		 panelPrincipal.add(getAnnulerButton(), gbc);
-
-		this.setContentPane(panelPrincipal);
-
-	}
 }
