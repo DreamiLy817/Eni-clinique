@@ -80,6 +80,8 @@ public class EcranClientPrincipal extends JFrame {
 		btnRechercher.setForeground(new Color(255, 255, 255));
 		btnRechercher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				EcranClientRecherche panelRecherche = new EcranClientRecherche();
+				panelRecherche.setVisible(true);
 			}
 		});
 		btnRechercher.setBackground(new Color(0, 204, 153));

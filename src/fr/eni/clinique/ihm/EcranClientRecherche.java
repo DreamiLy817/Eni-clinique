@@ -14,6 +14,7 @@ import fr.eni.clinique.dal.DAOClient;
 import fr.eni.clinique.dal.DAOFactory;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.swing.ListSelectionModel;
 
 import java.awt.GridBagConstraints;
@@ -40,6 +41,7 @@ public class EcranClientRecherche extends JFrame {
 	private JTextField inputRecherche;
 	private EcranClientRecherche frame;
 	DAOClient client = DAOFactory.getDAOClient();
+	private Client clientRecherche;
 	
 	
 	
@@ -136,7 +138,14 @@ public class EcranClientRecherche extends JFrame {
 		 listClient.addMouseListener(new MouseAdapter() {
 		 	@Override
 		 	public void mouseClicked(MouseEvent arg0) {
-		 		//clientSelectionne = listClient.getSelectedValue();
+		 		listClient.getSelectedValue();
+		 		ListModel model = listClient.getModel();
+		 		
+		 		for(int i = 0; i < model.getSize(); i++) {
+		 		    clientRecherche = (Client) model.getElementAt(i);
+		 		}
+		 		System.out.println(clientRecherche.toString());
+		 		
 		 		new EcranClientPrincipal().setVisible(true);
 		 		EcranClientRecherche.this.dispose();
 		 		
@@ -169,5 +178,4 @@ public class EcranClientRecherche extends JFrame {
 		}
 		return inputRecherche;
 	}
-
 }
