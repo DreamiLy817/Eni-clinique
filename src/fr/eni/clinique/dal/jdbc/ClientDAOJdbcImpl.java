@@ -18,10 +18,10 @@ import fr.eni.clinique.dal.DAOClient;
 
 public class ClientDAOJdbcImpl implements DAO<Client>, DAOClient {
 
-	private static final String sqlSelectAllClient = "select CodeClient, NomClient ,PrenomClient,Adresse1,Adresse2 ,CodePostal ,Ville,NumTel,Assurance,Email,Remarque,Archive from Clients";
+	private static final String sqlSelectAllClient = "select CodeClient, NomClient ,PrenomClient,Adresse1,Adresse2 ,CodePostal ,Ville,NumTel,Assurance,Email,Remarque,Archive from Clients ORDER BY CodeClient ASC";
 	private static final String sqlInsertClient = "insert into Clients (NomClient ,PrenomClient,Adresse1,Adresse2 ,CodePostal ,Ville,NumTel,Assurance,Email,Remarque,Archive) values(?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String sqlMiseAJourClient = "update Clients set NomClient = ? ,PrenomClient = ?,Adresse1 = ?,Adresse2 = ?,CodePostal = ? ,Ville = ?,NumTel = ?,Assurance = ?,Email = ?,Remarque = ? where CodeClient=?";
-	private static final String sqlRechercher = "SELECT  * FROM Clients WHERE NomClient LIKE ?";
+	private static final String sqlRechercher = "SELECT  * FROM Clients WHERE NomClient LIKE ? ORDER BY CodeClient ASC";
 	 
 	 /*
 	  * (non-Javadoc)

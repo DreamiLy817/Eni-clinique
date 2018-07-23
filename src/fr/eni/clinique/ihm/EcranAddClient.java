@@ -28,6 +28,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.util.concurrent.TimeUnit;
 import java.awt.event.ActionEvent;
 
 /**
@@ -37,7 +38,7 @@ import java.awt.event.ActionEvent;
 public class EcranAddClient extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textFieldCodePers;
+	private JTextField textFieldCodeClient;
 	private JTextField textFieldNom;
 	private JTextField textFieldPrenom;
 	private JTextField textFieldAdresse1;
@@ -53,24 +54,6 @@ public class EcranAddClient extends JFrame {
 	
 	private TextArea textArea;
 	
-
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EcranAddClient frame = new EcranAddClient();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	/**
 	 * Create the frame.
 	 */
@@ -96,9 +79,24 @@ public class EcranAddClient extends JFrame {
 				Client clientAjoute = new Client(getTextFieldNom().getText(), getTextFieldPrenom().getText(), getTextFieldAdresse1().getText(), getTextFieldAdresse2().getText(), getTextFieldCodePostal().getText(), getTextFieldVille().getText(), getTextFieldNumero().getText(), getTextFieldAssurance().getText(), getTextFieldEmail().getText(), getTextArea().getText(), false);
 				try {
 					clientDAO.insert(clientAjoute);
-						JOptionPane.showMessageDialog(EcranAddClient.this, "Le client a été ajoute");
-						new EcranClientPrincipal(clientAjoute).setVisible(true);
-						EcranAddClient.this.dispose();
+					System.out.println("je passe");
+						JOptionPane.showMessageDialog(EcranAddClient.this, "Le client a ete ajoute");
+						EcranClientPrincipal ecranP = new EcranClientPrincipal(clientAjoute);
+						ecranP.setVisible(true);
+						ecranP.getTextFieldCodeClient().setText(String.valueOf(clientAjoute.getCodeClient()));
+						ecranP.getTextFieldNom().setText(clientAjoute.getNomClient());
+						ecranP.getTextFieldPrenom().setText(clientAjoute.getPrenomClient());
+						ecranP.getTextFieldAdresse1().setText(clientAjoute.getAdresse1());
+						ecranP.getTextFieldAdresse2().setText(clientAjoute.getAdresse2());
+						ecranP.getTextFieldCodePostal().setText(clientAjoute.getCodePostal());
+						ecranP.getTextFieldVille().setText(clientAjoute.getVille());
+						ecranP.getTextFieldNumero().setText(clientAjoute.getNumTel());
+						ecranP.getTextFieldAssurance().setText(clientAjoute.getAssurance());
+						ecranP.getTextFieldEmail().setText(clientAjoute.getEmail());
+						ecranP.getTextRemarque().setText(clientAjoute.getRemarque());
+							
+					
+						//EcranAddClient.this.dispose();
 				} catch (DALException e) {
 					JOptionPane.showMessageDialog(EcranAddClient.this, "Le client n'a pas pu etre ajoute");
 					e.printStackTrace();
@@ -124,22 +122,6 @@ public class EcranAddClient extends JFrame {
 		gbc_btnAnnuler.gridy = 0;
 		contentPane.add(btnAnnuler, gbc_btnAnnuler);
 		
-		JLabel lblCode = new JLabel("Code");
-		GridBagConstraints gbc_lblCode = new GridBagConstraints();
-		gbc_lblCode.anchor = GridBagConstraints.EAST;
-		gbc_lblCode.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCode.gridx = 2;
-		gbc_lblCode.gridy = 2;
-		contentPane.add(lblCode, gbc_lblCode);
-		
-		
-		GridBagConstraints gbc_textFieldCodePers = new GridBagConstraints();
-		gbc_textFieldCodePers.insets = new Insets(0, 0, 5, 5);
-		gbc_textFieldCodePers.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textFieldCodePers.gridx = 3;
-		gbc_textFieldCodePers.gridy = 2;
-		contentPane.add(getTextFieldCodePers(), gbc_textFieldCodePers);
-		textFieldCodePers.setColumns(10);
 		
 		JLabel lblNom = new JLabel("Nom");
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
@@ -298,18 +280,6 @@ public class EcranAddClient extends JFrame {
 		gbc_textArea.gridy = 12;
 		contentPane.add(getTextArea(), gbc_textArea);
 	
-	}
-	
-	
-	/**
-	 * @return textFieldCodePers
-	 */
-	public JTextField getTextFieldCodePers(){
-		if(textFieldCodePers == null){
-			textFieldCodePers = new JTextField();
-		}
-		return textFieldCodePers;
-		
 	}
 	
 	/**
