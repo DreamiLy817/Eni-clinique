@@ -49,8 +49,7 @@ public class EcranAddClient extends JFrame {
 	private JTextField textFieldAssurance;
 	private JTextField textFieldEmail;
 	
-	private DAO<Client> clientDAO = DAOFactory.getClientDAO();
-	private DAOClient clientDAO1 = DAOFactory.getDAOClient();
+	private DAO<Client> clientDAO = DAOFactory.getDAOClient();
 	
 	private TextArea textArea;
 	

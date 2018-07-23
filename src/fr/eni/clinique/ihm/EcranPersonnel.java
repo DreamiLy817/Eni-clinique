@@ -49,8 +49,7 @@ public class EcranPersonnel extends JFrame {
 	private JLabel labelNewRole = new JLabel("Rôle:");
 	private JFrame frame = new JFrame("Ajout d'utilisateur");
 	private JFrame frame1 = new JFrame("Réinitialisation du mot de passe");
-	private DAO<Personnel> loginDAO = DAOFactory.getPersonnelDAO();
-	private DAOPersonnel loginDAO1 = DAOFactory.getDAOPersonnel();
+	private DAOPersonnel loginDAO = DAOFactory.getDAOPersonnel();
 	private String selectTable = new String();
 	private String tampon = new String();
 	private JTable table;
@@ -67,7 +66,7 @@ public class EcranPersonnel extends JFrame {
 					selectTable = table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()).toString();
 					if (selectTable != null) {
 						try {
-							loginDAO.supprimer(loginDAO1.selectbyNomGiveID(selectTable));
+							loginDAO.supprimer(loginDAO.selectbyNomGiveID(selectTable));
 							deleteRow();
 
 						} catch (DALException e1) {
@@ -231,7 +230,7 @@ public class EcranPersonnel extends JFrame {
 					if (selectTable != null) {
 						tampon = zoneTexteNouveauPass.getText();
 						try {
-							loginDAO1.reinitialiserPersonnel(loginDAO1.selectbyNom(selectTable), tampon);
+							loginDAO.reinitialiserPersonnel(loginDAO.selectbyNom(selectTable), tampon);
 						} catch (DALException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
@@ -338,7 +337,7 @@ public class EcranPersonnel extends JFrame {
 	}
 
 	public void updateTable() throws DALException {
-		List<Personnel> catalogue = loginDAO1.selectAllArchi();
+		List<Personnel> catalogue = loginDAO.selectAllArchi();
 		final String[] colonne = new String[] { "Nom", "Rôle", "Mot de Passe" };
 		int taille = catalogue.size();
 		final String[][] data = new String[taille][3];

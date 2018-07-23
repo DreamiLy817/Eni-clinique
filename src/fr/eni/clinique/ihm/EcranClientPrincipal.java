@@ -53,7 +53,7 @@ public class EcranClientPrincipal extends JFrame {
 	private TextArea textAreaRemarque;
 	
 	
-	private DAO<Client> clientDAO = DAOFactory.getClientDAO();
+	private DAO<Client> clientDAO = DAOFactory.getDAOClient();
 	private DAOAnimal animalDAO = DAOFactory.getDAOAnimal();
 	
 	private JTable ListeAnimaux;

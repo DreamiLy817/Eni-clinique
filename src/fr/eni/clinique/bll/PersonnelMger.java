@@ -5,7 +5,6 @@ package fr.eni.clinique.bll;
 
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAO;
 import fr.eni.clinique.dal.DAOFactory;
 import fr.eni.clinique.dal.DAOPersonnel;
 
@@ -18,7 +17,6 @@ import fr.eni.clinique.dal.DAOPersonnel;
 public class PersonnelMger {
 	private static PersonnelMger instance;
 	private static DAOPersonnel personnelDAO;
-	private static DAO<Personnel> DAOpersonnel;
 
 	public static synchronized PersonnelMger getInstance() {
 		if (instance == null) {
@@ -33,7 +31,7 @@ public class PersonnelMger {
 
 	public void archivagePersonnel(int codeClient) throws BLLException {
 		try {
-			DAOpersonnel.supprimer(codeClient);
+			personnelDAO.supprimer(codeClient);
 		} catch (DALException e) {
 			throw new BLLException("Erreur d'archivage de l'employé sélectionné - " + e);
 		}
@@ -41,7 +39,7 @@ public class PersonnelMger {
 
 	public void ajoutPersonnel(Personnel p) throws BLLException {
 		try {
-			DAOpersonnel.insert(p);
+			personnelDAO.insert(p);
 		} catch (DALException e) {
 			throw new BLLException("Erreur lors de l'ajout d'un nouvel employé - " + e);
 		}
