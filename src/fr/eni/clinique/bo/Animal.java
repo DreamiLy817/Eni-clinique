@@ -99,6 +99,21 @@ public class Animal {
 		this.tatouage = tatouage;
 	}
 	
+	/**
+	 * 
+	 */
+	public Animal(String nomAnimal, char sexe, String couleur, String race, String espece, int codeClient, String tatouage, String antecedents) {
+		super();
+		this.codeClient = codeClient;
+		this.nomAnimal = nomAnimal;
+		this.sexe = sexe;
+		this.couleur = couleur;
+		this.race = race;
+		this.espece = espece;
+		this.tatouage = tatouage;
+		this.antecedents=antecedents;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb =new StringBuilder();

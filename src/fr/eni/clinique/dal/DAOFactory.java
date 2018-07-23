@@ -27,12 +27,13 @@ public class DAOFactory {
 		DAOClient clientDAO = new ClientDAOJdbcImpl();
 		return clientDAO;
 	}
-	
+
 	public static DAO<Animal> getAnimalDAO() {
 		DAO<Animal> animalDAO = new AnimalDAOJdbcImpl();
 		return animalDAO;
 	}
-
-
-
+	public static DAOAnimal getDAOAnimal() {
+		DAOAnimal animalDAO = new AnimalDAOJdbcImpl();
+		return animalDAO;
+	}
 }

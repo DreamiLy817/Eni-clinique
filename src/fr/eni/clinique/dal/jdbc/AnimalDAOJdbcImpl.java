@@ -11,11 +11,13 @@ import java.util.List;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
+import fr.eni.clinique.dal.DAOAnimal;
 
-public class AnimalDAOJdbcImpl implements DAO<Animal> {
-	private static final String sqlSupprAnimal = "UPDATE Animaux SET Archive= ? WHERE CodePers= ?";
+public class AnimalDAOJdbcImpl implements DAO<Animal>, DAOAnimal {
+	private static final String sqlSupprAnimal = "UPDATE Animaux SET Archive= ? WHERE CodeClient= ? and CodeAnimal= ?";
 	private static final String sqlInsertAnimal = "INSERT INTO Animaux (NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String sqlSelectAllAnimals = "SELECT NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive FROM Animaux WHERE CodeClient = ?";
+	private static final String sqlModifAnimal = "UPDATE Animaux SET NomAnimal=?, Sexe=?, Couleur=?, Race=?, Espece=?, Tatouage=?, Antecedents=? FROM Animaux WHERE CodeAnimal = ?";
 
 	@Override
 	public Animal selectbyID(Integer id) {
@@ -124,20 +126,36 @@ public class AnimalDAOJdbcImpl implements DAO<Animal> {
 
 	@Override
 	public Animal update(Animal ani) throws DALException {
-		
-		
 		return null;
 	}
 
 	@Override
 	public void supprimer(Integer id) throws DALException {
+		
+	}
+
+	@Override
+	public List<Animal> selectAll() throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void modifier(String nom, char sexe, String couleur, String race, String espece, String tatouage,
+			String antecedents, int codeAnimal) throws DALException {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		try {
 			cnx = JdbcTools.getConnection();
-			rqt = cnx.prepareStatement(sqlSupprAnimal);
-			rqt.setBoolean(1, true);
-			rqt.setInt(2, id);
+			rqt = cnx.prepareStatement(sqlModifAnimal);
+			rqt.setString(1, nom);
+			rqt.setString(2, String.valueOf(sexe));
+			rqt.setString(3, couleur);
+			rqt.setString(4, race);
+			rqt.setString(5, espece);
+			rqt.setString(6, tatouage);
+			rqt.setString(7, antecedents);
+			rqt.setInt(8, codeAnimal);
 			rqt.executeUpdate();
 		} catch (SQLException e) {
 			// TO DO DALException
@@ -156,10 +174,34 @@ public class AnimalDAOJdbcImpl implements DAO<Animal> {
 		}
 	}
 
+	//TODO Faire une méthode qui comprend 2 integer (CodeClient et CodeAnimal)
 	@Override
-	public List<Animal> selectAll() throws DALException {
+	public void supprimerViaCodeClient(int codeClient, int codeAnimal) throws DALException {
 		// TODO Auto-generated method stub
-		return null;
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(sqlSupprAnimal);
+			rqt.setBoolean(1, true);
+			rqt.setInt(2, codeClient);
+			rqt.setInt(3, codeAnimal);
+			rqt.executeUpdate();
+		} catch (SQLException e) {
+			// TO DO DALException
+			throw new DALException("Archivage échoué - ", e);
+		} finally {
+			try {
+				if (rqt != null) {
+					rqt.close();
+				}
+				if (cnx != null) {
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				throw new DALException("close failed ", e);
+			}
+		}
 	}
 
 }
