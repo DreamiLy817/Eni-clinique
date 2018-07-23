@@ -79,7 +79,7 @@ public class EcranClientRecherche extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 		
 		
-		/*
+		/**
 		 * JTexteField
 		 * Champs texte pour rechercher un client
 		 */
@@ -92,7 +92,7 @@ public class EcranClientRecherche extends JFrame {
 		contentPane.add(inputRecherche, gbc_inputRecherche);
 		inputRecherche.setColumns(10);
 		
-		/*
+		/**
 		 * JButton
 		 * Bouton pour lancer la recherche
 		 */
@@ -160,7 +160,7 @@ public class EcranClientRecherche extends JFrame {
 		contentPane.add(listScrollPane, gbc_listeClient);
 	}
 	
-	/*
+	/**
 	 * methode pour recupérer le texte dans le input de recherche
 	 */
 	public JTextField getTxtRecherche() {
