@@ -78,6 +78,10 @@ public class AppliTestDAL {
 		
 		//clientDAO2.rechercherClient("po");
 		System.out.println(clientDAO2.rechercherClient("po"));
+		
+		List<Client> allCLient = clientDAO.selectAll();
+		System.out.println("select all");
+		System.out.println(allCLient);
 	}
 
 }

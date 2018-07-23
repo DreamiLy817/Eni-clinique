@@ -6,16 +6,34 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.bo.Personnel;
+import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dal.DAO;
+import fr.eni.clinique.dal.DAOClient;
+import fr.eni.clinique.dal.DAOFactory;
+import fr.eni.clinique.dal.DAOPersonnel;
+
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import javax.swing.JButton;
 import java.awt.Insets;
+import java.awt.TextArea;
+
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
+/**
+ * @author lbaltimore2017
+ *
+ */
 public class EcranAddClient extends JFrame {
 
 	private JPanel contentPane;
@@ -29,6 +47,13 @@ public class EcranAddClient extends JFrame {
 	private JTextField textFieldNumero;
 	private JTextField textFieldAssurance;
 	private JTextField textFieldEmail;
+	
+	private DAO<Client> clientDAO = DAOFactory.getClientDAO();
+	private DAOClient clientDAO1 = DAOFactory.getDAOClient();
+	
+	private TextArea textArea;
+	
+
 
 	/**
 	 * Launch the application.
@@ -49,20 +74,37 @@ public class EcranAddClient extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	/**
+	 * 
+	 */
 	public EcranAddClient() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 629, 651);
+		setBounds(100, 100, 758, 659);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
 		JButton btnValider = new JButton("Valider");
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Client clientAjoute = new Client(getTextFieldNom().getText(), getTextFieldPrenom().getText(), getTextFieldAdresse1().getText(), getTextFieldAdresse2().getText(), getTextFieldCodePostal().getText(), getTextFieldVille().getText(), getTextFieldNumero().getText(), getTextFieldAssurance().getText(), getTextFieldEmail().getText(), getTextArea().getText(), false);
+				try {
+					clientDAO.insert(clientAjoute);
+						JOptionPane.showMessageDialog(EcranAddClient.this, "Le client a été ajoute");
+						new EcranClientPrincipal(clientAjoute).setVisible(true);
+						EcranAddClient.this.dispose();
+				} catch (DALException e) {
+					JOptionPane.showMessageDialog(EcranAddClient.this, "Le client n'a pas pu etre ajoute");
+					e.printStackTrace();
+				}
+			}
+		});
 		btnValider.setForeground(new Color(255, 255, 255));
 		btnValider.setBackground(new Color(0, 204, 153));
 		btnValider.setIcon(new ImageIcon(EcranAddClient.class.getResource("/images/check.png")));
@@ -91,13 +133,12 @@ public class EcranAddClient extends JFrame {
 		contentPane.add(lblCode, gbc_lblCode);
 		
 		
-		textFieldCodePers = new JTextField();
 		GridBagConstraints gbc_textFieldCodePers = new GridBagConstraints();
 		gbc_textFieldCodePers.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldCodePers.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldCodePers.gridx = 3;
 		gbc_textFieldCodePers.gridy = 2;
-		contentPane.add(textFieldCodePers, gbc_textFieldCodePers);
+		contentPane.add(getTextFieldCodePers(), gbc_textFieldCodePers);
 		textFieldCodePers.setColumns(10);
 		
 		JLabel lblNom = new JLabel("Nom");
@@ -108,15 +149,14 @@ public class EcranAddClient extends JFrame {
 		gbc_lblNom.gridy = 3;
 		contentPane.add(lblNom, gbc_lblNom);
 		
-		textFieldNom = new JTextField();
 		GridBagConstraints gbc_textFieldNom = new GridBagConstraints();
 		gbc_textFieldNom.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldNom.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldNom.gridx = 3;
 		gbc_textFieldNom.gridy = 3;
-		contentPane.add(textFieldNom, gbc_textFieldNom);
+		contentPane.add(getTextFieldNom(), gbc_textFieldNom);
 		textFieldNom.setColumns(10);
-		
+	
 		JLabel lblPrenom = new JLabel("Prenom");
 		GridBagConstraints gbc_lblPrenom = new GridBagConstraints();
 		gbc_lblPrenom.anchor = GridBagConstraints.EAST;
@@ -125,14 +165,15 @@ public class EcranAddClient extends JFrame {
 		gbc_lblPrenom.gridy = 4;
 		contentPane.add(lblPrenom, gbc_lblPrenom);
 		
-		textFieldPrenom = new JTextField();
+
 		GridBagConstraints gbc_textFieldPrenom = new GridBagConstraints();
 		gbc_textFieldPrenom.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldPrenom.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldPrenom.gridx = 3;
 		gbc_textFieldPrenom.gridy = 4;
-		contentPane.add(textFieldPrenom, gbc_textFieldPrenom);
+		contentPane.add(getTextFieldPrenom(), gbc_textFieldPrenom);
 		textFieldPrenom.setColumns(10);
+
 		
 		JLabel lblAdresse = new JLabel("Adresse");
 		GridBagConstraints gbc_lblAdresse = new GridBagConstraints();
@@ -142,23 +183,23 @@ public class EcranAddClient extends JFrame {
 		gbc_lblAdresse.gridy = 5;
 		contentPane.add(lblAdresse, gbc_lblAdresse);
 		
-		textFieldAdresse1 = new JTextField();
 		GridBagConstraints gbc_textFieldAdresse1 = new GridBagConstraints();
 		gbc_textFieldAdresse1.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldAdresse1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldAdresse1.gridx = 3;
 		gbc_textFieldAdresse1.gridy = 5;
-		contentPane.add(textFieldAdresse1, gbc_textFieldAdresse1);
+		contentPane.add(getTextFieldAdresse1(), gbc_textFieldAdresse1);
 		textFieldAdresse1.setColumns(10);
 		
-		textFieldAdresse2 = new JTextField();
+		
 		GridBagConstraints gbc_textFieldAdresse2 = new GridBagConstraints();
 		gbc_textFieldAdresse2.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldAdresse2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldAdresse2.gridx = 3;
 		gbc_textFieldAdresse2.gridy = 6;
-		contentPane.add(textFieldAdresse2, gbc_textFieldAdresse2);
+		contentPane.add(getTextFieldAdresse2(), gbc_textFieldAdresse2);
 		textFieldAdresse2.setColumns(10);
+		
 		
 		JLabel lblCodePostal = new JLabel("Code Postal");
 		GridBagConstraints gbc_lblCodePostal = new GridBagConstraints();
@@ -168,13 +209,12 @@ public class EcranAddClient extends JFrame {
 		gbc_lblCodePostal.gridy = 7;
 		contentPane.add(lblCodePostal, gbc_lblCodePostal);
 		
-		textFieldCodePostal = new JTextField();
 		GridBagConstraints gbc_textFieldCodePostal = new GridBagConstraints();
 		gbc_textFieldCodePostal.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldCodePostal.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldCodePostal.gridx = 3;
 		gbc_textFieldCodePostal.gridy = 7;
-		contentPane.add(textFieldCodePostal, gbc_textFieldCodePostal);
+		contentPane.add(getTextFieldCodePostal(), gbc_textFieldCodePostal);
 		textFieldCodePostal.setColumns(10);
 		
 		JLabel lblVille = new JLabel("Ville");
@@ -185,14 +225,14 @@ public class EcranAddClient extends JFrame {
 		gbc_lblVille.gridy = 8;
 		contentPane.add(lblVille, gbc_lblVille);
 		
-		textFieldVille = new JTextField();
 		GridBagConstraints gbc_textFieldVille = new GridBagConstraints();
 		gbc_textFieldVille.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldVille.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldVille.gridx = 3;
 		gbc_textFieldVille.gridy = 8;
-		contentPane.add(textFieldVille, gbc_textFieldVille);
+		contentPane.add(getTextFieldVille(), gbc_textFieldVille);
 		textFieldVille.setColumns(10);
+		
 		
 		JLabel lblNumero = new JLabel("Numero");
 		GridBagConstraints gbc_lblNumero = new GridBagConstraints();
@@ -202,14 +242,14 @@ public class EcranAddClient extends JFrame {
 		gbc_lblNumero.gridy = 9;
 		contentPane.add(lblNumero, gbc_lblNumero);
 		
-		textFieldNumero = new JTextField();
 		GridBagConstraints gbc_textFieldNumero = new GridBagConstraints();
 		gbc_textFieldNumero.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldNumero.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldNumero.gridx = 3;
 		gbc_textFieldNumero.gridy = 9;
-		contentPane.add(textFieldNumero, gbc_textFieldNumero);
+		contentPane.add(getTextFieldNumero(), gbc_textFieldNumero);
 		textFieldNumero.setColumns(10);
+		
 		
 		JLabel lblAssurance = new JLabel("Assurance");
 		GridBagConstraints gbc_lblAssurance = new GridBagConstraints();
@@ -219,13 +259,12 @@ public class EcranAddClient extends JFrame {
 		gbc_lblAssurance.gridy = 10;
 		contentPane.add(lblAssurance, gbc_lblAssurance);
 		
-		textFieldAssurance = new JTextField();
 		GridBagConstraints gbc_textFieldAssurance = new GridBagConstraints();
 		gbc_textFieldAssurance.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldAssurance.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldAssurance.gridx = 3;
 		gbc_textFieldAssurance.gridy = 10;
-		contentPane.add(textFieldAssurance, gbc_textFieldAssurance);
+		contentPane.add(getTextFieldAssurance(), gbc_textFieldAssurance);
 		textFieldAssurance.setColumns(10);
 		
 		JLabel lblEmail = new JLabel("Email");
@@ -236,30 +275,145 @@ public class EcranAddClient extends JFrame {
 		gbc_lblEmail.gridy = 11;
 		contentPane.add(lblEmail, gbc_lblEmail);
 		
-		textFieldEmail = new JTextField();
 		GridBagConstraints gbc_textFieldEmail = new GridBagConstraints();
 		gbc_textFieldEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldEmail.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldEmail.gridx = 3;
 		gbc_textFieldEmail.gridy = 11;
-		contentPane.add(textFieldEmail, gbc_textFieldEmail);
+		contentPane.add(getTextFieldEmail(), gbc_textFieldEmail);
 		textFieldEmail.setColumns(10);
 		
 		JLabel lblRemarque = new JLabel("Remarque");
 		GridBagConstraints gbc_lblRemarque = new GridBagConstraints();
 		gbc_lblRemarque.anchor = GridBagConstraints.EAST;
-		gbc_lblRemarque.insets = new Insets(0, 0, 0, 5);
+		gbc_lblRemarque.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRemarque.gridx = 2;
 		gbc_lblRemarque.gridy = 12;
 		contentPane.add(lblRemarque, gbc_lblRemarque);
 		
-		JTextArea textArea = new JTextArea();
 		GridBagConstraints gbc_textArea = new GridBagConstraints();
-		gbc_textArea.insets = new Insets(0, 0, 0, 5);
+		gbc_textArea.insets = new Insets(0, 0, 5, 5);
 		gbc_textArea.fill = GridBagConstraints.BOTH;
 		gbc_textArea.gridx = 3;
 		gbc_textArea.gridy = 12;
-		contentPane.add(textArea, gbc_textArea);
+		contentPane.add(getTextArea(), gbc_textArea);
+	
+	}
+	
+	
+	/**
+	 * @return textFieldCodePers
+	 */
+	public JTextField getTextFieldCodePers(){
+		if(textFieldCodePers == null){
+			textFieldCodePers = new JTextField();
+		}
+		return textFieldCodePers;
+		
+	}
+	
+	/**
+	 * @return textFieldNom
+	 */
+	public JTextField getTextFieldNom() {
+		if(textFieldNom == null){
+			textFieldNom = new JTextField(20);
+		}
+		return textFieldNom;
+		
+	}
+	
+	/**
+	 * @return textFieldPrenom
+	 */
+	public JTextField getTextFieldPrenom() {
+		if(textFieldPrenom == null){
+			textFieldPrenom = new JTextField(20);
+		}
+		return textFieldPrenom;
+		
+	}
+	
+	/**
+	 * @return textFieldAdresse1
+	 */
+	public JTextField getTextFieldAdresse1() {
+		if(textFieldAdresse1 == null){
+			textFieldAdresse1 = new JTextField(30);
+		}
+		return textFieldAdresse1;
+		
+	}
+	
+	/**
+	 * @return textFieldAdresse2
+	 */
+	public JTextField getTextFieldAdresse2() {
+		if(textFieldAdresse2 == null){
+			textFieldAdresse2 = new JTextField(30);
+		}
+		return textFieldAdresse2;
+		
+	}
+	
+	/**
+	 * @return textFieldCodePostal
+	 */
+	public JTextField getTextFieldCodePostal() {
+		if(textFieldCodePostal == null){
+			textFieldCodePostal = new JTextField(6);
+		}
+		return textFieldCodePostal;
+	}
+	
+	/**
+	 * @return textFieldVille
+	 */
+	public JTextField getTextFieldVille() {
+		if(textFieldVille == null){
+			textFieldVille = new JTextField(25);
+		}
+		return textFieldVille;	
+	}
+	
+	/**
+	 * @return textFieldNumero
+	 */
+	public JTextField getTextFieldNumero() {
+		if(textFieldNumero == null){
+			textFieldNumero = new JTextField(15);
+		}
+		return textFieldNumero;	
+	}
+	
+	/**
+	 * @return textFieldAssurance
+	 */
+	public JTextField getTextFieldAssurance() {
+		if(textFieldAssurance == null){
+			textFieldAssurance = new JTextField(30);
+		}
+		return textFieldAssurance;		
+	}
+	
+	/**
+	 * @return textFieldEmail
+	 */
+	public JTextField getTextFieldEmail() {
+		if(textFieldEmail == null){
+			textFieldEmail = new JTextField(20);
+		}
+		return textFieldEmail;	
+	}
+	
+	/**
+	 * @return textArea
+	 */
+	public TextArea getTextArea() {
+		if(textArea == null){
+			textArea = new TextArea();
+		}
+		return textArea;	
 	}
 
 }
