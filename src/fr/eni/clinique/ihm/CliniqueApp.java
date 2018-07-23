@@ -12,7 +12,6 @@ public class CliniqueApp {
 				ecranLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				ecranLogin.setLocationRelativeTo(null);
 				ecranLogin.setSize(600, 600);
-				//ecranLogin.setResizable(false);
 				ecranLogin.setTitle("Connexion");
 				ecranLogin.setVisible(true);
 			}
