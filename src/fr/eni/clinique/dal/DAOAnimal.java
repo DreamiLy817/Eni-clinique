@@ -2,13 +2,15 @@ package fr.eni.clinique.dal;
 
 import java.util.List;
 
-/**
+import fr.eni.clinique.bo.Animal;
+
+/**    
  * Classe en charge de
  * 
  * @author fbaconnais2018
  * @date 23 juil. 2018 - @time 11:08:40 Clinique - Version 1.0
  */
-public interface DAOAnimal {
+public interface DAOAnimal extends DAO<Animal>{
 
 	/**
 	 * Fonction en charge de modifier les données d'un animal

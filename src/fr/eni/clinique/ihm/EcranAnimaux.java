@@ -38,6 +38,7 @@ public class EcranAnimaux extends JFrame {
 	JComboBox<String> sexeComboBox;
 	JComboBox<String> especeComboBox;
 	JComboBox<String> raceComboBox;
+	private JFrame frame = new JFrame("Ajout d'utilisateur");
 
 	// Mise en place d'un main
 	/**
@@ -49,7 +50,7 @@ public class EcranAnimaux extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EcranAnimaux ecranAnimaux = new EcranAnimaux();
+					JFrame ecranAnimaux = new EcranAnimaux();
 					ecranAnimaux.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -195,9 +196,9 @@ public class EcranAnimaux extends JFrame {
 		if (boutonAnnuler == null) {
 			boutonAnnuler = new JButton("Annuler");
 			boutonAnnuler.addActionListener(new ActionListener() {
-
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					dispose();
 				}
 			});
 		}
@@ -213,9 +214,9 @@ public class EcranAnimaux extends JFrame {
 		if (boutonValider == null) {
 			boutonValider = new JButton("Valider");
 			boutonValider.addActionListener(new ActionListener() {
-
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					
 				}
 			});
 		}
@@ -341,6 +342,7 @@ public class EcranAnimaux extends JFrame {
 		panelEspeceRace.setOpaque(false);
 		gbc.gridx = 0;
 		gbc.gridy = 0;
+		gbc.anchor = GridBagConstraints.WEST;
 		panelEspeceRace.add(getLabelEspece(), gbc);
 		gbc.gridx = 1;
 		gbc.gridy = 0;
@@ -357,11 +359,13 @@ public class EcranAnimaux extends JFrame {
 		gbc.gridy = 0;
 		gbc.gridwidth = 4;
 		gbc.anchor = GridBagConstraints.EAST;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		panelPrincipal.add(panelBoutons, gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 1;
 		//gbc.gridheight = 2;
 		gbc.gridwidth = 4;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		panelPrincipal.add(panelClientTexte, gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 2;
@@ -375,24 +379,33 @@ public class EcranAnimaux extends JFrame {
 		gbc.gridx = 0;
 		gbc.gridy = 3;
 //		gbc.gridwidth = 4;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		panelPrincipal.add(panelNomSexe, gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 4;
+		gbc.anchor = GridBagConstraints.WEST;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		panelPrincipal.add(getLabelCouleur(), gbc);
 		gbc.gridx = 1;
 		gbc.gridy = 4;
 		gbc.gridwidth = 2;
+		gbc.anchor = GridBagConstraints.CENTER;
 		panelPrincipal.add(getTextCouleur(), gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 5;
 //		gbc.gridwidth = 4;
+		gbc.anchor = GridBagConstraints.WEST;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		panelPrincipal.add(panelEspeceRace, gbc);
 		gbc.gridx = 0;
 		gbc.gridy = 6;
 		gbc.gridwidth = 2;
+		gbc.anchor = GridBagConstraints.WEST;
 		panelPrincipal.add(getLabelTatouage(), gbc);
 		gbc.gridx = 1;
 		gbc.gridy = 6;
+		gbc.anchor = GridBagConstraints.CENTER;
+		gbc.gridwidth = GridBagConstraints.REMAINDER;
 		panelPrincipal.add(getTextTatouage(), gbc);
 		this.setContentPane(panelPrincipal);
 	}
