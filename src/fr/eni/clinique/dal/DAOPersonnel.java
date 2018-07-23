@@ -4,7 +4,7 @@ import java.util.List;
 
 import fr.eni.clinique.bo.Personnel;
 
-public interface DAOPersonnel {
+public interface DAOPersonnel extends DAO<Personnel>{
 
 	public abstract Boolean selectbyMDP(String nom,String motDePasse)throws DALException;
 	

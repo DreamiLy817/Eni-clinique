@@ -46,21 +46,6 @@ public class EcranClientRecherche extends JFrame {
 	private JList listClient;
     private DefaultListModel listModelClient;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EcranClientRecherche frame = new EcranClientRecherche();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -133,13 +118,27 @@ public class EcranClientRecherche extends JFrame {
 		
 		//creation de la liste et la mettre dans un scroll pane
 		 listClient = new JList(listModelClient);
+		 
+		 
+		 
 		 listClient.addMouseListener(new MouseAdapter() {
 		 	@Override
 		 	public void mouseClicked(MouseEvent arg0) {
 		 		Client clientSelectionne = (Client)listClient.getSelectedValue();
-		 		new EcranClientPrincipal(clientSelectionne).setVisible(true);
+		 		EcranClientPrincipal ecranP = new EcranClientPrincipal(clientSelectionne);
+		 		ecranP.setVisible(true);
 		 		EcranClientRecherche.this.dispose();
-		 		
+		 		ecranP.getTextFieldCodeClient().setText(String.valueOf(clientSelectionne.getCodeClient()));
+				ecranP.getTextFieldNom().setText(clientSelectionne.getNomClient());
+				ecranP.getTextFieldPrenom().setText(clientSelectionne.getPrenomClient());
+				ecranP.getTextFieldAdresse1().setText(clientSelectionne.getAdresse1());
+				ecranP.getTextFieldAdresse2().setText(clientSelectionne.getAdresse2());
+				ecranP.getTextFieldCodePostal().setText(clientSelectionne.getCodePostal());
+				ecranP.getTextFieldVille().setText(clientSelectionne.getVille());
+				ecranP.getTextFieldNumero().setText(clientSelectionne.getNumTel());
+				ecranP.getTextFieldAssurance().setText(clientSelectionne.getAssurance());
+				ecranP.getTextFieldEmail().setText(clientSelectionne.getEmail());
+				ecranP.getTextRemarque().setText(clientSelectionne.getRemarque());
 		
 		 	}
 		 });

@@ -82,42 +82,8 @@ public class AppliTestDAL {
 		System.out.println("Client apres modification : " + c1.toString());
 
 		// clientDAO2.rechercherClient("po");
+
 		System.out.println(clientDAO2.rechercherClient("po"));
 
-		// //Création d'animaux
-		// Animal a1 = new Animal("Bill", 'H', "Rouge", "Cocker", "Chien", 1,
-		// "", "");
-		// Animal a2 = new Animal("Azraël", 'F', "Brun", "De Gouttière", "Chat",
-		// 1, "", "");
-		// Animal a3 = new Animal("Willy", 'H', "Noir et blanc", "Non
-		// déterminé", "Orque", 1, "", "");
-		//
-		// //Insert d'animal dans la base
-		// animalDAO.insert(a1);
-		// animalDAO.insert(a2);
-		// animalDAO.insert(a3);
-		//
-		// //Select All des animaux
-		// animalDAO.selectbyID(1);
-
-		// //Mise en archive d'un animal
-		// animalDAO2.supprimerViaCodeClient(1, 2);
-
-		// Modification des données d'un animal
-		// animalDAO2.modifier("Azraël", 'F', "Marron", "De Gouttière", "Chat",
-		// "14FB57", "Traitement contre l'anxiété", 3);
-
-		// Selection de toutes les espèces en BDD
-		List<String> listeEspece = animalDAO2.getEspeceList();
-		for (int i = 0; i <= (listeEspece.size() - 1); i++) {
-			System.out.println(listeEspece.get(i));
-		}
-
-		// Selection de toutes les races en BDD
-		List<String> listeRace = animalDAO2.getRaceList();
-		for (int i = 0; i <= (listeRace.size() - 1); i++) {
-			System.out.println(listeRace.get(i));
-		}
 	}
-
 }
