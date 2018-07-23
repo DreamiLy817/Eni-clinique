@@ -22,6 +22,7 @@ public class ClientDAOJdbcImpl implements DAO<Client>, DAOClient {
 	private static final String sqlInsertClient = "insert into Clients (NomClient ,PrenomClient,Adresse1,Adresse2 ,CodePostal ,Ville,NumTel,Assurance,Email,Remarque,Archive) values(?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String sqlMiseAJourClient = "update Clients set NomClient = ? ,PrenomClient = ?,Adresse1 = ?,Adresse2 = ?,CodePostal = ? ,Ville = ?,NumTel = ?,Assurance = ?,Email = ?,Remarque = ? where CodeClient=?";
 	private static final String sqlRechercher = "SELECT  * FROM Clients WHERE NomClient LIKE ? ORDER BY CodeClient ASC";
+	private static final String sqlSuppressionClient= "UPDATE Cliens SET Archive= ? WHERE CodeClient= ?";
 	 
 	 /*
 	  * (non-Javadoc)
@@ -206,7 +207,29 @@ public class ClientDAOJdbcImpl implements DAO<Client>, DAOClient {
 	 */
 	@Override
 	public void supprimer(Integer id) throws DALException {
-		// TODO Auto-generated method stub
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(sqlSuppressionClient);
+			rqt.setBoolean(1, true);
+			rqt.setInt(2, id);
+			rqt.executeUpdate();	
+		} catch (SQLException e) {
+			//TO DO DALException
+			throw new DALException("suppression Client failed - " , e);
+		} finally {
+			try {
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				throw new DALException("close failed " , e);
+			}
+		}	
 
 	}
 
