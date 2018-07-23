@@ -87,11 +87,11 @@ public class AppliTestDAL {
 		//clientDAO2.rechercherClient("po");
 		System.out.println(clientDAO2.rechercherClient("po"));
 		
-<<<<<<< HEAD
+
 		List<Client> allCLient = clientDAO.selectAll();
 		System.out.println("select all");
 		System.out.println(allCLient);
-=======
+
 		
 		
 //		//Création d'animaux
@@ -113,7 +113,6 @@ public class AppliTestDAL {
 		//Modification des données d'un animal
 		animalDAO2.modifier("Azraël", 'F', "Marron", "De Gouttière", "Chat", "14FB57", "Traitement contre l'anxiété", 3);
 		
->>>>>>> branch 'master' of https://github.com/LeslieBaltimore/Eni-clinique
 	}
 
 }
