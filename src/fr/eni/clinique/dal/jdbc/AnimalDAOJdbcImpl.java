@@ -14,7 +14,7 @@ import fr.eni.clinique.dal.DAO;
 import fr.eni.clinique.dal.DAOAnimal;
 
 public class AnimalDAOJdbcImpl implements DAO<Animal>, DAOAnimal {
-	private static final String sqlSupprAnimal = "UPDATE Animaux SET Archive= ? WHERE CodePers= ? and CodeAnimal= ?";
+	private static final String sqlSupprAnimal = "UPDATE Animaux SET Archive= ? WHERE CodeClient= ? and CodeAnimal= ?";
 	private static final String sqlInsertAnimal = "INSERT INTO Animaux (NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String sqlSelectAllAnimals = "SELECT NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive FROM Animaux WHERE CodeClient = ?";
 	private static final String sqlModifAnimal = "UPDATE Animaux SET NomAnimal=?, Sexe=?, Couleur=?, Race=?, Espece=?, Tatouage=?, Antecedents=? FROM Animaux WHERE CodeAnimal = ?";
@@ -128,33 +128,10 @@ public class AnimalDAOJdbcImpl implements DAO<Animal>, DAOAnimal {
 	public Animal update(Animal ani) throws DALException {
 		return null;
 	}
-//TODO Faire une méthode qui comprend 2 integer (CodeClient et CodeAnimal)
+
 	@Override
 	public void supprimer(Integer id) throws DALException {
-		Connection cnx = null;
-		PreparedStatement rqt = null;
-		try {
-			cnx = JdbcTools.getConnection();
-			rqt = cnx.prepareStatement(sqlSupprAnimal);
-			rqt.setBoolean(1, true);
-			rqt.setInt(2, id);
-			rqt.setInt(3, id);
-			rqt.executeUpdate();
-		} catch (SQLException e) {
-			// TO DO DALException
-			throw new DALException("Archivage échoué - ", e);
-		} finally {
-			try {
-				if (rqt != null) {
-					rqt.close();
-				}
-				if (cnx != null) {
-					cnx.close();
-				}
-			} catch (SQLException e) {
-				throw new DALException("close failed ", e);
-			}
-		}
+		
 	}
 
 	@Override
@@ -179,6 +156,36 @@ public class AnimalDAOJdbcImpl implements DAO<Animal>, DAOAnimal {
 			rqt.setString(6, tatouage);
 			rqt.setString(7, antecedents);
 			rqt.setInt(8, codeAnimal);
+			rqt.executeUpdate();
+		} catch (SQLException e) {
+			// TO DO DALException
+			throw new DALException("Archivage échoué - ", e);
+		} finally {
+			try {
+				if (rqt != null) {
+					rqt.close();
+				}
+				if (cnx != null) {
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				throw new DALException("close failed ", e);
+			}
+		}
+	}
+
+	//TODO Faire une méthode qui comprend 2 integer (CodeClient et CodeAnimal)
+	@Override
+	public void supprimerViaCodeClient(int codeClient, int codeAnimal) throws DALException {
+		// TODO Auto-generated method stub
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(sqlSupprAnimal);
+			rqt.setBoolean(1, true);
+			rqt.setInt(2, codeClient);
+			rqt.setInt(3, codeAnimal);
 			rqt.executeUpdate();
 		} catch (SQLException e) {
 			// TO DO DALException

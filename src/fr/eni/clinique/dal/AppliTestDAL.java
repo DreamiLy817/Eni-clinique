@@ -102,8 +102,11 @@ public class AppliTestDAL {
 //		//Select All des animaux
 //		animalDAO.selectbyID(1);
 		
-		//Mise en archive d'un animal
-		animalDAO.supprimer(4);
+//		//Mise en archive d'un animal
+//		animalDAO2.supprimerViaCodeClient(1, 2);
+		
+		//Modification des données d'un animal
+		animalDAO2.modifier("Azraël", 'F', "Marron", "De Gouttière", "Chat", "14FB57", "Traitement contre l'anxiété", 3);
 		
 	}
 
