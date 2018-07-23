@@ -283,7 +283,7 @@ public class EcranClientPrincipal extends JFrame {
 		 */
 		
 	
-		JTable table = new JTable();
+		/**JTable table = new JTable();
 		table.setDefaultEditor(Object.class, null);
 	
 		List<Animal> catalogueAnimal = animalDAO.
@@ -301,9 +301,11 @@ public class EcranClientPrincipal extends JFrame {
 			data[i][2] = tamponPass;
 			i++;
 		}
+		/**
 		// Création d'un modèle personnalisé de JTable
-		TableModel tableModel = new DefaultTableModel(data, colonne);
+		/**TableModel tableModel = new DefaultTableModel(data, colonne);
 		table = new JTable(tableModel);
+		
 		
 		// Intégration de la table dans le panneau principal
 				panelTable.setLayout(new BorderLayout());
@@ -313,7 +315,7 @@ public class EcranClientPrincipal extends JFrame {
 		
 		
 		
-		
+		*/
 		
 //		ListeAnimaux = new JTable();
 //		GridBagConstraints gbc_ListeAnimaux = new GridBagConstraints();
