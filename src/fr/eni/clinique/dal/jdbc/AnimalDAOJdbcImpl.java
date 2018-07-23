@@ -18,6 +18,8 @@ public class AnimalDAOJdbcImpl implements DAO<Animal>, DAOAnimal {
 	private static final String sqlInsertAnimal = "INSERT INTO Animaux (NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String sqlSelectAllAnimals = "SELECT NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive FROM Animaux WHERE CodeClient = ?";
 	private static final String sqlModifAnimal = "UPDATE Animaux SET NomAnimal=?, Sexe=?, Couleur=?, Race=?, Espece=?, Tatouage=?, Antecedents=? FROM Animaux WHERE CodeAnimal = ?";
+	private static final String sqlSelectRace = "SELECT DISTINCT Race FROM Animaux";
+	private static final String sqlSelectEspece = "SELECT DISTINCT Espece FROM Animaux";
 
 	@Override
 	public Animal selectbyID(Integer id) {
@@ -25,6 +27,11 @@ public class AnimalDAOJdbcImpl implements DAO<Animal>, DAOAnimal {
 		return null;
 	}
 
+	/**
+	 * Fonction à charge d'insérer un nouvel animal dans la BDD {@inheritedDoc}
+	 * 
+	 * @see fr.eni.clinique.dal.DAO#insert(java.lang.Object)
+	 */
 	@Override
 	public void insert(Animal ani) throws DALException {
 		Connection cnx = null;
@@ -86,6 +93,15 @@ public class AnimalDAOJdbcImpl implements DAO<Animal>, DAOAnimal {
 
 	}
 
+	/**
+	 * Fonction en charge de retourner une liste de tout les animaux appartenant
+	 * au client
+	 * 
+	 * @param id
+	 *            - Le code client de la personne dont on veut tout les animaux
+	 * @return une liste d'animaux
+	 * @throws DALException
+	 */
 	public List<Animal> selectAllSelonIDClient(int id) throws DALException {
 		Connection cnx = null;
 		Statement rqt = null;
@@ -131,7 +147,7 @@ public class AnimalDAOJdbcImpl implements DAO<Animal>, DAOAnimal {
 
 	@Override
 	public void supprimer(Integer id) throws DALException {
-		
+
 	}
 
 	@Override
@@ -140,6 +156,14 @@ public class AnimalDAOJdbcImpl implements DAO<Animal>, DAOAnimal {
 		return null;
 	}
 
+	/**
+	 * Fonction dont la charge est de modifier les données d'un animal
+	 * {@inheritedDoc}
+	 * 
+	 * @see fr.eni.clinique.dal.DAOAnimal#modifier(java.lang.String, char,
+	 *      java.lang.String, java.lang.String, java.lang.String,
+	 *      java.lang.String, java.lang.String, int)
+	 */
 	@Override
 	public void modifier(String nom, char sexe, String couleur, String race, String espece, String tatouage,
 			String antecedents, int codeAnimal) throws DALException {
@@ -174,7 +198,11 @@ public class AnimalDAOJdbcImpl implements DAO<Animal>, DAOAnimal {
 		}
 	}
 
-	//TODO Faire une méthode qui comprend 2 integer (CodeClient et CodeAnimal)
+	/**
+	 * Fonction dont la charge est d'archiver un animal {@inheritedDoc}
+	 * 
+	 * @see fr.eni.clinique.dal.DAOAnimal#supprimerViaCodeClient(int, int)
+	 */
 	@Override
 	public void supprimerViaCodeClient(int codeClient, int codeAnimal) throws DALException {
 		// TODO Auto-generated method stub
@@ -202,6 +230,60 @@ public class AnimalDAOJdbcImpl implements DAO<Animal>, DAOAnimal {
 				throw new DALException("close failed ", e);
 			}
 		}
+	}
+
+	/**
+	 * Fonction pour récupérer une liste de races de la BDD {@inheritedDoc}
+	 * 
+	 * @see fr.eni.clinique.dal.DAOAnimal#getRaceList()
+	 */
+	@Override
+	public List<String> getRaceList() throws DALException {
+		Connection cnx = null;
+		Statement rqt = null;
+		ResultSet rs = null;
+		List<String> listeRace = null;
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.createStatement();
+			rs = rqt.executeQuery(sqlSelectRace);
+			listeRace = new ArrayList<String>();
+			while (rs.next()) {
+				String race = rs.getString("race");
+				listeRace.add(race);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listeRace;
+	}
+
+	/**
+	 * Fonction pour récupérer une liste d'espèces de la BDD {@inheritedDoc}
+	 * 
+	 * @see fr.eni.clinique.dal.DAOAnimal#getEspeceList()
+	 */
+	@Override
+	public List<String> getEspeceList() throws DALException {
+		Connection cnx = null;
+		Statement rqt = null;
+		ResultSet rs = null;
+		List<String> listeEspece = null;
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.createStatement();
+			rs = rqt.executeQuery(sqlSelectEspece);
+			listeEspece = new ArrayList<String>();
+			while (rs.next()) {
+				String espece = rs.getString("espece");
+				listeEspece.add(espece);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return listeEspece;
 	}
 
 }
