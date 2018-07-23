@@ -83,7 +83,7 @@ public class AppliTestDAL {
 
 		// clientDAO2.rechercherClient("po");
 		System.out.println(clientDAO2.rechercherClient("po"));
-<<<<<<< HEAD
+
 
 		// //Création d'animaux
 		// Animal a1 = new Animal("Bill", 'H', "Rouge", "Cocker", "Chien", 1,
