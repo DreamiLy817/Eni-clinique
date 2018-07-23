@@ -15,8 +15,7 @@ public class AppliTestDAL {
 	public static void main(String[] args) throws DALException {
 
 		// déclaration et instanciation de la DAO
-		DAOPersonnel personnelDAO2 = DAOFactory.getDAOPersonnel();
-		DAO<Personnel> personnelDAO = DAOFactory.getPersonnelDAO();
+		DAOPersonnel personnelDAO = DAOFactory.getDAOPersonnel();
 
 		DAO<Client> clientDAO = DAOFactory.getClientDAO();
 		DAOClient clientDAO2 = DAOFactory.getDAOClient();
@@ -24,19 +23,19 @@ public class AppliTestDAL {
 		DAO<Animal> animalDAO = DAOFactory.getAnimalDAO();
 		DAOAnimal animalDAO2 = DAOFactory.getDAOAnimal();
 
-		// creer un nouveau personnel
-		// Personnel p1 = new Personnel( "Antoinette", "Marie", "946575",
-		// "vet",false);
-		// Personnel p2 = new Personnel( "ezaez","frgr", "12o34", "vet",false);
-		// Personnel p3 = new Personnel( "eoz","frgr", "12o34", "vet",false);
-		// Personnel p4 = new Personnel( "azade","foorgr", "12o34",
-		// "vet",false);
-		// Personnel p5 = new Personnel( "ez","frgr", "12o34", "vet",false);
-		// personnelDAO.insert(p1);
-		// personnelDAO.insert(p2);
-		// personnelDAO.insert(p3);
-		// personnelDAO.insert(p4);
-		// personnelDAO.insert(p5);
+		//creer un nouveau personnel
+		Personnel p1 = new Personnel( "Antoinette", "Marie", "946575",
+		"vet",false);
+		Personnel p2 = new Personnel( "ezaez","frgr", "12o34", "vet",false);
+		Personnel p3 = new Personnel( "eoz","frgr", "12o34", "vet",false);
+		Personnel p4 = new Personnel( "azade","foorgr", "12o34",
+		"vet",false);
+		Personnel p5 = new Personnel( "ez","frgr", "12o34", "vet",false);
+		personnelDAO.insert(p1);
+		personnelDAO.insert(p2);
+		personnelDAO.insert(p3);
+		personnelDAO.insert(p4);
+		personnelDAO.insert(p5);
 
 		// selection de tout le personnel
 		List<Personnel> allPersonnel = personnelDAO.selectAll();
