@@ -17,11 +17,9 @@ public class AppliTestDAL {
 		// déclaration et instanciation de la DAO
 		DAOPersonnel personnelDAO = DAOFactory.getDAOPersonnel();
 
-		DAO<Client> clientDAO = DAOFactory.getClientDAO();
-		DAOClient clientDAO2 = DAOFactory.getDAOClient();
+		DAOClient clientDAO = DAOFactory.getDAOClient();
 
-		DAO<Animal> animalDAO = DAOFactory.getAnimalDAO();
-		DAOAnimal animalDAO2 = DAOFactory.getDAOAnimal();
+		DAOAnimal animalDAO = DAOFactory.getDAOAnimal();
 
 		//creer un nouveau personnel
 		Personnel p1 = new Personnel( "Antoinette", "Marie", "946575",
@@ -82,7 +80,7 @@ public class AppliTestDAL {
 
 		// clientDAO2.rechercherClient("po");
 
-		System.out.println(clientDAO2.rechercherClient("po"));
+		System.out.println(clientDAO.rechercherClient("po"));
 
 	}
 }
