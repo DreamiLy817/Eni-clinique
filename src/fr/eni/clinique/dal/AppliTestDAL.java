@@ -114,5 +114,7 @@ public class AppliTestDAL {
 		//animalDAO.modifier("Azra�l", 'F', "Marron", "De Goutti�re", "Chat", "14FB57", "Traitement contre l'anxi�t�", 3);
 
 		System.out.println(animalDAO.selectAllSelonIDClient(1));
+		String role = personnelDAO.selectbyMDP("Albert", "845364");
+		System.out.println(role);
 	}
 }

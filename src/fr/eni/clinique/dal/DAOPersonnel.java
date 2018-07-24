@@ -6,7 +6,7 @@ import fr.eni.clinique.bo.Personnel;
 
 public interface DAOPersonnel extends DAO<Personnel>{
 
-	public abstract Boolean selectbyMDP(String nom,String motDePasse)throws DALException;
+	public abstract String selectbyMDP(String nom,String motDePasse)throws DALException;
 	
 	public abstract void reinitialiserPersonnel(Personnel personne, String motDePasse) throws DALException;
 
