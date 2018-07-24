@@ -8,8 +8,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import fr.eni.clinique.bll.AnimalMger;
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dal.DAOAnimal;
 import fr.eni.clinique.dal.DAOClient;
 import fr.eni.clinique.dal.DAOFactory;
 import java.awt.GridBagLayout;
@@ -39,7 +43,12 @@ public class EcranClientRecherche extends JFrame {
 	private JPanel contentPane;
 	private JTextField inputRecherche;
 	private EcranClientRecherche frame;
-	DAOClient client = DAOFactory.getDAOClient();
+	
+	private List<Animal>  listeAnimauxClient;
+	private DAOClient client = DAOFactory.getDAOClient();
+	
+	private AnimalMger animal;
+	 
 	
 	
 	
@@ -125,7 +134,7 @@ public class EcranClientRecherche extends JFrame {
 		 	@Override
 		 	public void mouseClicked(MouseEvent arg0) {
 		 		Client clientSelectionne = (Client)listClient.getSelectedValue();
-		 		EcranClientPrincipal ecranP = new EcranClientPrincipal(clientSelectionne);
+		 		EcranClientPrincipal ecranP = new EcranClientPrincipal(clientSelectionne, listeAnimauxClient);
 		 		ecranP.setVisible(true);
 		 		EcranClientRecherche.this.dispose();
 		 		ecranP.getTextFieldCodeClient().setText(String.valueOf(clientSelectionne.getCodeClient()));
@@ -139,6 +148,16 @@ public class EcranClientRecherche extends JFrame {
 				ecranP.getTextFieldAssurance().setText(clientSelectionne.getAssurance());
 				ecranP.getTextFieldEmail().setText(clientSelectionne.getEmail());
 				ecranP.getTextRemarque().setText(clientSelectionne.getRemarque());
+				
+				try {
+					listeAnimauxClient = animal.listeAnimauxParClient(clientSelectionne.getCodeClient());
+					
+				} catch (BLLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
 		
 		 	}
 		 });
