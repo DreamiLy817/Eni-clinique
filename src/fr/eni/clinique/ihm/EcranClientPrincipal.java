@@ -142,6 +142,18 @@ public class EcranClientPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					clientDAO.supprimer(clientSelectionne.getCodeClient());
+					textFieldCodePersClient.setText("");
+					textFieldNom.setText("");
+					textFieldPrenom.setText("");
+					textFieldAdresse1.setText("");
+					textFieldAdresse2.setText("");
+					textFieldCodeP.setText("");
+					textFieldVille.setText("");
+					textFieldNum.setText("");
+					textFieldAssurance.setText("");
+					textFieldEmail.setText("");
+					textAreaRemarque.setText("");
+					
 				} catch (DALException e1) {
 					e1.printStackTrace();
 				}
@@ -282,8 +294,8 @@ public class EcranClientPrincipal extends JFrame {
 		 * liste des clients JTable
 		 */
 		
-	
-		/**JTable table = new JTable();
+	/*
+		JTable table = new JTable();
 		table.setDefaultEditor(Object.class, null);
 	
 		List<Animal> catalogueAnimal = animalDAO.
@@ -301,9 +313,9 @@ public class EcranClientPrincipal extends JFrame {
 			data[i][2] = tamponPass;
 			i++;
 		}
-		/**
+		
 		// Création d'un modèle personnalisé de JTable
-		/**TableModel tableModel = new DefaultTableModel(data, colonne);
+		TableModel tableModel = new DefaultTableModel(data, colonne);
 		table = new JTable(tableModel);
 		
 		
@@ -313,9 +325,6 @@ public class EcranClientPrincipal extends JFrame {
 				panelTable.add(table.getTableHeader(), BorderLayout.NORTH);
 				panelTable.setVisible(true);
 		
-		
-		
-		*/
 		
 //		ListeAnimaux = new JTable();
 //		GridBagConstraints gbc_ListeAnimaux = new GridBagConstraints();
