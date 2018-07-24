@@ -41,13 +41,13 @@ public class EcranPersonnel extends JFrame {
 	private JButton buttonOkReinit;
 	private JLabel labelUtilisateur = new JLabel("Nom:");
 	private JLabel labelNewPassword = new JLabel("Nouveau mot de passe:");
-	private JLabel labelPrenom = new JLabel("Prénom:");
+	private JLabel labelPrenom = new JLabel("Prï¿½nom:");
 	private JTextField zoneTexteUtilisateur = new JTextField(20);
 	private JLabel labelNewPass = new JLabel("Mot de passe:");
 	private JTextField zoneTexteRole = new JTextField(20);
-	private JLabel labelNewRole = new JLabel("Rôle:");
+	private JLabel labelNewRole = new JLabel("Rï¿½le:");
 	private JFrame frame = new JFrame("Ajout d'utilisateur");
-	private JFrame frame1 = new JFrame("Réinitialisation du mot de passe");
+	private JFrame frame1 = new JFrame("Rï¿½initialisation du mot de passe");
 	private PersonnelMger pm = PersonnelMger.getInstance();
 	private String selectTable = new String();
 	private String tampon = new String();
@@ -73,7 +73,7 @@ public class EcranPersonnel extends JFrame {
 						}
 					} else {
 						JOptionPane.showMessageDialog(EcranPersonnel.this,
-								"Veuillez sélectionner un employé dans la liste avant de l'archiver.");
+								"Veuillez sï¿½lectionner un employï¿½ dans la liste avant de l'archiver.");
 					}
 
 				}
@@ -90,13 +90,13 @@ public class EcranPersonnel extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					String tamponNom = zoneTexteUtilisateur.getText();
-					String tamponPrénom = zoneTextePrenom.getText();
+					String tamponPrenom = zoneTextePrenom.getText();
 					String tamponPass = zoneTextePass.getText();
 					String tamponRole = zoneTexteRole.getText();
 					Personnel nouveau = new Personnel();
 					nouveau.setMotPasse(tamponPass);
 					nouveau.setNom(tamponNom);
-					nouveau.setPrenom(tamponPrénom);
+					nouveau.setPrenom(tamponPrenom);
 					nouveau.setRole(tamponRole);
 					nouveau.setArchive(false);
 					try {
@@ -147,7 +147,7 @@ public class EcranPersonnel extends JFrame {
 				frame.setVisible(true);
 				frame.setResizable(false);
 
-				// Création du panel AjoutUtilisateur
+				// Crï¿½ation du panel AjoutUtilisateur
 				gbc.gridx = 0;
 				gbc.gridy = 0;
 				panelAjout.add(labelUtilisateur, gbc);
@@ -202,7 +202,7 @@ public class EcranPersonnel extends JFrame {
 				frame1.setVisible(true);
 				frame1.setResizable(false);
 
-				// Création du panel Réinitialiser Mot de Passe
+				// Crï¿½ation du panel Rï¿½initialiser Mot de Passe
 				gbc.gridx = 0;
 				gbc.gridy = 0;
 				panelReinit.add(labelNewPassword);
@@ -236,7 +236,7 @@ public class EcranPersonnel extends JFrame {
 						}
 					} else {
 						JOptionPane.showMessageDialog(EcranPersonnel.this,
-								"Veuillez sélectionner un employé dans la liste avant de changer son mot de passe.");
+								"Veuillez sï¿½lectionner un employï¿½ dans la liste avant de changer son mot de passe.");
 					}
 				}
 			});
@@ -286,7 +286,7 @@ public class EcranPersonnel extends JFrame {
 	}
 
 	private void initIHM() throws BLLException {
-		// Initialisation de l'IHM, déclaration des panneaux
+		// Initialisation de l'IHM, dï¿½claration des panneaux
 		JPanel panelPrincipal = new JPanel();
 		JPanel panelBoutons = new JPanel();
 		panelTable = new JPanel();
@@ -298,13 +298,13 @@ public class EcranPersonnel extends JFrame {
 		updateTable();
 		table.setDefaultEditor(Object.class, null);
 
-		// Intégration de la table dans le panneau principal
+		// Intï¿½gration de la table dans le panneau principal
 		panelTable.setLayout(new BorderLayout());
 		panelTable.add(new JScrollPane(table), BorderLayout.CENTER);
 		panelTable.add(table.getTableHeader(), BorderLayout.NORTH);
 		panelTable.setVisible(true);
 
-		// Création du panneau des boutons
+		// Crï¿½ation du panneau des boutons
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		panelBoutons.add(getAjouterButton(), gbc);
@@ -315,7 +315,7 @@ public class EcranPersonnel extends JFrame {
 		gbc.gridy = 0;
 		panelBoutons.add(getReinitialiserButton(), gbc);
 
-		// Création du panel principal
+		// Crï¿½ation du panel principal
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.anchor = GridBagConstraints.WEST;
@@ -337,7 +337,7 @@ public class EcranPersonnel extends JFrame {
 
 	public void updateTable() throws BLLException {
 		List<Personnel> catalogue = pm.affichagePersonnel();
-		final String[] colonne = new String[] { "Nom", "Rôle", "Mot de Passe" };
+		final String[] colonne = new String[] { "Nom", "Rï¿½le", "Mot de Passe" };
 		int taille = catalogue.size();
 		final String[][] data = new String[taille][3];
 		int i = 0;
@@ -350,7 +350,7 @@ public class EcranPersonnel extends JFrame {
 			data[i][2] = tamponPass;
 			i++;
 		}
-		// Création d'un modèle personnalisé de JTable
+		// Crï¿½ation d'un modï¿½le personnalisï¿½ de JTable
 		TableModel tableModel = new DefaultTableModel(data, colonne);
 		table = new JTable(tableModel);
 	}

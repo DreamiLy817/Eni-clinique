@@ -1,11 +1,6 @@
 package fr.eni.clinique.dal;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fr.eni.clinique.bo.Animal;
-import fr.eni.clinique.bo.Client;
-import fr.eni.clinique.bo.Personnel;
 
 public class AppliTestDAL {
 
@@ -15,7 +10,7 @@ public class AppliTestDAL {
 	 */
 	public static void main(String[] args) throws DALException {
 
-		// déclaration et instanciation de la DAO
+		// declaration et instanciation de la DAO
 		DAOPersonnel personnelDAO = DAOFactory.getDAOPersonnel();
 
 		DAOClient clientDAO = DAOFactory.getDAOClient();
@@ -93,6 +88,26 @@ public class AppliTestDAL {
 		// List<String> listeRace = new ArrayList<String>();
 		// listeRace = animalDAO.getRaceList();
 		// System.out.println(listeRace);
+
+
+		//Creation d'animaux
+		Animal a1 = new Animal("Bill", 'H', "Rouge", "chien", "Golden retriever", 1, "", "");
+		Animal a2 = new Animal("Azraï¿½l", 'F', "Brun", "chat", "MaineCoon", 1, "", "");
+		 Animal a3 = new Animal("Willy", 'H', "Bleu", "cheval", "Poney", 1, "", "");
+		
+		 //Insert d'animal dans la base
+		 animalDAO.insert(a1);
+		 animalDAO.insert(a2);
+		 animalDAO.insert(a3);
+		
+		// //Select All des animaux
+		 animalDAO.selectbyID(1);
+
+		// //Mise en archive d'un animal
+		 animalDAO.supprimerViaCodeClient(1, 2);
+
+		// Modification des donnï¿½es d'un animal
+		//animalDAO.modifier("Azraï¿½l", 'F', "Marron", "De Gouttiï¿½re", "Chat", "14FB57", "Traitement contre l'anxiï¿½tï¿½", 3);
 
 		System.out.println(animalDAO.selectAllSelonIDClient(1));
 		String role = personnelDAO.selectbyMDP("Albert", "845364");
