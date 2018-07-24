@@ -13,6 +13,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.Color;
 import javax.swing.JMenu;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class EcranAccueil extends JFrame {
 
@@ -23,7 +25,7 @@ public class EcranAccueil extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EcranAccueil frame = new EcranAccueil();
+					EcranAccueil frame = new EcranAccueil(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,8 +36,10 @@ public class EcranAccueil extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param role 
 	 */
-	public EcranAccueil() {
+	public EcranAccueil(String role) {
+		System.out.println(role);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 689, 491);
 		
@@ -44,35 +48,59 @@ public class EcranAccueil extends JFrame {
 		setJMenuBar(menuBar);
 		
 		
-		JMenu mnNewMenu = new JMenu("Fichier");
-		mnNewMenu.setBackground(new Color(0, 153, 255));
-		mnNewMenu.setForeground(new Color(255, 255, 255));
-		menuBar.add(mnNewMenu);
+		JMenu menuFichier = new JMenu("Fichier");
+		menuFichier.setBackground(new Color(0, 153, 255));
+		menuFichier.setForeground(new Color(255, 255, 255));
+		menuBar.add(menuFichier);
 		
 		JMenuItem mntmDconnexion = new JMenuItem("D\u00E9connexion");
-		mnNewMenu.add(mntmDconnexion);
+		menuFichier.add(mntmDconnexion);
 		
 		JMenuItem mntmFermer = new JMenuItem("Fermer");
-		mnNewMenu.add(mntmFermer);
+		menuFichier.add(mntmFermer);
 		
-		JMenu mnNewMenu_1 = new JMenu("Gestion des rendez-vous");
-		mnNewMenu_1.setBackground(new Color(0, 153, 255));
-		mnNewMenu_1.setForeground(new Color(255, 255, 255));
-		menuBar.add(mnNewMenu_1);
+		//if(role.equals("sec")) {
+			JMenu menuGestionrdv = new JMenu("Gestion des rendez-vous");
+			menuGestionrdv.setBackground(new Color(0, 153, 255));
+			menuGestionrdv.setForeground(new Color(255, 255, 255));
+			menuBar.add(menuGestionrdv);
+			
+			JMenuItem mntmPriseDeRendez = new JMenuItem("Prise de rendez vous");
+			mntmPriseDeRendez.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
+			menuGestionrdv.add(mntmPriseDeRendez);
+			
+			JMenuItem mntmGestionDesClients = new JMenuItem("Gestion des clients");
+			mntmGestionDesClients.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					EcranClientPrincipal ecranP = new EcranClientPrincipal(null, null);
+					ecranP.setVisible(true);
+					EcranAccueil.this.dispose();
+				}
+			});
+			menuGestionrdv.add(mntmGestionDesClients);
+		//}
+		//if(role.equals("vet")) {
+			JMenu menuAgenda = new JMenu("Agenda");
+			menuAgenda.setForeground(new Color(255, 255, 255));
+			menuBar.add(menuAgenda);
+		//}
 		
-		JMenuItem mntmPriseDeRendez = new JMenuItem("Prise de rendez vous");
-		mnNewMenu_1.add(mntmPriseDeRendez);
+	//if(role.equals("adm")) {
+			JMenu menuGestionPerso = new JMenu("Gestion du personnel");
+			menuGestionPerso.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					EcranPersonnel ecranPersonnel = new EcranPersonnel();
+					ecranPersonnel.setVisible(true);
+					EcranAccueil.this.dispose();
+				}
+			});
+			menuGestionPerso.setForeground(new Color(255, 255, 255));
+			menuBar.add(menuGestionPerso);
+		}
 		
-		JMenuItem mntmGestionDesClients = new JMenuItem("Gestion des clients");
-		mnNewMenu_1.add(mntmGestionDesClients);
-		
-		JMenu mnNewMenu_2 = new JMenu("Agenda");
-		mnNewMenu_2.setForeground(new Color(255, 255, 255));
-		menuBar.add(mnNewMenu_2);
-		
-		JMenu mnNewMenu_3 = new JMenu("Gestion du personnel");
-		mnNewMenu_3.setForeground(new Color(255, 255, 255));
-		menuBar.add(mnNewMenu_3);
-	}
+	//}
 
 }
