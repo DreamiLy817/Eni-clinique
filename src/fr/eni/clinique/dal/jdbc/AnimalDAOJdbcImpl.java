@@ -13,7 +13,7 @@ import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
 import fr.eni.clinique.dal.DAOAnimal;
 
-public class AnimalDAOJdbcImpl implements DAO<Animal>, DAOAnimal {
+public class AnimalDAOJdbcImpl implements DAOAnimal {
 	private static final String sqlSupprAnimal = "UPDATE Animaux SET Archive= ? WHERE CodeClient= ? and CodeAnimal= ?";
 	private static final String sqlInsertAnimal = "INSERT INTO Animaux (NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String sqlSelectAllAnimals = "SELECT NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive FROM Animaux WHERE CodeClient = ?";

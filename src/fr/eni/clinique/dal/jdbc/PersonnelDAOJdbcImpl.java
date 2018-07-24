@@ -15,7 +15,7 @@ import fr.eni.clinique.dal.DAO;
 import fr.eni.clinique.dal.DAOPersonnel;
 
 
-public class PersonnelDAOJdbcImpl implements DAO<Personnel>, DAOPersonnel {
+public class PersonnelDAOJdbcImpl implements DAOPersonnel {
 	
 	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels";
 	private static final String sqlSelectAllSansArchivage = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels WHERE Archive=?";

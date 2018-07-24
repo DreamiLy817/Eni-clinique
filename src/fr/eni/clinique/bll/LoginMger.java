@@ -1,6 +1,5 @@
 package fr.eni.clinique.bll;
 
-import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOPersonnel;
 import fr.eni.clinique.dal.DAOFactory;
 
@@ -20,19 +19,4 @@ public class LoginMger {
 	private LoginMger(){
 		personnelDAO = DAOFactory.getDAOPersonnel();
 	}
-
-//	Boolean getAccess(String saisieLogin, String saisieMotpasse) throws BLLException {
-//		Boolean access = false;
-//		String pass = null;
-//		
-//		try {
-//			pass = personnelDAO.selectbyMDP(saisieLogin);
-//			System.out.println(pass);
-//		} catch (DALException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		return access;
-//	}
 }

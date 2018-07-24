@@ -31,6 +31,7 @@ import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
 import fr.eni.clinique.dal.DAOAnimal;
+import fr.eni.clinique.dal.DAOClient;
 import fr.eni.clinique.dal.DAOFactory;
 import javax.swing.JInternalFrame;
 
@@ -53,7 +54,7 @@ public class EcranClientPrincipal extends JFrame {
 	private TextArea textAreaRemarque;
 	
 	
-	private DAO<Client> clientDAO = DAOFactory.getClientDAO();
+	private DAOClient clientDAO = DAOFactory.getDAOClient();
 	private DAOAnimal animalDAO = DAOFactory.getDAOAnimal();
 	
 	private JTable ListeAnimaux;
