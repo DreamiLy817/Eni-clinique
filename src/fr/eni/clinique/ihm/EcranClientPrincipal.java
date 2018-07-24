@@ -295,12 +295,9 @@ public class EcranClientPrincipal extends JFrame {
 		/**
 		 * Jtable liste des animaux
 		 */
-		//TODO
-	
-		
 
 		if(listeAnimauxClient != null) {
-			
+			//TODO HEADER 
 		String col[] = {"numero", "nom", "sexe", "couleur", "race", "espece", "tatouage"};
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 		JTable table = new JTable(tableModel);
@@ -316,21 +313,7 @@ public class EcranClientPrincipal extends JFrame {
 				};
 				tableModel.addRow(obj);
 			}
-			
-			
-			//table = new JTable();
-			//int taille = listeAnimauxClient.size();
-//			table.setModel(new DefaultTableModel(
-//				new Object[][] {
-//
-//				},
-//				new Object[] {
-//						"numero", "nom", "sexe", "couleur", "race", "espece", "tatouage"
-//				}
-//			));
-
-
-			
+		table.setDefaultEditor(Object.class, null);
 			GridBagConstraints gbc_table = new GridBagConstraints();
 			gbc_table.gridwidth = 3;
 			gbc_table.gridheight = 7;
@@ -338,13 +321,10 @@ public class EcranClientPrincipal extends JFrame {
 			gbc_table.fill = GridBagConstraints.BOTH;
 			gbc_table.gridx = 6;
 			gbc_table.gridy = 2;
-			
 		
-			contentPane.add(table.getTableHeader(), gbc_table);
 			contentPane.add(table, gbc_table);
 		}
-	
-		
+
 
 		/**
 		 * label de l'input nom
