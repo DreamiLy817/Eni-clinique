@@ -4,8 +4,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -14,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.LoginMger;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOPersonnel;
 import fr.eni.clinique.dal.DAOFactory;
@@ -27,7 +27,8 @@ public class EcranLogin extends JFrame {
 	private JButton validerButton;
 	private String login;
 	private String pass;
-	private Boolean testLogin;
+	private String role;
+	private LoginMger loginMger = LoginMger.getInstance();
 
 	public JButton getValiderButton() {
 		if (validerButton == null) {
@@ -38,17 +39,17 @@ public class EcranLogin extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					login = textLogin.getText();
 					pass = textPass.getText();
-					DAOPersonnel loginDAO = DAOFactory.getDAOPersonnel();
 					try {
-						testLogin=loginDAO.selectbyMDP(login, pass);
-							if (testLogin) {
+						role=loginMger.connection(login, pass);
+							if (role != null) {
 								JOptionPane.showMessageDialog(EcranLogin.this, "Connexion réussie");
 							}
 							else {
 								JOptionPane.showMessageDialog(EcranLogin.this, "Connexion échouée, identifiant ou mot de passe incorrect");
 							}
-					} catch (DALException e1) {
+					} catch (BLLException e1) {
 						e1.printStackTrace();
+						JOptionPane.showMessageDialog(EcranLogin.this, "Erreur de connexion");
 					}
 				}
 			});

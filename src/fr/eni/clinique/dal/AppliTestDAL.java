@@ -92,5 +92,7 @@ public class AppliTestDAL {
 //		System.out.println(listeRace);
 		
 		System.out.println(animalDAO.selectAllSelonIDClient(1));
+		String role = personnelDAO.selectbyMDP("Albert", "845364");
+		System.out.println(role);
 	}
 }

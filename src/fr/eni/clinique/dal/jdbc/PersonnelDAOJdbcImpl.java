@@ -14,9 +14,8 @@ import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
 import fr.eni.clinique.dal.DAOPersonnel;
 
-
 public class PersonnelDAOJdbcImpl implements DAOPersonnel {
-	
+
 	private static final String sqlSelectAllInfosPersonnel = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels";
 	private static final String sqlSelectAllSansArchivage = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels WHERE Archive=?";
 	private static final String sqlInsertPersonnel = "INSERT INTO Personnels ( nom,Prenom, MotPasse, role,archive) values(?,?,?,?,?);";
@@ -25,47 +24,44 @@ public class PersonnelDAOJdbcImpl implements DAOPersonnel {
 	private static final String sqlSelectByNom = "SELECT CodePers,Nom ,Prenom, MotPasse ,Role FROM Personnels WHERE Nom= ?";
 	private static final String sqlSelectByID = "SELECT CodePers FROM Personnels WHERE Nom= ?";
 	private static final String sqlMiseAJourMDP = "update Personnels set MotPasse=? where Nom=?";
-	
-	public List<Personnel> selectAll() throws DALException{
+
+	public List<Personnel> selectAll() throws DALException {
 		Connection cnx = null;
 		Statement rqt = null;
-		ResultSet rs = null; 
+		ResultSet rs = null;
 		List<Personnel> listePersonnel = new ArrayList<Personnel>();
-		
+
 		try {
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.createStatement();
 			rs = rqt.executeQuery(sqlSelectAllInfosPersonnel);
-			Personnel personne = null; 
-			
-			while(rs.next()) {
-				personne = new Personnel(rs.getInt("codePers"),
-						rs.getString("Nom"),
-						rs.getString("Prenom"),
-						rs.getString("MotPasse"),
-						rs.getString("Role"));
+			Personnel personne = null;
+
+			while (rs.next()) {
+				personne = new Personnel(rs.getInt("codePers"), rs.getString("Nom"), rs.getString("Prenom"),
+						rs.getString("MotPasse"), rs.getString("Role"));
 				listePersonnel.add(personne);
 			}
 		} catch (SQLException e) {
-			throw new DALException("selectAllInfosPersonnel failed - " , e);
+			throw new DALException("selectAllInfosPersonnel failed - ", e);
 		} finally {
 			try {
-				if (rs != null){
+				if (rs != null) {
 					rs.close();
 				}
-				if (rqt != null){
+				if (rqt != null) {
 					rqt.close();
 				}
-				if(cnx!=null){
+				if (cnx != null) {
 					cnx.close();
 				}
 			} catch (SQLException e) {
-				throw new DALException("close failed " , e);
+				throw new DALException("close failed ", e);
 			}
 		}
-		return listePersonnel;	
+		return listePersonnel;
 	}
-	
+
 	//// insertion d'une personne du personnel
 	@Override
 	public void insert(Personnel p) throws DALException {
@@ -75,50 +71,48 @@ public class PersonnelDAOJdbcImpl implements DAOPersonnel {
 
 		try {
 			cnx = JdbcTools.getConnection();
-			rqt = cnx.prepareStatement(sqlInsertPersonnel,Statement.RETURN_GENERATED_KEYS);
-	 
+			rqt = cnx.prepareStatement(sqlInsertPersonnel, Statement.RETURN_GENERATED_KEYS);
+
 			String nom = p.getNom();
 			String prenom = p.getPrenom();
 			String motpasse = p.getMotPasse();
 			String role = p.getRole();
 			Boolean archive = p.getArchive();
-			
-	
+
 			rqt.setString(1, nom);
 			rqt.setString(2, prenom);
 			rqt.setString(3, motpasse);
 			rqt.setString(4, role);
 			rqt.setBoolean(5, archive);
-			
-		
+
 			int nbRows = rqt.executeUpdate();
-			if(nbRows == 1) {
+			if (nbRows == 1) {
 				// recuperation du tampon
-				 rs = rqt.getGeneratedKeys();
+				rs = rqt.getGeneratedKeys();
 				// je vais sur le premier enregistrement s'il existe
-				if(rs.next()) {
+				if (rs.next()) {
 					p.setCodePers(rs.getInt(1));
 				}
 			}
 		} catch (SQLException e) {
-			//TO DO DALException
-			throw new DALException("insertPersonnel failed - " , e);
+			// TO DO DALException
+			throw new DALException("insertPersonnel failed - ", e);
 		} finally {
 			try {
-				if (rs != null){
-				rs.close();
+				if (rs != null) {
+					rs.close();
 				}
-				if (rqt != null){
+				if (rqt != null) {
 					rqt.close();
 				}
-				if(cnx!=null){
+				if (cnx != null) {
 					cnx.close();
 				}
 			} catch (SQLException e) {
-				//throw new DALException("close failed " , e);
+				// throw new DALException("close failed " , e);
 				e.printStackTrace();
 			}
-		}	
+		}
 	}
 
 	@Override
@@ -130,30 +124,30 @@ public class PersonnelDAOJdbcImpl implements DAOPersonnel {
 	// Réinitialiser le mot de passe de l'employé
 	@Override
 	public void reinitialiserPersonnel(Personnel personne, String mdp) throws DALException {
-	Connection cnx = null;
+		Connection cnx = null;
 		PreparedStatement rqt = null;
 		try {
-		cnx = JdbcTools.getConnection();
-		rqt = cnx.prepareStatement(sqlMiseAJourMDP);
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(sqlMiseAJourMDP);
 			rqt.setString(1, mdp);
 			rqt.setString(2, personne.getNom());
 			rqt.executeUpdate();
 
 		} catch (SQLException e) {
-			throw new DALException("Update personnel failed - " + personne , e);
+			throw new DALException("Update personnel failed - " + personne, e);
 		} finally {
 			try {
-				if (rqt != null){
+				if (rqt != null) {
 					rqt.close();
 				}
-				if(cnx !=null){
+				if (cnx != null) {
 					cnx.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-		}	
-}
+		}
+	}
 
 	// suppression d'un membre du personnel
 	// TODO - Vérif RDV pour vet avant archivage
@@ -166,58 +160,60 @@ public class PersonnelDAOJdbcImpl implements DAOPersonnel {
 			rqt = cnx.prepareStatement(sqlSuppressionPersonnel);
 			rqt.setBoolean(1, true);
 			rqt.setInt(2, id);
-			rqt.executeUpdate();	
+			rqt.executeUpdate();
 		} catch (SQLException e) {
-			//TO DO DALException
-			throw new DALException("suppressionPersonnel failed - " , e);
+			// TO DO DALException
+			throw new DALException("suppressionPersonnel failed - ", e);
 		} finally {
 			try {
-				if (rqt != null){
+				if (rqt != null) {
 					rqt.close();
 				}
-				if(cnx!=null){
+				if (cnx != null) {
 					cnx.close();
 				}
 			} catch (SQLException e) {
-				throw new DALException("close failed " , e);
+				throw new DALException("close failed ", e);
 			}
-		}	
+		}
 	}
 
 	@Override
-	public Boolean selectbyMDP(String nom,String motDePasse)throws DALException{
-				Connection cnx = null;
-				PreparedStatement rqt = null;
-				ResultSet rs = null;
-				boolean ok = false;
-	
-				try {
-					cnx = JdbcTools.getConnection();
-					rqt = cnx.prepareStatement(sqlSelectByMDP);
-					rqt.setString(1, nom);
-					rqt.setString(2, motDePasse);
-					
-					rs = rqt.executeQuery();
-					ok = rs.next();
-					} catch (SQLException e) {
-						throw new DALException("selectByMdp failed - id = " + nom  , e);
-					} finally {
-						try {
-							if (rs != null){
-								rs.close();
-							}
-							if (rqt != null){
-								rqt.close();
-							}
-							if(cnx!=null){
-								cnx.close();
-							}
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-					}
-				
-			return ok;
+	public String selectbyMDP(String nom, String motDePasse) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		String ok = null;
+
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectByMDP);
+			rqt.setString(1, nom);
+			rqt.setString(2, motDePasse);
+
+			rs = rqt.executeQuery();
+			if (rs.next()) {
+				ok = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			throw new DALException("selectByMdp failed - id = " + nom, e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (rqt != null) {
+					rqt.close();
+				}
+				if (cnx != null) {
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return ok;
 	}
 
 	@Override
@@ -237,7 +233,7 @@ public class PersonnelDAOJdbcImpl implements DAOPersonnel {
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(sqlSelectByNom);
 			rqt.setString(1, nom);
-			
+
 			rs = rqt.executeQuery();
 			if (rs.next()) {
 				ok.setCodePers(rs.getInt("CodePers"));
@@ -246,26 +242,26 @@ public class PersonnelDAOJdbcImpl implements DAOPersonnel {
 				ok.setMotPasse(rs.getString("MotPasse"));
 				ok.setRole(rs.getString("Role"));
 			}
-			} catch (SQLException e) {
-				throw new DALException("selectByNom failed - id = " + nom  , e);
-			} finally {
-				try {
-					if (rs != null){
-						rs.close();
-					}
-					if (rqt != null){
-						rqt.close();
-					}
-					if(cnx!=null){
-						cnx.close();
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
+		} catch (SQLException e) {
+			throw new DALException("selectByNom failed - id = " + nom, e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
 				}
+				if (rqt != null) {
+					rqt.close();
+				}
+				if (cnx != null) {
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		
-	return ok;
-	
+		}
+
+		return ok;
+
 	}
 
 	@Override
@@ -279,31 +275,31 @@ public class PersonnelDAOJdbcImpl implements DAOPersonnel {
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(sqlSelectByNom);
 			rqt.setString(1, nom);
-			
+
 			rs = rqt.executeQuery();
 			if (rs.next()) {
 				ok = rs.getInt("CodePers");
-				
+
 			}
-			} catch (SQLException e) {
-				throw new DALException("selectByNom failed - id = " + nom  , e);
-			} finally {
-				try {
-					if (rs != null){
-						rs.close();
-					}
-					if (rqt != null){
-						rqt.close();
-					}
-					if(cnx!=null){
-						cnx.close();
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
+		} catch (SQLException e) {
+			throw new DALException("selectByNom failed - id = " + nom, e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
 				}
+				if (rqt != null) {
+					rqt.close();
+				}
+				if (cnx != null) {
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-		
-	return ok;
+		}
+
+		return ok;
 	}
 
 	@Override
@@ -311,40 +307,37 @@ public class PersonnelDAOJdbcImpl implements DAOPersonnel {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
-			List<Personnel> listePersonnel = new ArrayList<Personnel>();
-			
+		List<Personnel> listePersonnel = new ArrayList<Personnel>();
+
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectAllSansArchivage);
+			rqt.setBoolean(1, false);
+			rs = rqt.executeQuery();
+			Personnel personne = null;
+
+			while (rs.next()) {
+				personne = new Personnel(rs.getInt("codePers"), rs.getString("Nom"), rs.getString("Prenom"),
+						rs.getString("MotPasse"), rs.getString("Role"));
+				listePersonnel.add(personne);
+			}
+		} catch (SQLException e) {
+			throw new DALException("SelectAllSansArchivage failed - ", e);
+		} finally {
 			try {
-				cnx = JdbcTools.getConnection();
-				rqt = cnx.prepareStatement(sqlSelectAllSansArchivage);
-				rqt.setBoolean(1, false);
-				rs = rqt.executeQuery();
-				Personnel personne = null; 
-				
-				while(rs.next()) {
-					personne = new Personnel(rs.getInt("codePers"),
-							rs.getString("Nom"),
-							rs.getString("Prenom"),
-							rs.getString("MotPasse"),
-							rs.getString("Role"));
-					listePersonnel.add(personne);
+				if (rs != null) {
+					rs.close();
+				}
+				if (rqt != null) {
+					rqt.close();
+				}
+				if (cnx != null) {
+					cnx.close();
 				}
 			} catch (SQLException e) {
-				throw new DALException("SelectAllSansArchivage failed - " , e);
-			} finally {
-				try {
-					if (rs != null){
-						rs.close();
-					}
-					if (rqt != null){
-						rqt.close();
-					}
-					if(cnx!=null){
-						cnx.close();
-					}
-				} catch (SQLException e) {
-					throw new DALException("close failed " , e);
-				}
+				throw new DALException("close failed ", e);
 			}
-			return listePersonnel;	
 		}
+		return listePersonnel;
+	}
 }
