@@ -15,6 +15,9 @@ import java.awt.Color;
 import javax.swing.JMenu;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import java.awt.Component;
+import javax.swing.border.BevelBorder;
 
 public class EcranAccueil extends JFrame {
 
@@ -44,6 +47,7 @@ public class EcranAccueil extends JFrame {
 		setBounds(100, 100, 689, 491);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBorderPainted(false);
 		menuBar.setBackground(new Color(0, 204, 153));
 		setJMenuBar(menuBar);
 		
@@ -54,12 +58,19 @@ public class EcranAccueil extends JFrame {
 		menuBar.add(menuFichier);
 		
 		JMenuItem mntmDconnexion = new JMenuItem("D\u00E9connexion");
+		mntmDconnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EcranPersonnel ecranPerso = new EcranPersonnel();
+				ecranPerso.setVisible(true);
+				EcranAccueil.this.dispose();
+			}
+		});
 		menuFichier.add(mntmDconnexion);
 		
 		JMenuItem mntmFermer = new JMenuItem("Fermer");
 		menuFichier.add(mntmFermer);
 		
-		//if(role.equals("sec")) {
+		if(role.equals("sec")) {
 			JMenu menuGestionrdv = new JMenu("Gestion des rendez-vous");
 			menuGestionrdv.setBackground(new Color(0, 153, 255));
 			menuGestionrdv.setForeground(new Color(255, 255, 255));
@@ -81,26 +92,33 @@ public class EcranAccueil extends JFrame {
 				}
 			});
 			menuGestionrdv.add(mntmGestionDesClients);
-		//}
-		//if(role.equals("vet")) {
-			JMenu menuAgenda = new JMenu("Agenda");
-			menuAgenda.setForeground(new Color(255, 255, 255));
-			menuBar.add(menuAgenda);
-		//}
-		
-	//if(role.equals("adm")) {
-			JMenu menuGestionPerso = new JMenu("Gestion du personnel");
-			menuGestionPerso.addActionListener(new ActionListener() {
+		}
+			
+		if(role.equals("vet")) {
+			JMenuItem mntmAgenda = new JMenuItem("Agenda");
+			mntmAgenda.setBorder(null);
+			mntmAgenda.setAlignmentX(Component.LEFT_ALIGNMENT);
+			mntmAgenda.setHorizontalAlignment(SwingConstants.LEFT);
+			mntmAgenda.setForeground(new Color(255, 255, 255));
+			mntmAgenda.setBackground(new Color(0, 204, 153));
+			menuBar.add(mntmAgenda);
+		}
+		if(role.equals("adm")) {
+			JMenuItem mntmGestionDuPersonnel = new JMenuItem("Gestion du personnel");
+			mntmGestionDuPersonnel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					EcranPersonnel ecranPersonnel = new EcranPersonnel();
-					ecranPersonnel.setVisible(true);
+					EcranPersonnel ecranPerso = new EcranPersonnel();
+					ecranPerso.setVisible(true);
 					EcranAccueil.this.dispose();
+					
 				}
 			});
-			menuGestionPerso.setForeground(new Color(255, 255, 255));
-			menuBar.add(menuGestionPerso);
+			mntmGestionDuPersonnel.setAlignmentX(Component.LEFT_ALIGNMENT);
+			mntmGestionDuPersonnel.setBorder(null);
+			mntmGestionDuPersonnel.setHorizontalAlignment(SwingConstants.RIGHT);
+			mntmGestionDuPersonnel.setForeground(new Color(255, 255, 255));
+			mntmGestionDuPersonnel.setBackground(new Color(0, 204, 153));
+			menuBar.add(mntmGestionDuPersonnel);
 		}
-		
-	//}
-
+	}
 }

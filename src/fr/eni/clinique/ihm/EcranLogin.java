@@ -19,7 +19,7 @@ import fr.eni.clinique.dal.DAOPersonnel;
 import fr.eni.clinique.dal.DAOFactory;
 
 public class EcranLogin extends JFrame {
-
+ 
 	private JTextField textLogin;
 	private JPasswordField textPass;
 	private JLabel labelLogin;
