@@ -26,10 +26,6 @@ import javax.swing.table.TableModel;
 import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.PersonnelMger;
 import fr.eni.clinique.bo.Personnel;
-import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAO;
-import fr.eni.clinique.dal.DAOFactory;
-import fr.eni.clinique.dal.DAOPersonnel;
 
 @SuppressWarnings("serial")
 public class EcranPersonnel extends JFrame {
@@ -52,7 +48,7 @@ public class EcranPersonnel extends JFrame {
 	private JLabel labelNewRole = new JLabel("Rôle:");
 	private JFrame frame = new JFrame("Ajout d'utilisateur");
 	private JFrame frame1 = new JFrame("Réinitialisation du mot de passe");
-	private PersonnelMger pm;
+	private PersonnelMger pm = PersonnelMger.getInstance();
 	private String selectTable = new String();
 	private String tampon = new String();
 	private JTable table;

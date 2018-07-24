@@ -14,12 +14,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import fr.eni.clinique.bll.AnimalMger;
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.PersonnelMger;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOAnimal;
 import fr.eni.clinique.dal.DAOFactory;
 
 public class EcranAnimaux extends JFrame {
-	private DAOAnimal animalDAO = DAOFactory.getDAOAnimal();
+	private AnimalMger animalMger = AnimalMger.getInstance();
 	// Déclaration des boutons, variables, zone de textes
 	private JButton boutonValider;
 	private JButton boutonAnnuler;
@@ -233,10 +236,10 @@ public class EcranAnimaux extends JFrame {
 		if (raceComboBox == null) {
 			try {
 				List<String> listeRace = null;
-				listeRace = animalDAO.getRaceList();
+				listeRace = animalMger.recupListeRace();
 				String[] tabRace = listeRace.toArray(new String[0]);
 				raceComboBox = new JComboBox<String>(tabRace);
-			} catch (DALException e) {
+			} catch (BLLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -253,10 +256,10 @@ public class EcranAnimaux extends JFrame {
 		if (especeComboBox == null) {
 			try {
 				List<String> listeEspece = null;
-				listeEspece = animalDAO.getEspeceList();
+				listeEspece = animalMger.recupListeEspece();
 				String[] tabEspece = listeEspece.toArray(new String[0]);
 				especeComboBox = new JComboBox<String>(tabEspece);
-			} catch (DALException e) {
+			} catch (BLLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
