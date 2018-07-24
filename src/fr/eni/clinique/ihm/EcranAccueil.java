@@ -43,6 +43,7 @@ public class EcranAccueil extends JFrame {
 		menuBar.setBackground(new Color(0, 204, 153));
 		setJMenuBar(menuBar);
 		
+		
 		JMenu mnNewMenu = new JMenu("Fichier");
 		mnNewMenu.setBackground(new Color(0, 153, 255));
 		mnNewMenu.setForeground(new Color(255, 255, 255));
