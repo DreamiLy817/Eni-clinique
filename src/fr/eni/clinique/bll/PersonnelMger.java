@@ -3,6 +3,9 @@
  */
 package fr.eni.clinique.bll;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAOFactory;
@@ -17,7 +20,10 @@ import fr.eni.clinique.dal.DAOPersonnel;
 public class PersonnelMger {
 	private static PersonnelMger instance;
 	private static DAOPersonnel personnelDAO;
-
+	int id = 0;
+	private List<Personnel> listePersonnel = new ArrayList<Personnel>();
+	private Personnel personnel;
+	
 	public static synchronized PersonnelMger getInstance() {
 		if (instance == null) {
 			instance = new PersonnelMger();
@@ -54,20 +60,33 @@ public class PersonnelMger {
 
 	}
 	
-	public void affichagePersonnel() throws BLLException {
+	public List<Personnel> affichagePersonnel() throws BLLException {
 		try {
-			personnelDAO.selectAllArchi();
+			listePersonnel = personnelDAO.selectAllArchi();
 		} catch (DALException e) {
 			throw new BLLException("Erreur lors du chargement de la liste des employés - " + e);
 		}
+		return listePersonnel;
 	}
 	
-	public void selectByNom(String nom) throws BLLException {
+	public int selectNomID(String nom) throws BLLException {
 		try {
-			personnelDAO.selectbyNom(nom);
+			id = personnelDAO.selectbyNomGiveID(nom);
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return id;
+	}
+	
+	public Personnel selectNom(String nom) throws BLLException {
+		try {
+			personnel = personnelDAO.selectbyNom(nom);
+		} catch (DALException e) {
+			throw new BLLException("Erreur lors de la recherche d'employé par nom - " + e);
+		}
+		
+		return personnel;
 	}
 }
+

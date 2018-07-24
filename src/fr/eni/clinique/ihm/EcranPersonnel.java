@@ -22,6 +22,9 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.PersonnelMger;
 import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
@@ -49,7 +52,7 @@ public class EcranPersonnel extends JFrame {
 	private JLabel labelNewRole = new JLabel("Rôle:");
 	private JFrame frame = new JFrame("Ajout d'utilisateur");
 	private JFrame frame1 = new JFrame("Réinitialisation du mot de passe");
-	private DAOPersonnel loginDAO = DAOFactory.getDAOPersonnel();
+	private PersonnelMger pm;
 	private String selectTable = new String();
 	private String tampon = new String();
 	private JTable table;
@@ -66,10 +69,10 @@ public class EcranPersonnel extends JFrame {
 					selectTable = table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()).toString();
 					if (selectTable != null) {
 						try {
-							loginDAO.supprimer(loginDAO.selectbyNomGiveID(selectTable));
+							pm.archivagePersonnel(pm.selectNomID(selectTable));
 							deleteRow();
 
-						} catch (DALException e1) {
+						} catch (BLLException e1) {
 							e1.printStackTrace();
 						}
 					} else {
@@ -102,9 +105,9 @@ public class EcranPersonnel extends JFrame {
 					nouveau.setArchive(false);
 					try {
 						System.out.println(nouveau.getNom().toString());
-						loginDAO.insert(nouveau);
+						pm.ajoutPersonnel(nouveau);
 						addRow(tamponNom, tamponRole);
-					} catch (DALException e1) {
+					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
@@ -230,8 +233,8 @@ public class EcranPersonnel extends JFrame {
 					if (selectTable != null) {
 						tampon = zoneTexteNouveauPass.getText();
 						try {
-							loginDAO.reinitialiserPersonnel(loginDAO.selectbyNom(selectTable), tampon);
-						} catch (DALException e1) {
+							pm.changementPasse(pm.selectNom(selectTable), tampon);
+						} catch (BLLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
@@ -281,12 +284,12 @@ public class EcranPersonnel extends JFrame {
 		super();
 		try {
 			initIHM();
-		} catch (DALException e) {
+		} catch (BLLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private void initIHM() throws DALException {
+	private void initIHM() throws BLLException {
 		// Initialisation de l'IHM, déclaration des panneaux
 		JPanel panelPrincipal = new JPanel();
 		JPanel panelBoutons = new JPanel();
@@ -327,17 +330,17 @@ public class EcranPersonnel extends JFrame {
 		this.setContentPane(panelPrincipal);
 	}
 
-	public void addRow(String a, String b) throws DALException {
+	public void addRow(String a, String b) throws BLLException {
 		((DefaultTableModel) table.getModel()).addRow(new Object[] { a, b, "*****" });
 	}
 
-	public void deleteRow() throws DALException {
+	public void deleteRow() throws BLLException {
 		recupRow = table.getSelectedRow();
 		((DefaultTableModel) table.getModel()).removeRow(recupRow);
 	}
 
-	public void updateTable() throws DALException {
-		List<Personnel> catalogue = loginDAO.selectAllArchi();
+	public void updateTable() throws BLLException {
+		List<Personnel> catalogue = pm.affichagePersonnel();
 		final String[] colonne = new String[] { "Nom", "Rôle", "Mot de Passe" };
 		int taille = catalogue.size();
 		final String[][] data = new String[taille][3];

@@ -56,4 +56,10 @@ public interface DAOAnimal extends DAO<Animal>{
 	 * @throws DALException
 	 */
 	public List<String> getEspeceList() throws DALException;
+
+	/**
+	 * Fonction en charge de 
+	 * @return
+	 */
+	public List<Animal> selectAllSelonIDClient(int id) throws DALException;
 }
