@@ -42,10 +42,11 @@ public class EcranLogin extends JFrame {
 					try {
 						role=loginMger.connection(login, pass);
 							if (role != null) {
-								JOptionPane.showMessageDialog(EcranLogin.this, "Connexion réussie");
+								JOptionPane.showMessageDialog(EcranLogin.this, "Connexion reussie");
+								
 							}
 							else {
-								JOptionPane.showMessageDialog(EcranLogin.this, "Connexion échouée, identifiant ou mot de passe incorrect");
+								JOptionPane.showMessageDialog(EcranLogin.this, "Connexion echouee, identifiant ou mot de passe incorrect");
 							}
 					} catch (BLLException e1) {
 						e1.printStackTrace();
