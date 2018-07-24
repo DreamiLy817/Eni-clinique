@@ -68,7 +68,7 @@ public class EcranClientPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EcranClientPrincipal frame = new EcranClientPrincipal(null);
+					EcranClientPrincipal frame = new EcranClientPrincipal(null, null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -80,8 +80,9 @@ public class EcranClientPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 * @param clientSelectionne 
+	 * @param listeAnimauxClient 
 	 */
-	public EcranClientPrincipal(final Client clientSelectionne) {
+	public EcranClientPrincipal(final Client clientSelectionne, List<Animal> listeAnimauxClient) {
 		client = clientSelectionne;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -295,23 +296,30 @@ public class EcranClientPrincipal extends JFrame {
 		 * liste des clients JTable
 		 */
 		
-	/*
+	
 		JTable table = new JTable();
 		table.setDefaultEditor(Object.class, null);
 	
-		List<Animal> catalogueAnimal = animalDAO.
 		final String[] colonne = new String[] { "numero", "nom", "sexe", "couleur", "race", "espece","tatouage" };
-		int taille = catalogue.size();
-		final String[][] data = new String[taille][3];
+		int taille = listeAnimauxClient.size();
+		final String[][] data = new String[taille][7];
 		int i = 0;
-		for (Client employe : catalogue) {
-			String tamponNumero = 
-			String tamponNom = employe.getNomClient();
-			String tamponRole = employe.getRole();
-			String tamponPass = "*****";
-			data[i][0] = tamponNom;
-			data[i][1] = tamponRole;
-			data[i][2] = tamponPass;
+		for (Animal animal : listeAnimauxClient) {
+			String  tamponNumero = String.valueOf(animal.getCodeAnimal());
+			String tamponNom = animal.getNomAnimal();
+			String tamponSexe = String.valueOf(animal.getSexe());
+			String tamponCouleur = animal.getCouleur();
+			String tamponRace = animal.getRace();
+			String tamponEspece = animal.getEspece();
+			String tamponTatouage = animal.getTatouage();
+			data[i][0] = tamponNumero;
+			data[i][1] = tamponNom;
+			data[i][2] = tamponSexe;
+			data[i][3] = tamponCouleur;
+			data[i][4] = tamponRace;
+			data[i][5] = tamponEspece;
+			data[i][6] = tamponTatouage;
+	
 			i++;
 		}
 		
@@ -328,14 +336,14 @@ public class EcranClientPrincipal extends JFrame {
 		
 		
 //		ListeAnimaux = new JTable();
-//		GridBagConstraints gbc_ListeAnimaux = new GridBagConstraints();
-//		gbc_ListeAnimaux.gridheight = 7;
-//		gbc_ListeAnimaux.gridwidth = 3;
-//		gbc_ListeAnimaux.insets = new Insets(0, 0, 5, 5);
-//		gbc_ListeAnimaux.fill = GridBagConstraints.BOTH;
-//		gbc_ListeAnimaux.gridx = 6;
-//		gbc_ListeAnimaux.gridy = 2;
-//		contentPane.add(ListeAnimaux, gbc_ListeAnimaux);
+		GridBagConstraints gbc_ListeAnimaux = new GridBagConstraints();
+		gbc_ListeAnimaux.gridheight = 7;
+	gbc_ListeAnimaux.gridwidth = 3;
+	gbc_ListeAnimaux.insets = new Insets(0, 0, 5, 5);
+	gbc_ListeAnimaux.fill = GridBagConstraints.BOTH;
+	gbc_ListeAnimaux.gridx = 6;
+		gbc_ListeAnimaux.gridy = 2;
+		contentPane.add(panelTable, gbc_ListeAnimaux);
 		
 		/**
 		 * label de l'input nom
@@ -726,6 +734,8 @@ public class EcranClientPrincipal extends JFrame {
 		}
 		return textAreaRemarque;	
 	}
+	
+ 
 
 
 }

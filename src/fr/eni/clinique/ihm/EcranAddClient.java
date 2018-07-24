@@ -79,7 +79,7 @@ public class EcranAddClient extends JFrame {
 					clientDAO.insert(clientAjoute);
 					System.out.println("je passe");
 						JOptionPane.showMessageDialog(EcranAddClient.this, "Le client a ete ajoute");
-						EcranClientPrincipal ecranP = new EcranClientPrincipal(clientAjoute);
+						EcranClientPrincipal ecranP = new EcranClientPrincipal(clientAjoute, null);
 						ecranP.setVisible(true);
 						ecranP.getTextFieldCodeClient().setText(String.valueOf(clientAjoute.getCodeClient()));
 						ecranP.getTextFieldNom().setText(clientAjoute.getNomClient());
