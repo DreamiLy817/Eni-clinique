@@ -110,7 +110,7 @@ public class EcranClientRecherche extends JFrame {
 
 		// Liste pour afficher tous les clients
 
-		// entrer des données dans mon modele de liste
+		// entrer des donnï¿½es dans mon modele de liste
 		listModelClient = new DefaultListModel();
 
 		// creation de la liste et la mettre dans un scroll pane
@@ -120,6 +120,14 @@ public class EcranClientRecherche extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Client clientSelectionne = (Client) listClient.getSelectedValue();
+				try {
+					listeAnimauxClient = animalMger.listeAnimauxParClient(clientSelectionne.getCodeClient());
+					
+				} catch (BLLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				EcranClientPrincipal ecranP = new EcranClientPrincipal(clientSelectionne, listeAnimauxClient);
 				ecranP.setVisible(true);
 				EcranClientRecherche.this.dispose();
@@ -135,13 +143,7 @@ public class EcranClientRecherche extends JFrame {
 				ecranP.getTextFieldEmail().setText(clientSelectionne.getEmail());
 				ecranP.getTextRemarque().setText(clientSelectionne.getRemarque());
 
-				try {
-					listeAnimauxClient = animalMger.listeAnimauxParClient(clientSelectionne.getCodeClient());
-					
-				} catch (BLLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				
 
 			}
 		});
@@ -162,7 +164,7 @@ public class EcranClientRecherche extends JFrame {
 	}
 
 	/**
-	 * methode pour recupérer le texte dans le input de recherche
+	 * methode pour recupï¿½rer le texte dans le input de recherche
 	 */
 	public JTextField getTxtRecherche() {
 		if (inputRecherche == null) {

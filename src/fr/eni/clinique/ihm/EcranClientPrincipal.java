@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
@@ -53,6 +54,7 @@ public class EcranClientPrincipal extends JFrame {
 	private JTable ListeAnimaux;
 
 	private Client client;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -86,7 +88,7 @@ public class EcranClientPrincipal extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[] { 0, 0, 136, 99, 49, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPane.rowHeights = new int[] { 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_contentPane.rowHeights = new int[] { 0, 19, 38, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gbl_contentPane.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
@@ -173,7 +175,7 @@ public class EcranClientPrincipal extends JFrame {
 		JButton btnValider = new JButton("valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// verification que la nouvelle saisie n'est pas égale a celle
+				// verification que la nouvelle saisie n'est pas ï¿½gale a celle
 				// de base du client
 				// nom
 				if (clientSelectionne.getNomClient() != (getTextFieldNom().getText())) {
@@ -269,7 +271,7 @@ public class EcranClientPrincipal extends JFrame {
 		 */
 		JLabel lblCode = new JLabel("Code");
 		GridBagConstraints gbc_lblCode = new GridBagConstraints();
-		gbc_lblCode.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblCode.fill = GridBagConstraints.BOTH;
 		gbc_lblCode.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCode.gridx = 1;
 		gbc_lblCode.gridy = 2;
@@ -279,72 +281,75 @@ public class EcranClientPrincipal extends JFrame {
 		 * input code client
 		 */
 		GridBagConstraints gbc_textFieldCode = new GridBagConstraints();
-		gbc_textFieldCode.anchor = GridBagConstraints.NORTH;
 		gbc_textFieldCode.gridwidth = 3;
-		gbc_textFieldCode.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldCode.fill = GridBagConstraints.BOTH;
 		gbc_textFieldCode.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldCode.gridx = 2;
 		gbc_textFieldCode.gridy = 2;
 		contentPane.add(getTextFieldCodeClient(), gbc_textFieldCode);
 		textFieldCodePersClient.setColumns(10);
 
-		/////////////////////
+
+
+
 		/**
-		 * liste des clients JTable
+		 * Jtable liste des animaux
 		 */
+		//TODO
+	
 		
-		if (listeAnimauxClient != null) {
-			JTable table = new JTable();
-			table.setDefaultEditor(Object.class, null);
-			// Premier client automatiquement
-			final String[] colonne = new String[] { "numero", "nom", "sexe", "couleur", "race", "espece", "tatouage" };
-			int taille = listeAnimauxClient.size();
-			final String[][] data = new String[taille][7];
-			int i = 0;
-			for (Animal animal : listeAnimauxClient) {
-				String tamponNumero = String.valueOf(animal.getCodeAnimal());
-				String tamponNom = animal.getNomAnimal();
-				String tamponSexe = String.valueOf(animal.getSexe());
-				String tamponCouleur = animal.getCouleur();
-				String tamponRace = animal.getRace();
-				String tamponEspece = animal.getEspece();
-				String tamponTatouage = animal.getTatouage();
-				data[i][0] = tamponNumero;
-				data[i][1] = tamponNom;
-				data[i][2] = tamponSexe;
-				data[i][3] = tamponCouleur;
-				data[i][4] = tamponRace;
-				data[i][5] = tamponEspece;
-				data[i][6] = tamponTatouage;
 
-				i++;
-			}
-
-			// Création d'un modèle personnalisé de JTable
-			TableModel tableModel = new DefaultTableModel(data, colonne);
-			table = new JTable(tableModel);
-
-			// Intégration de la table dans le panneau principal
-			panelTable.setLayout(new BorderLayout());
-			panelTable.add(new JScrollPane(table), BorderLayout.CENTER);
-			panelTable.add(table.getTableHeader(), BorderLayout.NORTH);
-			panelTable.setVisible(true);
-
-			// ListeAnimaux = new JTable();
-			GridBagConstraints gbc_ListeAnimaux = new GridBagConstraints();
-			gbc_ListeAnimaux.gridheight = 7;
-			gbc_ListeAnimaux.gridwidth = 3;
-			gbc_ListeAnimaux.insets = new Insets(0, 0, 5, 5);
-			gbc_ListeAnimaux.fill = GridBagConstraints.BOTH;
-			gbc_ListeAnimaux.gridx = 6;
-			gbc_ListeAnimaux.gridy = 2;
-			contentPane.add(panelTable, gbc_ListeAnimaux);
+		if(listeAnimauxClient != null) {
 			
+		String col[] = {"numero", "nom", "sexe", "couleur", "race", "espece", "tatouage"};
+		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+		JTable table = new JTable(tableModel);
+			for (Animal animal : listeAnimauxClient) {
+				Object[] obj = {
+						animal.getCodeAnimal(),
+						animal.getNomAnimal(),
+						animal.getSexe(), 
+						animal.getCouleur(),
+						animal.getRace(),
+						animal.getEspece(),
+						animal.getTatouage()	
+				};
+				tableModel.addRow(obj);
+			}
+			
+			
+			//table = new JTable();
+			//int taille = listeAnimauxClient.size();
+//			table.setModel(new DefaultTableModel(
+//				new Object[][] {
+//
+//				},
+//				new Object[] {
+//						"numero", "nom", "sexe", "couleur", "race", "espece", "tatouage"
+//				}
+//			));
+
+
+			
+			GridBagConstraints gbc_table = new GridBagConstraints();
+			gbc_table.gridwidth = 3;
+			gbc_table.gridheight = 7;
+			gbc_table.insets = new Insets(0, 0, 5, 5);
+			gbc_table.fill = GridBagConstraints.BOTH;
+			gbc_table.gridx = 6;
+			gbc_table.gridy = 2;
+			
+		
+			contentPane.add(table.getTableHeader(), gbc_table);
+			contentPane.add(table, gbc_table);
 		}
+	
+		
 
 		/**
 		 * label de l'input nom
 		 */
+		
 		JLabel lblNom = new JLabel("Nom");
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
 		gbc_lblNom.fill = GridBagConstraints.HORIZONTAL;
@@ -605,7 +610,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recupérer le texte dans le input code client
+	 * methode pour recupï¿½rer le texte dans le input code client
 	 * 
 	 * @return textFieldCodePers
 	 */
@@ -618,7 +623,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recupérer le texte dans le input du nom
+	 * methode pour recupï¿½rer le texte dans le input du nom
 	 * 
 	 * @return textFieldNom
 	 */
@@ -631,7 +636,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recupérer le texte dans le input du prenom
+	 * methode pour recupï¿½rer le texte dans le input du prenom
 	 * 
 	 * @return textFieldPrenom
 	 */
@@ -644,7 +649,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recupérer le texte dans le input de ladresse 1
+	 * methode pour recupï¿½rer le texte dans le input de ladresse 1
 	 * 
 	 * @return textFieldAdresse1
 	 */
@@ -657,7 +662,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recupérer le texte dans le input de l'adresse 2
+	 * methode pour recupï¿½rer le texte dans le input de l'adresse 2
 	 * 
 	 * @return textFieldAdresse2
 	 */
@@ -670,7 +675,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recupérer le texte dans le input du code postal
+	 * methode pour recupï¿½rer le texte dans le input du code postal
 	 * 
 	 * @return textFieldCodePostal
 	 */
@@ -682,7 +687,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recupérer le texte dans le input de ville
+	 * methode pour recupï¿½rer le texte dans le input de ville
 	 * 
 	 * @return textFieldVille
 	 */
@@ -694,7 +699,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recupérer le texte dans le input du numero
+	 * methode pour recupï¿½rer le texte dans le input du numero
 	 * 
 	 * @return textFieldNumero
 	 */
@@ -706,7 +711,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recupérer le texte dans le input de l'assurance
+	 * methode pour recupï¿½rer le texte dans le input de l'assurance
 	 * 
 	 * @return textFieldAssurance
 	 */
@@ -718,7 +723,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recupérer le texte dans le input du mail
+	 * methode pour recupï¿½rer le texte dans le input du mail
 	 * 
 	 * @return textFieldEmail
 	 */
@@ -730,7 +735,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recupérer le texte dans le input de remarque
+	 * methode pour recupï¿½rer le texte dans le input de remarque
 	 * 
 	 * @return textArea
 	 */
