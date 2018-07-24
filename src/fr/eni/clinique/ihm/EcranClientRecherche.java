@@ -1,8 +1,5 @@
 package fr.eni.clinique.ihm;
 
-import java.awt.EventQueue;
-import java.awt.Frame;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -13,7 +10,6 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAOAnimal;
 import fr.eni.clinique.dal.DAOClient;
 import fr.eni.clinique.dal.DAOFactory;
 import java.awt.GridBagLayout;
@@ -47,7 +43,7 @@ public class EcranClientRecherche extends JFrame {
 	private List<Animal>  listeAnimauxClient;
 	private DAOClient client = DAOFactory.getDAOClient();
 	
-	private AnimalMger animal;
+	private AnimalMger animalMger = AnimalMger.getInstance();
 	 
 	
 	
@@ -150,7 +146,7 @@ public class EcranClientRecherche extends JFrame {
 				ecranP.getTextRemarque().setText(clientSelectionne.getRemarque());
 				
 				try {
-					listeAnimauxClient = animal.listeAnimauxParClient(clientSelectionne.getCodeClient());
+					listeAnimauxClient = animalMger.listeAnimauxParClient(clientSelectionne.getCodeClient());
 					
 				} catch (BLLException e) {
 					// TODO Auto-generated catch block

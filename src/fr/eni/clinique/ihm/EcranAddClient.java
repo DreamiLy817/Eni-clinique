@@ -1,20 +1,13 @@
 package fr.eni.clinique.ihm;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import fr.eni.clinique.bo.Client;
-import fr.eni.clinique.bo.Personnel;
 import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAO;
 import fr.eni.clinique.dal.DAOClient;
 import fr.eni.clinique.dal.DAOFactory;
-import fr.eni.clinique.dal.DAOPersonnel;
-
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
@@ -26,9 +19,7 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
-import java.util.concurrent.TimeUnit;
 import java.awt.event.ActionEvent;
 
 /**

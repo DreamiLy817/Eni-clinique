@@ -16,10 +16,6 @@ import javax.swing.JTextField;
 
 import fr.eni.clinique.bll.AnimalMger;
 import fr.eni.clinique.bll.BLLException;
-import fr.eni.clinique.bll.PersonnelMger;
-import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAOAnimal;
-import fr.eni.clinique.dal.DAOFactory;
 
 public class EcranAnimaux extends JFrame {
 	private AnimalMger animalMger = AnimalMger.getInstance();

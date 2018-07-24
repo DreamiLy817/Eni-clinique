@@ -14,7 +14,6 @@ import java.awt.Insets;
 import java.awt.TextArea;
 
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import java.awt.Color;
@@ -25,15 +24,11 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import fr.eni.clinique.bll.AnimalMger;
+import fr.eni.clinique.bll.BLLException;
+import fr.eni.clinique.bll.ClientMger;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
-import fr.eni.clinique.bo.Personnel;
-import fr.eni.clinique.dal.DALException;
-import fr.eni.clinique.dal.DAO;
-import fr.eni.clinique.dal.DAOAnimal;
-import fr.eni.clinique.dal.DAOClient;
-import fr.eni.clinique.dal.DAOFactory;
-import javax.swing.JInternalFrame;
 
 public class EcranClientPrincipal extends JFrame {
 
@@ -53,9 +48,8 @@ public class EcranClientPrincipal extends JFrame {
 	
 	private TextArea textAreaRemarque;
 	
-	
-	private DAOClient clientDAO = DAOFactory.getDAOClient();
-	private DAOAnimal animalDAO = DAOFactory.getDAOAnimal();
+	private ClientMger clientMger = ClientMger.getInstance();
+	private AnimalMger animalMger = AnimalMger.getInstance();
 	
 	private JTable ListeAnimaux;
 	
@@ -143,7 +137,7 @@ public class EcranClientPrincipal extends JFrame {
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					clientDAO.supprimer(clientSelectionne.getCodeClient());
+					clientMger.archivageClient(clientSelectionne.getCodeClient());
 					textFieldCodePersClient.setText("");
 					textFieldNom.setText("");
 					textFieldPrenom.setText("");
@@ -156,7 +150,7 @@ public class EcranClientPrincipal extends JFrame {
 					textFieldEmail.setText("");
 					textAreaRemarque.setText("");
 					
-				} catch (DALException e1) {
+				} catch (BLLException e1) {
 					e1.printStackTrace();
 				}
 			}
@@ -221,8 +215,8 @@ public class EcranClientPrincipal extends JFrame {
 				
 				try {
 					//TODO optimisation ne pas faire la requete si les champs sont pareils
-					clientDAO.update(clientSelectionne);
-				} catch (DALException e1) {
+					clientMger.miseAJourClient(clientSelectionne);
+				} catch (BLLException e1) {
 					e1.printStackTrace();
 				}
 			}
@@ -296,10 +290,10 @@ public class EcranClientPrincipal extends JFrame {
 		 * liste des clients JTable
 		 */
 		
-	
+	if (listeAnimauxClient != null) {
 		JTable table = new JTable();
 		table.setDefaultEditor(Object.class, null);
-	
+		// Premier client automatiquement
 		final String[] colonne = new String[] { "numero", "nom", "sexe", "couleur", "race", "espece","tatouage" };
 		int taille = listeAnimauxClient.size();
 		final String[][] data = new String[taille][7];
@@ -332,18 +326,21 @@ public class EcranClientPrincipal extends JFrame {
 				panelTable.setLayout(new BorderLayout());
 				panelTable.add(new JScrollPane(table), BorderLayout.CENTER);
 				panelTable.add(table.getTableHeader(), BorderLayout.NORTH);
-				panelTable.setVisible(true);
+				panelTable.setVisible(false);
+		
+//				ListeAnimaux = new JTable();
+				GridBagConstraints gbc_ListeAnimaux = new GridBagConstraints();
+				gbc_ListeAnimaux.gridheight = 7;
+			gbc_ListeAnimaux.gridwidth = 3;
+			gbc_ListeAnimaux.insets = new Insets(0, 0, 5, 5);
+			gbc_ListeAnimaux.fill = GridBagConstraints.BOTH;
+			gbc_ListeAnimaux.gridx = 6;
+				gbc_ListeAnimaux.gridy = 2;
+				contentPane.add(panelTable, gbc_ListeAnimaux);
+	}
 		
 		
-//		ListeAnimaux = new JTable();
-		GridBagConstraints gbc_ListeAnimaux = new GridBagConstraints();
-		gbc_ListeAnimaux.gridheight = 7;
-	gbc_ListeAnimaux.gridwidth = 3;
-	gbc_ListeAnimaux.insets = new Insets(0, 0, 5, 5);
-	gbc_ListeAnimaux.fill = GridBagConstraints.BOTH;
-	gbc_ListeAnimaux.gridx = 6;
-		gbc_ListeAnimaux.gridy = 2;
-		contentPane.add(panelTable, gbc_ListeAnimaux);
+
 		
 		/**
 		 * label de l'input nom

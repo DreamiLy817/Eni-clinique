@@ -83,12 +83,14 @@ public class AppliTestDAL {
 //
 //		System.out.println(clientDAO.rechercherClient("po"));
 
-		List<String> listeEspece = new ArrayList<String>();
-		listeEspece = animalDAO.getEspeceList();
-		System.out.println(listeEspece);
+//		List<String> listeEspece = new ArrayList<String>();
+//		listeEspece = animalDAO.getEspeceList();
+//		System.out.println(listeEspece);
+//		
+//		List<String> listeRace = new ArrayList<String>();
+//		listeRace = animalDAO.getRaceList();
+//		System.out.println(listeRace);
 		
-		List<String> listeRace = new ArrayList<String>();
-		listeRace = animalDAO.getRaceList();
-		System.out.println(listeRace);
+		System.out.println(animalDAO.selectAllSelonIDClient(1));
 	}
 }

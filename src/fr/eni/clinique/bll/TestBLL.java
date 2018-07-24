@@ -11,19 +11,12 @@ public class TestBLL {
 	
 	public static void main(String[] args) throws BLLException {
 		LoginMger login = LoginMger.getInstance();
-		DAOPersonnel loginDAO = DAOFactory.getDAOPersonnel();
-		try {
-			boolean connexionEtat = loginDAO.selectbyMDP(nom, pass);
-			if (connexionEtat == true) {
-				System.out.println("Connexion acceptée!");
-			}
-			else {
-				System.out.println("Connexion refusée!");
-			}
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		PersonnelMger pm = PersonnelMger.getInstance();
+		AnimalMger am = AnimalMger.getInstance();
+		ClientMger cm = ClientMger.getInstance();
+		
+		System.out.println(am.listeAnimauxParClient(1));
+
 
 	}
 

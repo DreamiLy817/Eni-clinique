@@ -16,7 +16,7 @@ import fr.eni.clinique.dal.DAOAnimal;
 public class AnimalDAOJdbcImpl implements DAOAnimal {
 	private static final String sqlSupprAnimal = "UPDATE Animaux SET Archive= ? WHERE CodeClient= ? and CodeAnimal= ?";
 	private static final String sqlInsertAnimal = "INSERT INTO Animaux (NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String sqlSelectAllAnimals = "SELECT NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive FROM Animaux WHERE CodeClient = ?";
+	private static final String sqlSelectAllAnimals = "SELECT CodeAnimal, NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive FROM Animaux WHERE CodeClient = ?";
 	private static final String sqlModifAnimal = "UPDATE Animaux SET NomAnimal=?, Sexe=?, Couleur=?, Race=?, Espece=?, Tatouage=?, Antecedents=? FROM Animaux WHERE CodeAnimal = ?";
 	private static final String sqlSelectRace = "SELECT DISTINCT Race FROM Animaux";
 	private static final String sqlSelectEspece = "SELECT DISTINCT Espece FROM Animaux";
@@ -104,16 +104,17 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 	 */
 	public List<Animal> selectAllSelonIDClient(int id) throws DALException {
 		Connection cnx = null;
-		Statement rqt = null;
+		PreparedStatement rqt = null;
 		ResultSet rs = null;
 		List<Animal> listeAnimaux = new ArrayList<Animal>();
-
+		Animal animal = null;
+		
 		try {
 			cnx = JdbcTools.getConnection();
-			rqt = cnx.createStatement();
-			rs = rqt.executeQuery(sqlSelectAllAnimals);
-			Animal animal = null;
-
+			rqt = cnx.prepareStatement(sqlSelectAllAnimals);
+			rqt.setInt(1, id);
+			rs = rqt.executeQuery();
+			
 			while (rs.next()) {
 				animal = new Animal(rs.getInt("CodeAnimal"), rs.getString("NomAnimal"), rs.getString("Sexe").charAt(0),
 						rs.getString("Couleur"), rs.getString("Race"), rs.getString("Espece"),
