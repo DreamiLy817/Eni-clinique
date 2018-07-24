@@ -1,11 +1,6 @@
 package fr.eni.clinique.dal;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import fr.eni.clinique.bo.Animal;
-import fr.eni.clinique.bo.Client;
-import fr.eni.clinique.bo.Personnel;
 
 public class AppliTestDAL {
 
@@ -15,7 +10,7 @@ public class AppliTestDAL {
 	 */
 	public static void main(String[] args) throws DALException {
 
-		// d�claration et instanciation de la DAO
+		// declaration et instanciation de la DAO
 		DAOPersonnel personnelDAO = DAOFactory.getDAOPersonnel();
 
 		DAOClient clientDAO = DAOFactory.getDAOClient();
@@ -94,7 +89,8 @@ public class AppliTestDAL {
 		// listeRace = animalDAO.getRaceList();
 		// System.out.println(listeRace);
 
-		//Cr�ation d'animaux
+
+		//Creation d'animaux
 		Animal a1 = new Animal("Bill", 'H', "Rouge", "chien", "Golden retriever", 1, "", "");
 		Animal a2 = new Animal("Azra�l", 'F', "Brun", "chat", "MaineCoon", 1, "", "");
 		 Animal a3 = new Animal("Willy", 'H', "Bleu", "cheval", "Poney", 1, "", "");
