@@ -23,6 +23,9 @@ import javax.swing.border.MatteBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
+
+import fr.eni.clinique.bo.Animal;
+
 import java.awt.Panel;
 import javax.swing.SwingConstants;
 
@@ -41,7 +44,7 @@ public class EcranAnimal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EcranAnimal frame = new EcranAnimal();
+					EcranAnimal frame = new EcranAnimal(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,8 +55,9 @@ public class EcranAnimal extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @param animalSelectionne 
 	 */
-	public EcranAnimal() {
+	public EcranAnimal(Animal animalSelectionne) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 436, 402);
 		contentPane = new JPanel();

@@ -504,7 +504,18 @@ public class EcranClientPrincipal extends JFrame {
 		/**
 		 * button ajouter un animal au client selectionne
 		 */
+		
 		JButton btnAjouterUnAnimal = new JButton("Ajouter un animal");
+		if(clientSelectionne == null) {
+			btnAjouterUnAnimal.setEnabled(false);
+		}
+		btnAjouterUnAnimal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				EcranAnimal ecranA = new EcranAnimal(null);
+				ecranA.setVisible(true);
+				EcranClientPrincipal.this.dispose();
+			}
+		});
 		btnAjouterUnAnimal.setForeground(new Color(255, 255, 255));
 		btnAjouterUnAnimal.setBackground(new Color(0, 204, 153));
 		btnAjouterUnAnimal.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/plus.png")));
@@ -519,6 +530,9 @@ public class EcranClientPrincipal extends JFrame {
 		 * button supprime un animal au client selectionne
 		 */
 		JButton btnSupprimerAnimal = new JButton("Supprimer un animal");
+		if(clientSelectionne == null) {
+			btnSupprimerAnimal.setEnabled(false);
+		}
 		btnSupprimerAnimal.setForeground(new Color(255, 255, 255));
 		btnSupprimerAnimal.setBackground(new Color(0, 204, 153));
 		btnSupprimerAnimal.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/minus.png")));
@@ -536,6 +550,21 @@ public class EcranClientPrincipal extends JFrame {
 		 * button editer un animal au client selectionne
 		 */
 		JButton btnEditerUnAnimal = new JButton("Editer un animal");
+		btnEditerUnAnimal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//TODO
+				
+				Animal animalSelectionne = (Animal)table.getValueAt(table.getSelectedRowCount(), table.getSelectedColumnCount());
+				EcranAnimal ecranA = new EcranAnimal(animalSelectionne);
+				
+				
+			
+				
+			}
+		});
+		if(clientSelectionne == null) {
+			btnEditerUnAnimal.setEnabled(false);
+		}
 		btnEditerUnAnimal.setForeground(new Color(255, 255, 255));
 		btnEditerUnAnimal.setBackground(new Color(0, 204, 153));
 		GridBagConstraints gbc_btnEditerUnAnimal = new GridBagConstraints();
