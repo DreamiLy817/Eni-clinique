@@ -47,6 +47,7 @@ public class EcranClientRecherche extends JFrame {
 
 	private JList listClient;
 	private DefaultListModel listModelClient;
+	private JButton btnAnnuler;
 
 	/**
 	 * Create the frame.
@@ -58,9 +59,9 @@ public class EcranClientRecherche extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[] { 0, 430, 146, 0 };
+		gbl_contentPane.columnWidths = new int[] { 0, 430, 146, 0, 0 };
 		gbl_contentPane.rowHeights = new int[] { 0, 0, 0 };
-		gbl_contentPane.columnWeights = new double[] { 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_contentPane.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_contentPane.rowWeights = new double[] { 0.0, 1.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
@@ -103,7 +104,7 @@ public class EcranClientRecherche extends JFrame {
 		btnRechercher.setIcon(new ImageIcon(EcranClientRecherche.class.getResource("/images/loupe.png")));
 		GridBagConstraints gbc_btnRechercher = new GridBagConstraints();
 		gbc_btnRechercher.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnRechercher.insets = new Insets(0, 0, 5, 0);
+		gbc_btnRechercher.insets = new Insets(0, 0, 5, 5);
 		gbc_btnRechercher.gridx = 2;
 		gbc_btnRechercher.gridy = 0;
 		contentPane.add(btnRechercher, gbc_btnRechercher);
@@ -161,6 +162,25 @@ public class EcranClientRecherche extends JFrame {
 		gbc_listeClient.gridx = 1;
 		gbc_listeClient.gridy = 1;
 		contentPane.add(listScrollPane, gbc_listeClient);
+		
+		btnAnnuler = new JButton("Annuler");
+		btnAnnuler.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				EcranClientPrincipal ecranP = new EcranClientPrincipal(null, null);
+				ecranP.setVisible(true);
+				EcranClientRecherche.this.dispose();
+			}
+		});
+		btnAnnuler.setBackground(new Color(0, 204, 153));
+		btnAnnuler.setForeground(Color.WHITE);
+		btnAnnuler.setIcon(new ImageIcon(EcranClientRecherche.class.getResource("/images/back.png")));
+		GridBagConstraints gbc_btnAnnuler = new GridBagConstraints();
+		gbc_btnAnnuler.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnAnnuler.anchor = GridBagConstraints.NORTH;
+		gbc_btnAnnuler.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAnnuler.gridx = 2;
+		gbc_btnAnnuler.gridy = 1;
+		contentPane.add(btnAnnuler, gbc_btnAnnuler);
 	}
 
 	/**
