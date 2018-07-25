@@ -1,6 +1,7 @@
 package fr.eni.clinique.dal;
 
 import fr.eni.clinique.bo.Animal;
+import fr.eni.clinique.bo.Personnel;
 
 public class AppliTestDAL {
 
@@ -18,15 +19,14 @@ public class AppliTestDAL {
 		DAOAnimal animalDAO = DAOFactory.getDAOAnimal();
 
 		// creer un nouveau personnel
-		// Personnel p1 = new Personnel( "Antoinette", "Marie", "946575",
-		// "vet",false);
-		// Personnel p2 = new Personnel( "ezaez","frgr", "12o34", "vet",false);
+		 Personnel p1 = new Personnel( "Ant", "Marie", "1", "sec",false);
+		 Personnel p2 = new Personnel( "Alix","frgr", "1", "adm",false);
 		// Personnel p3 = new Personnel( "eoz","frgr", "12o34", "vet",false);
 		// Personnel p4 = new Personnel( "azade","foorgr", "12o34",
 		// "vet",false);
 		// Personnel p5 = new Personnel( "ez","frgr", "12o34", "vet",false);
-		// personnelDAO.insert(p1);
-		// personnelDAO.insert(p2);
+		 personnelDAO.insert(p1);
+		 personnelDAO.insert(p2);
 		// personnelDAO.insert(p3);
 		// personnelDAO.insert(p4);
 		// personnelDAO.insert(p5);
@@ -91,26 +91,26 @@ public class AppliTestDAL {
 
 
 		//Creation d'animaux
-		Animal a1 = new Animal("Bill", 'H', "Rouge", "chien", "Golden retriever", 1, "", "");
-		Animal a2 = new Animal("Azra�l", 'F', "Brun", "chat", "MaineCoon", 1, "", "");
-		 Animal a3 = new Animal("Willy", 'H', "Bleu", "cheval", "Poney", 1, "", "");
+		//Animal a1 = new Animal("Bill", 'H', "Rouge", "chien", "Golden retriever", 1, "", "");
+		//Animal a2 = new Animal("Azra�l", 'F', "Brun", "chat", "MaineCoon", 1, "", "");
+		// Animal a3 = new Animal("Willy", 'H', "Bleu", "cheval", "Poney", 1, "", "");
 		
 		 //Insert d'animal dans la base
-		 animalDAO.insert(a1);
-		 animalDAO.insert(a2);
-		 animalDAO.insert(a3);
+		 //animalDAO.insert(a1);
+		 //animalDAO.insert(a2);
+		 //animalDAO.insert(a3);
 		
 		// //Select All des animaux
-		 animalDAO.selectbyID(1);
+		// animalDAO.selectbyID(1);
 
 		// //Mise en archive d'un animal
-		 animalDAO.supprimerViaCodeClient(1, 2);
+		// animalDAO.supprimerViaCodeClient(1, 2);
 
 		// Modification des donn�es d'un animal
 		//animalDAO.modifier("Azra�l", 'F', "Marron", "De Goutti�re", "Chat", "14FB57", "Traitement contre l'anxi�t�", 3);
 
-		System.out.println(animalDAO.selectAllSelonIDClient(1));
-		String role = personnelDAO.selectbyMDP("Albert", "845364");
-		System.out.println(role);
+		//System.out.println(animalDAO.selectAllSelonIDClient(1));
+		//String role = personnelDAO.selectbyMDP("Albert", "845364");
+		//System.out.println(role);
 	}
 }
