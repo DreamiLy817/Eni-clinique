@@ -56,6 +56,9 @@ public class EcranClientPrincipal extends JFrame {
 
 	private Client client;
 	private JTable table;
+	
+	private Integer animalInt;
+	private Animal animalSelectionne;
 
 	/**
 	 * Launch the application.
@@ -105,6 +108,7 @@ public class EcranClientPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				EcranClientRecherche panelRecherche = new EcranClientRecherche();
 				panelRecherche.setVisible(true);
+				EcranClientPrincipal.this.dispose();
 			}
 		});
 		btnRechercher.setBackground(new Color(0, 204, 153));
@@ -124,6 +128,7 @@ public class EcranClientPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				EcranAddClient panelAjoutClient = new EcranAddClient();
 				panelAjoutClient.setVisible(true);
+				EcranClientPrincipal.this.dispose();
 			}
 		});
 		btnAjouter.setForeground(new Color(255, 255, 255));
@@ -301,7 +306,7 @@ public class EcranClientPrincipal extends JFrame {
 			//TODO HEADER 
 		String col[] = {"numero", "nom", "sexe", "couleur", "race", "espece", "tatouage"};
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
-		JTable table = new JTable(tableModel);
+		table = new JTable(tableModel);
 			for (Animal animal : listeAnimauxClient) {
 				Object[] obj = {
 						animal.getCodeAnimal(),
@@ -313,7 +318,7 @@ public class EcranClientPrincipal extends JFrame {
 						animal.getTatouage()	
 				};
 				tableModel.addRow(obj);
-			}
+				}
 		table.setDefaultEditor(Object.class, null);
 			GridBagConstraints gbc_table = new GridBagConstraints();
 			gbc_table.gridwidth = 3;
@@ -324,6 +329,7 @@ public class EcranClientPrincipal extends JFrame {
 			gbc_table.gridy = 2;
 		
 			contentPane.add(table, gbc_table);
+			
 		}
 
 
@@ -511,7 +517,7 @@ public class EcranClientPrincipal extends JFrame {
 		}
 		btnAjouterUnAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				EcranAnimal ecranA = new EcranAnimal(null);
+				EcranAnimal ecranA = new EcranAnimal(animalSelectionne);
 				ecranA.setVisible(true);
 				EcranClientPrincipal.this.dispose();
 			}
@@ -553,13 +559,31 @@ public class EcranClientPrincipal extends JFrame {
 		btnEditerUnAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO
-				
-				Animal animalSelectionne = (Animal)table.getValueAt(table.getSelectedRowCount(), table.getSelectedColumnCount());
-				EcranAnimal ecranA = new EcranAnimal(animalSelectionne);
-				
-				
-			
-				
+			     animalInt = (Integer) table.getValueAt(table.getSelectedRow(),0);
+	                try {
+						animalSelectionne = animalMger.selectionByCodeAnimal(animalInt);
+						System.out.println(animalInt);
+						System.out.println(animalSelectionne);
+						 EcranAnimal ecranA = new EcranAnimal(animalSelectionne);
+						 
+						 
+					
+							ecranA.getLblCode().setText(String.valueOf(animalSelectionne.getCodeAnimal()));
+								ecranA.getTextClient().setText("no se");
+				                //ecranA.getTextFieldPrenom().setText(clientSelectionne.getPrenomClient());
+								//ecranA.getTextFieldAdresse1().setText(clientSelectionne.getAdresse1());
+								//ecranA.getTextFieldAdresse2().setText(clientSelectionne.getAdresse2());
+								//ecranA.getTextFieldCodePostal().setText(clientSelectionne.getCodePostal());
+								//ecranA.getTextFieldVille().setText(clientSelectionne.getVille());
+								//ecranA.getTextFieldNumero().setText(clientSelectionne.getNumTel());
+								//ecranA.getTextFieldAssurance().setText(clientSelectionne.getAssurance());
+								//ecranA.getTextFieldEmail().setText(clientSelectionne.getEmail());
+								//ecranA.getTextRemarque().setText(clientSelectionne.getRemarque());
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	             
 			}
 		});
 		if(clientSelectionne == null) {

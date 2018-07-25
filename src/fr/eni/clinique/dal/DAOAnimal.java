@@ -64,4 +64,6 @@ public interface DAOAnimal extends DAO<Animal>{
 	public List<Animal> selectAllSelonIDClient(int id) throws DALException;
 	
 	public void archivageAnimauxViaCodeClient(int codeClient) throws DALException;
+	
+	public Animal selectionByCodeAnimal(Integer codeAnimal) throws DALException;
 	}

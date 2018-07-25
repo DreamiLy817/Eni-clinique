@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.clinique.bo.Animal;
+import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.dal.DALException;
 import fr.eni.clinique.dal.DAO;
 import fr.eni.clinique.dal.DAOAnimal;
@@ -21,6 +22,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 	private static final String sqlModifAnimal = "UPDATE Animaux SET NomAnimal=?, Sexe=?, Couleur=?, Race=?, Espece=?, Tatouage=?, Antecedents=? FROM Animaux WHERE CodeAnimal = ?";
 	private static final String sqlSelectRace = "SELECT DISTINCT Race FROM Animaux";
 	private static final String sqlSelectEspece = "SELECT DISTINCT Espece FROM Animaux";
+	private static final String sqlSelectionByCodeAnimal = "SELECT CodeAnimal, NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive FROM Animaux WHERE CodeAnimal = ?";
 
 	@Override
 	public Animal selectbyID(Integer id) {
@@ -316,7 +318,47 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 				throw new DALException("close failed ", e);
 			}
 		}
-		
 	}
-
+	
+	@Override
+	public Animal selectionByCodeAnimal(Integer codeAnimal) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		Animal animal = null;
+		
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(sqlSelectionByCodeAnimal);
+			rqt.setInt(1, codeAnimal);
+			rs = rqt.executeQuery();
+			
+			while (rs.next()) {
+				animal = new Animal(rs.getInt("CodeAnimal"),
+						rs.getString("NomAnimal"),
+						rs.getString("Sexe").charAt(0),
+						rs.getString("Couleur"),
+						rs.getString("Race"),
+						rs.getString("Espece"),
+						rs.getString("Tatouage"));
+			}
+		} catch (SQLException e) {
+			throw new DALException("Echec de la recuperation de la liste d'animaux - ", e);
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (rqt != null) {
+					rqt.close();
+				}
+				if (cnx != null) {
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				throw new DALException("close failed ", e);
+			}
+		}
+		return animal;
+	}
 }

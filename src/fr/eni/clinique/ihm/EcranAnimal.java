@@ -49,12 +49,12 @@ public class EcranAnimal extends JFrame {
 	private JComboBox sexeComboBox;
 	private JComboBox especeComboBox;
 	private JComboBox raceComboBox;
-	
-	
 
+	
 	/**
 	 * Launch the application.
 	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -68,23 +68,18 @@ public class EcranAnimal extends JFrame {
 		});
 	}
 
+	
 	public JButton getBoutonValider() {
-		JButton boutonValider = new JButton("Valider");
-		boutonValider.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
+		if(boutonValider == null) {
+			 boutonValider = new JButton("Valider");
+		}
 		return boutonValider;
 	}
 
 	public JButton getBoutonAnnuler() {
-		boutonAnnuler = new JButton("Annuler");
-		boutonValider.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
+		if(boutonAnnuler == null) {
+			boutonAnnuler = new JButton("Annuler");
+		}
 		return boutonAnnuler;
 	}
 
@@ -100,7 +95,6 @@ public class EcranAnimal extends JFrame {
 		if (textNom == null) {
 			textNom = new JTextField();
 		}
-		
 		return textNom;
 	}
 	
@@ -170,7 +164,7 @@ public class EcranAnimal extends JFrame {
 	
 	public JLabel getLblRace() {
 		if (lblRace == null) {
-			lblRace = new JLabel("Race")
+			lblRace = new JLabel("Race");
 		}
 		
 		return lblRace;
@@ -200,11 +194,10 @@ public class EcranAnimal extends JFrame {
 	
 	public JComboBox getRaceComboBox() {
 		if (raceComboBox == null) {
-			raceComboBox = new JComboBox()
+			raceComboBox = new JComboBox();
 		}
 		return raceComboBox;
 	}
-
 	
 	/**
 	 * Create the frame.
@@ -223,32 +216,32 @@ public class EcranAnimal extends JFrame {
 				Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
-		boutonValider.setForeground(new Color(0, 0, 0));
-		boutonValider.setBackground(new Color(0, 204, 153));
-		boutonValider.setIcon(new ImageIcon(EcranAnimal.class.getResource("/images/check.png")));
+		getBoutonValider().setForeground(new Color(0, 0, 0));
+		getBoutonValider().setBackground(new Color(0, 204, 153));
+		getBoutonValider().setIcon(new ImageIcon(EcranAnimal.class.getResource("/images/check.png")));
 		GridBagConstraints gbc_boutonValider = new GridBagConstraints();
 		gbc_boutonValider.fill = GridBagConstraints.HORIZONTAL;
 		gbc_boutonValider.insets = new Insets(0, 0, 5, 5);
 		gbc_boutonValider.gridx = 2;
 		gbc_boutonValider.gridy = 1;
-		contentPane.add(boutonValider, gbc_boutonValider);
+		contentPane.add(getBoutonValider(), gbc_boutonValider);
 
-		boutonAnnuler.setForeground(new Color(0, 0, 0));
-		boutonAnnuler.setBackground(new Color(0, 204, 153));
-		boutonAnnuler.setIcon(new ImageIcon(EcranAnimal.class.getResource("/images/back.png")));
+		getBoutonAnnuler().setForeground(new Color(0, 0, 0));
+		getBoutonAnnuler().setBackground(new Color(0, 204, 153));
+		getBoutonAnnuler().setIcon(new ImageIcon(EcranAnimal.class.getResource("/images/back.png")));
 		GridBagConstraints gbc_boutonAnnuler = new GridBagConstraints();
 		gbc_boutonAnnuler.fill = GridBagConstraints.HORIZONTAL;
 		gbc_boutonAnnuler.insets = new Insets(0, 0, 5, 5);
 		gbc_boutonAnnuler.gridx = 7;
 		gbc_boutonAnnuler.gridy = 1;
-		contentPane.add(boutonAnnuler, gbc_boutonAnnuler);
+		contentPane.add(getBoutonAnnuler(), gbc_boutonAnnuler);
 
-		textClient.setOpaque(true);
-		textClient.setHorizontalAlignment(SwingConstants.CENTER);
-		textClient.setForeground(new Color(0, 0, 0));
-		textClient.setBackground(new Color(255, 255, 255));
-		textClient.setEditable(false);
-		textClient.setBorder(
+		getTextClient().setOpaque(true);
+		getTextClient().setHorizontalAlignment(SwingConstants.CENTER);
+		getTextClient().setForeground(new Color(0, 0, 0));
+		getTextClient().setBackground(new Color(255, 255, 255));
+		getTextClient().setEditable(false);
+		getTextClient().setBorder(
 				new TitledBorder(null, "Client", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 204, 153)));
 		GridBagConstraints gbc_textClient = new GridBagConstraints();
 		gbc_textClient.fill = GridBagConstraints.HORIZONTAL;
@@ -256,21 +249,21 @@ public class EcranAnimal extends JFrame {
 		gbc_textClient.insets = new Insets(0, 0, 5, 5);
 		gbc_textClient.gridx = 2;
 		gbc_textClient.gridy = 2;
-		contentPane.add(textClient, gbc_textClient);
-		textClient.setColumns(10);
+		contentPane.add(getTextClient(), gbc_textClient);
+		getTextClient().setColumns(10);
 
 		GridBagConstraints gbc_lblCode = new GridBagConstraints();
 		gbc_lblCode.anchor = GridBagConstraints.WEST;
 		gbc_lblCode.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCode.gridx = 2;
 		gbc_lblCode.gridy = 4;
-		contentPane.add(lblCode, gbc_lblCode);
+		contentPane.add(getLblCode(), gbc_lblCode);
 
 		GridBagConstraints gbc_labelCodeAnimal = new GridBagConstraints();
 		gbc_labelCodeAnimal.insets = new Insets(0, 0, 5, 5);
 		gbc_labelCodeAnimal.gridx = 3;
 		gbc_labelCodeAnimal.gridy = 4;
-		contentPane.add(labelCodeAnimal, gbc_labelCodeAnimal);
+		contentPane.add(getLabelCodeAnimal(), gbc_labelCodeAnimal);
 
 		GridBagConstraints gbc_sexeComboBox = new GridBagConstraints();
 		gbc_sexeComboBox.gridwidth = 3;
@@ -278,14 +271,14 @@ public class EcranAnimal extends JFrame {
 		gbc_sexeComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_sexeComboBox.gridx = 5;
 		gbc_sexeComboBox.gridy = 4;
-		contentPane.add(sexeComboBox, gbc_sexeComboBox);
+		contentPane.add(getSexeComboBox(), gbc_sexeComboBox);
 
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
 		gbc_lblNom.anchor = GridBagConstraints.WEST;
 		gbc_lblNom.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNom.gridx = 2;
 		gbc_lblNom.gridy = 5;
-		contentPane.add(lblNom, gbc_lblNom);
+		contentPane.add(getLblNom(), gbc_lblNom);
 
 		GridBagConstraints gbc_textNom = new GridBagConstraints();
 		gbc_textNom.gridwidth = 5;
@@ -293,7 +286,7 @@ public class EcranAnimal extends JFrame {
 		gbc_textNom.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textNom.gridx = 3;
 		gbc_textNom.gridy = 5;
-		contentPane.add(textNom, gbc_textNom);
+		contentPane.add(getTextNom(), gbc_textNom);
 		textNom.setColumns(10);
 	
 		GridBagConstraints gbc_label = new GridBagConstraints();
@@ -301,14 +294,14 @@ public class EcranAnimal extends JFrame {
 		gbc_label.insets = new Insets(0, 0, 5, 5);
 		gbc_label.gridx = 2;
 		gbc_label.gridy = 6;
-		contentPane.add(label, gbc_label);
+		contentPane.add(getLabel(), gbc_label);
 
 		GridBagConstraints gbc_lblCouleur = new GridBagConstraints();
 		gbc_lblCouleur.anchor = GridBagConstraints.WEST;
 		gbc_lblCouleur.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCouleur.gridx = 2;
 		gbc_lblCouleur.gridy = 7;
-		contentPane.add(lblCouleur, gbc_lblCouleur);
+		contentPane.add(getLblCouleur(), gbc_lblCouleur);
 
 		GridBagConstraints gbc_textCouleur = new GridBagConstraints();
 		gbc_textCouleur.gridwidth = 5;
@@ -316,7 +309,7 @@ public class EcranAnimal extends JFrame {
 		gbc_textCouleur.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textCouleur.gridx = 3;
 		gbc_textCouleur.gridy = 7;
-		contentPane.add(textCouleur, gbc_textCouleur);
+		contentPane.add(getTextCouleur(), gbc_textCouleur);
 		textCouleur.setColumns(10);
 
 		GridBagConstraints gbc_lblEspece = new GridBagConstraints();
@@ -324,7 +317,7 @@ public class EcranAnimal extends JFrame {
 		gbc_lblEspece.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEspece.gridx = 2;
 		gbc_lblEspece.gridy = 8;
-		contentPane.add(lblEspece, gbc_lblEspece);
+		contentPane.add(getLblEspece(), gbc_lblEspece);
 
 		GridBagConstraints gbc_especeComboBox = new GridBagConstraints();
 		gbc_especeComboBox.gridwidth = 2;
@@ -332,23 +325,23 @@ public class EcranAnimal extends JFrame {
 		gbc_especeComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_especeComboBox.gridx = 3;
 		gbc_especeComboBox.gridy = 8;
-		contentPane.add(especeComboBox, gbc_especeComboBox);
+		contentPane.add(getEspeceComboBox(), gbc_especeComboBox);
 
 		GridBagConstraints gbc_lblRace = new GridBagConstraints();
 		gbc_lblRace.anchor = GridBagConstraints.EAST;
 		gbc_lblRace.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRace.gridx = 5;
 		gbc_lblRace.gridy = 8;
-		contentPane.add(lblRace, gbc_lblRace);
+		contentPane.add(getLblRace(), gbc_lblRace);
 
-		raceComboBox.setBorder(UIManager.getBorder("Button.border"));
+		 getRaceComboBox().setBorder(UIManager.getBorder("Button.border"));
 		GridBagConstraints gbc_raceComboBox = new GridBagConstraints();
 		gbc_raceComboBox.gridwidth = 2;
 		gbc_raceComboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_raceComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_raceComboBox.gridx = 6;
 		gbc_raceComboBox.gridy = 8;
-		contentPane.add(raceComboBox, gbc_raceComboBox);
+		contentPane.add( getRaceComboBox(), gbc_raceComboBox);
 
 
 		GridBagConstraints gbc_lblTatouage = new GridBagConstraints();
@@ -356,7 +349,7 @@ public class EcranAnimal extends JFrame {
 		gbc_lblTatouage.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTatouage.gridx = 2;
 		gbc_lblTatouage.gridy = 9;
-		contentPane.add(lblTatouage, gbc_lblTatouage);
+		contentPane.add(getLblTatouage(), gbc_lblTatouage);
 
 		GridBagConstraints gbc_textTatouage = new GridBagConstraints();
 		gbc_textTatouage.gridwidth = 5;
@@ -364,8 +357,8 @@ public class EcranAnimal extends JFrame {
 		gbc_textTatouage.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textTatouage.gridx = 3;
 		gbc_textTatouage.gridy = 9;
-		contentPane.add(textTatouage, gbc_textTatouage);
-		textTatouage.setColumns(10);
+		contentPane.add(getTextTatouage(), gbc_textTatouage);
+		getTextTatouage().setColumns(10);
 	}
 
 }
