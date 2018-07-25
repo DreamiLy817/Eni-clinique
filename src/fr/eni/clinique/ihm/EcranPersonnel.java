@@ -1,6 +1,7 @@
 package fr.eni.clinique.ihm;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -58,6 +59,8 @@ public class EcranPersonnel extends JFrame {
 	private JButton getSupprimerButton() {
 		if (supprimerButton == null) {
 			supprimerButton = new JButton("Supprimer");
+			supprimerButton.setBackground(new Color(0, 204, 153));
+			supprimerButton.setForeground(Color.WHITE);
 			supprimerButton.addActionListener(new ActionListener() {
 
 				@Override
@@ -84,7 +87,9 @@ public class EcranPersonnel extends JFrame {
 
 	private JButton getOkButton() {
 		if (buttonOkAjout == null) {
-			buttonOkAjout = new JButton("Ok");
+			buttonOkAjout = new JButton("Valider");
+			buttonOkAjout.setBackground(new Color(0, 204, 153));
+			buttonOkAjout.setForeground(Color.WHITE);
 			buttonOkAjout.addActionListener(new ActionListener() {
 
 				@Override
@@ -117,6 +122,8 @@ public class EcranPersonnel extends JFrame {
 	private JButton getAnnulerButton() {
 		if (buttonAnnuler == null) {
 			buttonAnnuler = new JButton("Annuler");
+			buttonAnnuler.setBackground(new Color(0, 204, 153));
+			buttonAnnuler.setForeground(Color.WHITE);
 			buttonAnnuler.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -220,7 +227,10 @@ public class EcranPersonnel extends JFrame {
 
 	private JButton getbuttonOkReinit() {
 		if (buttonOkReinit == null) {
-			buttonOkReinit = new JButton("Ok");
+			buttonOkReinit = new JButton("Valider");
+			buttonOkReinit.setBackground(new Color(0, 204, 153));
+			buttonOkReinit.setForeground(Color.WHITE);
+			
 			buttonOkReinit.addActionListener(new ActionListener() {
 				@SuppressWarnings("deprecation")
 				@Override
@@ -246,9 +256,10 @@ public class EcranPersonnel extends JFrame {
 
 	private JButton getReinitialiserButton() {
 		if (reinitialiserButton == null) {
-			ImageIcon image = new ImageIcon(
-					Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/89647-200.png")));
-			reinitialiserButton = new JButton(image);
+			reinitialiserButton = new JButton();
+			reinitialiserButton.setBackground(new Color(0, 204, 153));
+			reinitialiserButton.setForeground(Color.WHITE);
+			reinitialiserButton.setIcon(new ImageIcon(EcranClientRecherche.class.getResource("/images/refresh.png")));
 			reinitialiserButton.addActionListener(new ActionListener() {
 
 				@Override
@@ -264,6 +275,8 @@ public class EcranPersonnel extends JFrame {
 	private JButton getAjouterButton() {
 		if (ajouterButton == null) {
 			ajouterButton = new JButton("Ajouter");
+			ajouterButton.setBackground(new Color(0, 204, 153));
+			ajouterButton.setForeground(Color.WHITE);
 			ajouterButton.addActionListener(new ActionListener() {
 
 				@Override
@@ -279,6 +292,7 @@ public class EcranPersonnel extends JFrame {
 	public EcranPersonnel() {
 		super();
 		try {
+			setBounds(100,100,600,700);
 			initIHM();
 		} catch (BLLException e) {
 			e.printStackTrace();
@@ -337,7 +351,7 @@ public class EcranPersonnel extends JFrame {
 
 	public void updateTable() throws BLLException {
 		List<Personnel> catalogue = pm.affichagePersonnel();
-		final String[] colonne = new String[] { "Nom", "R�le", "Mot de Passe" };
+		final String[] colonne = new String[] { "Nom", "Role", "Mot de Passe" };
 		int taille = catalogue.size();
 		final String[][] data = new String[taille][3];
 		int i = 0;
