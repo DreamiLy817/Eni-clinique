@@ -18,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
@@ -79,6 +80,7 @@ public class EcranAnimal extends JFrame {
 			boutonValider = new JButton("Valider");
 			boutonValider.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					char tamponSexe;
 					String tamponNomAnimal = textNom.getText();
 					String tamponCouleur = textCouleur.getText();
 					String tamponEspece = ((String) especeComboBox.getSelectedItem());
@@ -86,13 +88,18 @@ public class EcranAnimal extends JFrame {
 					String tamponTatouage = textTatouage.getText();
 					int tamponCodeClient = client.getCodeClient();
 					if (((String) sexeComboBox.getSelectedItem()) == "Male") {
-						char tamponSexe = 'M';
+						tamponSexe = 'M';
 					} else {
-						char tamponSexe = 'F';
+						tamponSexe = 'F';
 					}
-					// Animal nouvelAnimal = new Animal(tamponTatouage, 0,
-					// tamponTatouage, tamponTatouage, tamponTatouage,
-					// tamponCodeClient, tamponTatouage, tamponTatouage;
+					Animal nouvelAnimal = new Animal(tamponNomAnimal, tamponSexe, tamponCouleur, tamponRace, tamponEspece, tamponCodeClient, tamponTatouage);
+					try {
+						animalMger.ajoutAnimal(nouvelAnimal);
+						JOptionPane.showMessageDialog(EcranAnimal.this, "Ajout effectué");
+					} catch (BLLException e1) {
+						JOptionPane.showMessageDialog(EcranAnimal.this, "Erreur lors de l'ajout d'un animal");
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
