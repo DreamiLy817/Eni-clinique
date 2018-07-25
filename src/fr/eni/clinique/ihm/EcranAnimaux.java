@@ -271,14 +271,14 @@ public class EcranAnimaux extends JFrame {
 	 */
 	public JComboBox<String> getSexeComboBox() {
 		if (sexeComboBox == null) {
-			String[] listeSexe = { "M�le", "Femelle" };
+			String[] listeSexe = { "Male", "Femelle" };
 			sexeComboBox = new JComboBox<String>(listeSexe);
 		}
 		return sexeComboBox;
 	}
 
 	/**
-	 * Constructeur de l'affichage de la fen�tre Ajout/Modification des animaux
+	 * Constructeur de l'affichage de la fenetre Ajout/Modification des animaux
 	 */
 	public EcranAnimaux() {
 		super();
