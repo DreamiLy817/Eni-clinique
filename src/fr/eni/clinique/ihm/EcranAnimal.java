@@ -25,6 +25,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
 import fr.eni.clinique.bo.Animal;
+import fr.eni.clinique.bo.Client;
 
 import java.awt.Panel;
 import javax.swing.SwingConstants;
@@ -49,17 +50,18 @@ public class EcranAnimal extends JFrame {
 	private JComboBox sexeComboBox;
 	private JComboBox especeComboBox;
 	private JComboBox raceComboBox;
+	private Client client;
+	private Animal animal;
 
-	
 	/**
 	 * Launch the application.
 	 */
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EcranAnimal frame = new EcranAnimal(null);
+					EcranAnimal frame = new EcranAnimal(null, null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -68,16 +70,33 @@ public class EcranAnimal extends JFrame {
 		});
 	}
 
-	
 	public JButton getBoutonValider() {
-		if(boutonValider == null) {
-			 boutonValider = new JButton("Valider");
+		if (boutonValider == null) {
+			boutonValider = new JButton("Valider");
+			boutonValider.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String tamponNomAnimal = textNom.getText();
+					String tamponCouleur = textCouleur.getText();
+					String tamponEspece = ((String) especeComboBox.getSelectedItem());
+					String tamponRace = ((String) raceComboBox.getSelectedItem());
+					String tamponTatouage = textTatouage.getText();
+					int tamponCodeClient = client.getCodeClient();
+					if (((String) sexeComboBox.getSelectedItem()) == "Male") {
+						char tamponSexe = 'M';
+					} else {
+						char tamponSexe = 'F';
+					}
+					// Animal nouvelAnimal = new Animal(tamponTatouage, 0,
+					// tamponTatouage, tamponTatouage, tamponTatouage,
+					// tamponCodeClient, tamponTatouage, tamponTatouage;
+				}
+			});
 		}
 		return boutonValider;
 	}
 
 	public JButton getBoutonAnnuler() {
-		if(boutonAnnuler == null) {
+		if (boutonAnnuler == null) {
 			boutonAnnuler = new JButton("Annuler");
 		}
 		return boutonAnnuler;
@@ -97,15 +116,15 @@ public class EcranAnimal extends JFrame {
 		}
 		return textNom;
 	}
-	
+
 	public JTextField getTextCouleur() {
 		if (textCouleur == null) {
 			textCouleur = new JTextField();
 		}
-		
+
 		return textCouleur;
 	}
-	
+
 	public JTextField getTextTatouage() {
 		if (textTatouage == null) {
 			textTatouage = new JTextField();
@@ -134,42 +153,44 @@ public class EcranAnimal extends JFrame {
 		if (lblNom == null) {
 			lblNom = new JLabel("Nom");
 		}
-		
+
 		return lblNom;
 	}
-	
+
 	public JLabel getLabel() {
 		if (label == null) {
+
 			label = new JLabel("");
+
 		}
-		
+
 		return label;
 	}
-	
+
 	public JLabel getLblCouleur() {
 		if (lblCouleur == null) {
 			lblCouleur = new JLabel("Couleur");
 		}
-		
+
 		return lblCouleur;
 	}
-	
+
 	public JLabel getLblEspece() {
 		if (lblEspece == null) {
 			lblEspece = new JLabel("Espece");
 		}
-		
+
 		return lblEspece;
 	}
-	
+
 	public JLabel getLblRace() {
 		if (lblRace == null) {
 			lblRace = new JLabel("Race");
 		}
-		
+
 		return lblRace;
 	}
-	
+
 	public JLabel getLblTatouage() {
 		if (lblTatouage == null) {
 			lblTatouage = new JLabel("Tatouage");
@@ -184,26 +205,29 @@ public class EcranAnimal extends JFrame {
 		}
 		return sexeComboBox;
 	}
-	
+
 	public JComboBox getEspeceComboBox() {
 		if (especeComboBox == null) {
 			especeComboBox = new JComboBox();
 		}
 		return especeComboBox;
 	}
-	
+
 	public JComboBox getRaceComboBox() {
 		if (raceComboBox == null) {
 			raceComboBox = new JComboBox();
 		}
 		return raceComboBox;
 	}
-	
+
 	/**
 	 * Create the frame.
-	 * @param animalSelectionne 
+	 * 
+	 * @param animalSelectionne
 	 */
-	public EcranAnimal(Animal animalSelectionne) {
+	public EcranAnimal(Animal animalSelectionne, Client clientSelectionne) {
+		client = clientSelectionne;
+		animal = animalSelectionne;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 436, 402);
 		contentPane = new JPanel();
@@ -288,7 +312,7 @@ public class EcranAnimal extends JFrame {
 		gbc_textNom.gridy = 5;
 		contentPane.add(getTextNom(), gbc_textNom);
 		textNom.setColumns(10);
-	
+
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.anchor = GridBagConstraints.WEST;
 		gbc_label.insets = new Insets(0, 0, 5, 5);
@@ -334,15 +358,14 @@ public class EcranAnimal extends JFrame {
 		gbc_lblRace.gridy = 8;
 		contentPane.add(getLblRace(), gbc_lblRace);
 
-		 getRaceComboBox().setBorder(UIManager.getBorder("Button.border"));
+		getRaceComboBox().setBorder(UIManager.getBorder("Button.border"));
 		GridBagConstraints gbc_raceComboBox = new GridBagConstraints();
 		gbc_raceComboBox.gridwidth = 2;
 		gbc_raceComboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_raceComboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_raceComboBox.gridx = 6;
 		gbc_raceComboBox.gridy = 8;
-		contentPane.add( getRaceComboBox(), gbc_raceComboBox);
-
+		contentPane.add(getRaceComboBox(), gbc_raceComboBox);
 
 		GridBagConstraints gbc_lblTatouage = new GridBagConstraints();
 		gbc_lblTatouage.anchor = GridBagConstraints.WEST;

@@ -517,7 +517,7 @@ public class EcranClientPrincipal extends JFrame {
 		}
 		btnAjouterUnAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				EcranAnimal ecranA = new EcranAnimal(animalSelectionne);
+				EcranAnimal ecranA = new EcranAnimal(animalSelectionne, clientSelectionne);
 				ecranA.setVisible(true);
 				EcranClientPrincipal.this.dispose();
 			}
@@ -564,7 +564,7 @@ public class EcranClientPrincipal extends JFrame {
 						animalSelectionne = animalMger.selectionByCodeAnimal(animalInt);
 						System.out.println(animalInt);
 						System.out.println(animalSelectionne);
-						 EcranAnimal ecranA = new EcranAnimal(animalSelectionne);
+						 EcranAnimal ecranA = new EcranAnimal(animalSelectionne, clientSelectionne);
 						 
 						 
 					
