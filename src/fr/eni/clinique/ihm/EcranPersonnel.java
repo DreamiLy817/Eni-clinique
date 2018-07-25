@@ -48,7 +48,7 @@ public class EcranPersonnel extends JFrame {
 	private JTextField zoneTexteRole = new JTextField(20);
 	private JLabel labelNewRole = new JLabel("R�le:");
 	private JFrame frame = new JFrame("Ajout d'utilisateur");
-	private JFrame frame1 = new JFrame("R�initialisation du mot de passe");
+	private JFrame frame1 = new JFrame("Reinitialisation du mot de passe");
 	private PersonnelMger pm = PersonnelMger.getInstance();
 	private String selectTable = new String();
 	private String tampon = new String();
@@ -62,23 +62,15 @@ public class EcranPersonnel extends JFrame {
 			supprimerButton.setBackground(new Color(0, 204, 153));
 			supprimerButton.setForeground(Color.WHITE);
 			supprimerButton.addActionListener(new ActionListener() {
-
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					selectTable = table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()).toString();
-					if (selectTable != null) {
-						try {
-							pm.archivagePersonnel(pm.selectNomID(selectTable));
-							deleteRow();
-
-						} catch (BLLException e1) {
-							e1.printStackTrace();
-						}
-					} else {
-						JOptionPane.showMessageDialog(EcranPersonnel.this,
-								"Veuillez s�lectionner un employ� dans la liste avant de l'archiver.");
+					try {
+						pm.archivagePersonnel(pm.selectNomID(selectTable));
+						deleteRow();
+					} catch (BLLException e1) {
+						e1.printStackTrace();
 					}
-
 				}
 			});
 		}
