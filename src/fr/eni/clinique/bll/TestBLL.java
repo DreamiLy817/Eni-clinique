@@ -16,7 +16,8 @@ public class TestBLL {
 		ClientMger cm = ClientMger.getInstance();
 		
 		System.out.println(am.listeAnimauxParClient(1));
-
+		cm.archivageClient(1);
+		
 
 	}
 
