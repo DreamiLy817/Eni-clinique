@@ -19,7 +19,7 @@ import fr.eni.clinique.bll.BLLException;
 
 public class EcranAnimaux extends JFrame {
 	private AnimalMger animalMger = AnimalMger.getInstance();
-	// Déclaration des boutons, variables, zone de textes
+	// Dï¿½claration des boutons, variables, zone de textes
 	private JButton boutonValider;
 	private JButton boutonAnnuler;
 	private JLabel labelNom;
@@ -41,7 +41,7 @@ public class EcranAnimaux extends JFrame {
 
 	// Mise en place d'un main
 	/**
-	 * Fonction en charge d'afficher l'écran
+	 * Fonction en charge d'afficher l'ï¿½cran
 	 * 
 	 * @param args
 	 */
@@ -60,7 +60,7 @@ public class EcranAnimaux extends JFrame {
 
 	// Labels
 	/**
-	 * Fonction en charge de créer un nouveau Label s'il n'existe pas déjà
+	 * Fonction en charge de crï¿½er un nouveau Label s'il n'existe pas dï¿½jï¿½
 	 * 
 	 * @return labelClient
 	 */
@@ -72,7 +72,7 @@ public class EcranAnimaux extends JFrame {
 	}
 
 	/**
-	 * Fonction en charge de créer un nouveau Label s'il n'existe pas déjà
+	 * Fonction en charge de crï¿½er un nouveau Label s'il n'existe pas dï¿½jï¿½
 	 * 
 	 * @return labelNom
 	 */
@@ -84,19 +84,19 @@ public class EcranAnimaux extends JFrame {
 	}
 
 	/**
-	 * Fonction en charge de créer un nouveau Label s'il n'existe pas déjà
+	 * Fonction en charge de crï¿½er un nouveau Label s'il n'existe pas dï¿½jï¿½
 	 * 
 	 * @return labelEspece
 	 */
 	public JLabel getLabelEspece() {
 		if (labelEspece == null) {
-			labelEspece = new JLabel("Espèce");
+			labelEspece = new JLabel("Espï¿½ce");
 		}
 		return labelEspece;
 	}
 
 	/**
-	 * Fonction en charge de créer un nouveau Label s'il n'existe pas déjà
+	 * Fonction en charge de crï¿½er un nouveau Label s'il n'existe pas dï¿½jï¿½
 	 * 
 	 * @return labelRace
 	 */
@@ -138,7 +138,7 @@ public class EcranAnimaux extends JFrame {
 
 	// TextFields
 	/**
-	 * Fonction en charge de créer un nouveau TextField s'il n'existe pas déjà
+	 * Fonction en charge de crï¿½er un nouveau TextField s'il n'existe pas dï¿½jï¿½
 	 * 
 	 * @return textClient
 	 */
@@ -150,7 +150,7 @@ public class EcranAnimaux extends JFrame {
 	}
 
 	/**
-	 * Fonction en charge de créer un nouveau TextField s'il n'existe pas déjà
+	 * Fonction en charge de crï¿½er un nouveau TextField s'il n'existe pas dï¿½jï¿½
 	 * 
 	 * @return textNom
 	 */
@@ -162,7 +162,7 @@ public class EcranAnimaux extends JFrame {
 	}
 	
 	/**
-	 * Fonction en charge de créer un nouveau TextField s'il n'existe pas déjà
+	 * Fonction en charge de crï¿½er un nouveau TextField s'il n'existe pas dï¿½jï¿½
 	 * 
 	 * @return textCouleur
 	 */
@@ -174,7 +174,7 @@ public class EcranAnimaux extends JFrame {
 	}
 	
 	/**
-	 * Fonction en charge de créer un nouveau TextField s'il n'existe pas déjà
+	 * Fonction en charge de crï¿½er un nouveau TextField s'il n'existe pas dï¿½jï¿½
 	 * 
 	 * @return textTatouage
 	 */
@@ -187,7 +187,7 @@ public class EcranAnimaux extends JFrame {
 
 	// Boutons
 	/**
-	 * Fonction en charge de créer un nouveau bouton s'il n'exise pas déjà
+	 * Fonction en charge de crï¿½er un nouveau bouton s'il n'exise pas dï¿½jï¿½
 	 * 
 	 * @return boutonAnnuler
 	 */
@@ -205,7 +205,7 @@ public class EcranAnimaux extends JFrame {
 	}
 
 	/**
-	 * Fonction en charge de créer un nouveau bouton s'il n'existe pas déjà
+	 * Fonction en charge de crï¿½er un nouveau bouton s'il n'existe pas dï¿½jï¿½
 	 * 
 	 * @return boutonValider
 	 */
@@ -224,7 +224,7 @@ public class EcranAnimaux extends JFrame {
 
 	// ComboBox
 	/**
-	 * Fonction en charge de créer une nouvelle ComboBox
+	 * Fonction en charge de crï¿½er une nouvelle ComboBox
 	 * 
 	 * @return sexeComboBox
 	 */
@@ -244,7 +244,7 @@ public class EcranAnimaux extends JFrame {
 	}
 
 	/**
-	 * Fonction en charge de créer une nouvelle ComboBox
+	 * Fonction en charge de creer une nouvelle ComboBox
 	 * 
 	 * @return sexeComboBox
 	 */
@@ -265,20 +265,20 @@ public class EcranAnimaux extends JFrame {
 	}
 
 	/**
-	 * Fonction en charge de créer une nouvelle ComboBox
+	 * Fonction en charge de crï¿½er une nouvelle ComboBox
 	 * 
 	 * @return sexeComboBox
 	 */
 	public JComboBox<String> getSexeComboBox() {
 		if (sexeComboBox == null) {
-			String[] listeSexe = { "Mâle", "Femelle" };
+			String[] listeSexe = { "Mï¿½le", "Femelle" };
 			sexeComboBox = new JComboBox<String>(listeSexe);
 		}
 		return sexeComboBox;
 	}
 
 	/**
-	 * Constructeur de l'affichage de la fenêtre Ajout/Modification des animaux
+	 * Constructeur de l'affichage de la fenï¿½tre Ajout/Modification des animaux
 	 */
 	public EcranAnimaux() {
 		super();

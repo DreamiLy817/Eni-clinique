@@ -13,7 +13,7 @@ import fr.eni.clinique.bo.Animal;
 public interface DAOAnimal extends DAO<Animal>{
 
 	/**
-	 * Fonction en charge de modifier les données d'un animal
+	 * Fonction en charge de modifier les donnees d'un animal
 	 * 
 	 * @param nom
 	 * @param sexe
@@ -29,7 +29,7 @@ public interface DAOAnimal extends DAO<Animal>{
 			String antecedents, int codeAnimal) throws DALException;
 
 	/**
-	 * Fonction en charge d'archiver un animal (en passant son Archive à True)
+	 * Fonction en charge d'archiver un animal (en passant son archive a True)
 	 * 
 	 * @param codeClient
 	 *            - le code d'un client
@@ -43,7 +43,7 @@ public interface DAOAnimal extends DAO<Animal>{
 	 * Fonction en charge de faire un select en BDD pour en retirer une liste
 	 * 
 	 * @return une liste de String contenant toutes les races en base de
-	 *         données.
+	 *         donnï¿½es.
 	 * @throws DALException
 	 */
 	public List<String> getRaceList() throws DALException;
@@ -51,8 +51,8 @@ public interface DAOAnimal extends DAO<Animal>{
 	/**
 	 * Fonction en charge de faire un select en BDD pour en retirer une liste
 	 * 
-	 * @return une liste de String contenant toutes les espèces en base de
-	 *         données.
+	 * @return une liste de String contenant toutes les especes en base de
+	 *         donnees.
 	 * @throws DALException
 	 */
 	public List<String> getEspeceList() throws DALException;
@@ -62,4 +62,6 @@ public interface DAOAnimal extends DAO<Animal>{
 	 * @return
 	 */
 	public List<Animal> selectAllSelonIDClient(int id) throws DALException;
-}
+	
+	public void archivageAnimauxViaCodeClient(int codeClient) throws DALException;
+	}

@@ -15,6 +15,7 @@ import fr.eni.clinique.dal.DAOAnimal;
 
 public class AnimalDAOJdbcImpl implements DAOAnimal {
 	private static final String sqlSupprAnimal = "UPDATE Animaux SET Archive= ? WHERE CodeClient= ? and CodeAnimal= ?";
+	private static final String sqlArchivToutAnimaux = "UPDATE Animaux SET Archive = ? WHERE CodeClient = ?";
 	private static final String sqlInsertAnimal = "INSERT INTO Animaux (NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String sqlSelectAllAnimals = "SELECT CodeAnimal, NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive FROM Animaux WHERE CodeClient = ?";
 	private static final String sqlModifAnimal = "UPDATE Animaux SET NomAnimal=?, Sexe=?, Couleur=?, Race=?, Espece=?, Tatouage=?, Antecedents=? FROM Animaux WHERE CodeAnimal = ?";
@@ -28,7 +29,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 	}
 
 	/**
-	 * Fonction à charge d'insérer un nouvel animal dans la BDD {@inheritedDoc}
+	 * Fonction a charge d'inserer un nouvel animal dans la BDD {@inheritedDoc}
 	 * 
 	 * @see fr.eni.clinique.dal.DAO#insert(java.lang.Object)
 	 */
@@ -73,7 +74,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 			}
 		} catch (SQLException e) {
 			// TO DO DALException
-			throw new DALException("Echec de la création d'un animal - ", e);
+			throw new DALException("Echec de la crï¿½ation d'un animal - ", e);
 		} finally {
 			try {
 				if (rs != null) {
@@ -122,7 +123,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 				listeAnimaux.add(animal);
 			}
 		} catch (SQLException e) {
-			throw new DALException("Echec de la récupération de la liste d'animaux - ", e);
+			throw new DALException("Echec de la recuperation de la liste d'animaux - ", e);
 		} finally {
 			try {
 				if (rs != null) {
@@ -158,7 +159,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 	}
 
 	/**
-	 * Fonction dont la charge est de modifier les données d'un animal
+	 * Fonction dont la charge est de modifier les donnees d'un animal
 	 * {@inheritedDoc}
 	 * 
 	 * @see fr.eni.clinique.dal.DAOAnimal#modifier(java.lang.String, char,
@@ -184,7 +185,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 			rqt.executeUpdate();
 		} catch (SQLException e) {
 			// TO DO DALException
-			throw new DALException("Archivage échoué - ", e);
+			throw new DALException("Archivage echoue - ", e);
 		} finally {
 			try {
 				if (rqt != null) {
@@ -218,7 +219,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 			rqt.executeUpdate();
 		} catch (SQLException e) {
 			// TO DO DALException
-			throw new DALException("Archivage échoué - ", e);
+			throw new DALException("Archivage echoue - ", e);
 		} finally {
 			try {
 				if (rqt != null) {
@@ -234,7 +235,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 	}
 
 	/**
-	 * Fonction pour récupérer une liste de races de la BDD {@inheritedDoc}
+	 * Fonction pour recuperer une liste de races de la BDD {@inheritedDoc}
 	 * 
 	 * @see fr.eni.clinique.dal.DAOAnimal#getRaceList()
 	 */
@@ -261,7 +262,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 	}
 
 	/**
-	 * Fonction pour récupérer une liste d'espèces de la BDD {@inheritedDoc}
+	 * Fonction pour recuperer une liste d'especes de la BDD {@inheritedDoc}
 	 * 
 	 * @see fr.eni.clinique.dal.DAOAnimal#getEspeceList()
 	 */
@@ -285,6 +286,37 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 			e.printStackTrace();
 		}
 		return listeEspece;
+	}
+
+	/**
+	 * {@inheritedDoc}
+	 * @see fr.eni.clinique.dal.DAOAnimal#archivageAnimauxViaCodeClient(int)
+	 */
+	@Override
+	public void archivageAnimauxViaCodeClient(int codeClient) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(sqlArchivToutAnimaux);
+			rqt.setBoolean(1, true);
+			rqt.setInt(2, codeClient);
+			rqt.executeUpdate();
+		} catch (SQLException e) {
+			throw new DALException("Archivage echoue - ", e);
+		} finally {
+			try {
+				if (rqt != null) {
+					rqt.close();
+				}
+				if (cnx != null) {
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				throw new DALException("close failed ", e);
+			}
+		}
+		
 	}
 
 }

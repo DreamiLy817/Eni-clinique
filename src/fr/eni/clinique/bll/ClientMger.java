@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.eni.clinique.bo.Client;
 import fr.eni.clinique.dal.DALException;
+import fr.eni.clinique.dal.DAOAnimal;
 import fr.eni.clinique.dal.DAOClient;
 import fr.eni.clinique.dal.DAOFactory;
 
@@ -16,7 +17,8 @@ import fr.eni.clinique.dal.DAOFactory;
  */
 public class ClientMger {
 	private static ClientMger instance;
-	private static DAOClient clientDAO;
+	private DAOClient clientDAO;
+	private DAOAnimal animalDAO;
 	private List<Client> listeClients = new ArrayList<Client>();
 	
 	public static synchronized ClientMger getInstance() {
@@ -28,6 +30,7 @@ public class ClientMger {
 	
 	private ClientMger() {
 		clientDAO = DAOFactory.getDAOClient();
+		animalDAO = DAOFactory.getDAOAnimal();
 	}
 	
 	public void ajoutClient(Client cli) throws BLLException {
@@ -52,7 +55,7 @@ public class ClientMger {
 			clientDAO.update(cli);
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
-			throw new BLLException("Erreur lors de la mise à jour d'un client - " + e);
+			throw new BLLException("Erreur lors de la mise ï¿½ jour d'un client - " + e);
 		}
 		return cli;
 	}
@@ -60,6 +63,7 @@ public class ClientMger {
 	public void archivageClient(int codeClient) throws BLLException {
 		try {
 			clientDAO.supprimer(codeClient);
+			animalDAO.archivageAnimauxViaCodeClient(codeClient);
 		} catch (DALException e) {
 			throw new BLLException("Erreur lors de l'archivage d'un client - " + e);	
 		}
