@@ -264,7 +264,6 @@ public class EcranAnimal extends JFrame {
 		getTextClient().setHorizontalAlignment(SwingConstants.CENTER);
 		getTextClient().setForeground(new Color(0, 0, 0));
 		getTextClient().setBackground(new Color(255, 255, 255));
-		getTextClient().setEditable(false);
 		getTextClient().setBorder(
 				new TitledBorder(null, "Client", TitledBorder.LEFT, TitledBorder.TOP, null, new Color(0, 204, 153)));
 		GridBagConstraints gbc_textClient = new GridBagConstraints();

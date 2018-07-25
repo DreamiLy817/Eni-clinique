@@ -31,6 +31,9 @@ import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bll.ClientMger;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
+import fr.eni.clinique.dal.DALException;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class EcranClientPrincipal extends JFrame {
 
@@ -59,6 +62,8 @@ public class EcranClientPrincipal extends JFrame {
 	
 	private Integer animalInt;
 	private Animal animalSelectionne;
+	
+	private JButton btnEditerUnAnimal;
 
 	/**
 	 * Launch the application.
@@ -329,7 +334,7 @@ public class EcranClientPrincipal extends JFrame {
 			gbc_table.gridy = 2;
 		
 			contentPane.add(table, gbc_table);
-			
+		
 		}
 
 
@@ -555,7 +560,9 @@ public class EcranClientPrincipal extends JFrame {
 		/**
 		 * button editer un animal au client selectionne
 		 */
-		JButton btnEditerUnAnimal = new JButton("Editer un animal");
+		 btnEditerUnAnimal = new JButton("Editer un animal");
+		//TODO
+		
 		btnEditerUnAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO
@@ -641,6 +648,8 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textAreaRemarque.gridx = 2;
 		gbc_textAreaRemarque.gridy = 12;
 		contentPane.add(getTextRemarque(), gbc_textAreaRemarque);
+		
+		
 	}
 
 	/**

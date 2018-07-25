@@ -102,6 +102,14 @@ public class EcranAddClient extends JFrame {
 		contentPane.add(btnValider, gbc_btnValider);
 		
 		JButton btnAnnuler = new JButton("Annuler");
+		btnAnnuler.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EcranClientPrincipal ecranP = new EcranClientPrincipal(null, null);
+				ecranP.setVisible(true);
+				EcranAddClient.this.dispose();
+				
+			}
+		});
 		btnAnnuler.setForeground(new Color(255, 255, 255));
 		btnAnnuler.setBackground(new Color(0, 204, 153));
 		btnAnnuler.setIcon(new ImageIcon(EcranAddClient.class.getResource("/images/back.png")));
