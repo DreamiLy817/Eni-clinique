@@ -186,7 +186,7 @@ public class EcranClientPrincipal extends JFrame {
 		JButton btnValider = new JButton("valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// verification que la nouvelle saisie n'est pas �gale a celle
+				// verification que la nouvelle saisie n'est pas egale a celle
 				// de base du client
 				// nom
 				if (clientSelectionne.getNomClient() != (getTextFieldNom().getText())) {
@@ -523,6 +523,7 @@ public class EcranClientPrincipal extends JFrame {
 		btnAjouterUnAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				EcranAnimal ecranA = new EcranAnimal(animalSelectionne, clientSelectionne);
+				ecranA.getTextClient().setText(clientSelectionne.getNomClient());
 				ecranA.setVisible(true);
 				EcranClientPrincipal.this.dispose();
 			}
@@ -549,6 +550,7 @@ public class EcranClientPrincipal extends JFrame {
 		btnSupprimerAnimal.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/minus.png")));
 		btnSupprimerAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		GridBagConstraints gbc_btnSupprimerAnimal = new GridBagConstraints();

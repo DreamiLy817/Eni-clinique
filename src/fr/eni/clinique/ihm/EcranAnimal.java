@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JSeparator;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
@@ -24,6 +25,8 @@ import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
 
+import fr.eni.clinique.bll.AnimalMger;
+import fr.eni.clinique.bll.BLLException;
 import fr.eni.clinique.bo.Animal;
 import fr.eni.clinique.bo.Client;
 
@@ -52,6 +55,7 @@ public class EcranAnimal extends JFrame {
 	private JComboBox raceComboBox;
 	private Client client;
 	private Animal animal;
+	private AnimalMger animalMger = AnimalMger.getInstance();
 
 	/**
 	 * Launch the application.
@@ -105,6 +109,7 @@ public class EcranAnimal extends JFrame {
 	public JTextField getTextClient() {
 		if (textClient == null) {
 			textClient = new JTextField();
+			textClient.setEnabled(false);
 		}
 
 		return textClient;
@@ -201,21 +206,39 @@ public class EcranAnimal extends JFrame {
 
 	public JComboBox getSexeComboBox() {
 		if (sexeComboBox == null) {
-			sexeComboBox = new JComboBox();
+			String[] listeSexe = { "Male", "Femelle" };
+			sexeComboBox = new JComboBox<String>(listeSexe);
 		}
 		return sexeComboBox;
 	}
 
 	public JComboBox getEspeceComboBox() {
 		if (especeComboBox == null) {
-			especeComboBox = new JComboBox();
+			try {
+				List<String> listeEspece = null;
+				listeEspece = animalMger.recupListeEspece();
+				String[] tabEspece = listeEspece.toArray(new String[0]);
+				especeComboBox = new JComboBox<String>(tabEspece);
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 		return especeComboBox;
 	}
 
 	public JComboBox getRaceComboBox() {
 		if (raceComboBox == null) {
-			raceComboBox = new JComboBox();
+			try {
+				List<String> listeRace = null;
+				listeRace = animalMger.recupListeRace();
+				String[] tabRace = listeRace.toArray(new String[0]);
+				raceComboBox = new JComboBox<String>(tabRace);
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return raceComboBox;
 	}
