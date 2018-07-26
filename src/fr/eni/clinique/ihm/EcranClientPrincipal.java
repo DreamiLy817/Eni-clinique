@@ -489,7 +489,7 @@ public class EcranClientPrincipal extends JFrame {
 				JButton btnAjouterUnAnimal = new JButton("Ajouter un animal");
 				btnAjouterUnAnimal.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						EcranAnimal ecranA = new EcranAnimal(animalSelectionne, clientSelectionne);
+						EcranAnimalAjout ecranA = new EcranAnimalAjout(animalSelectionne, clientSelectionne);
 						ecranA.getTextClient().setText(clientSelectionne.getNomClient());
 						ecranA.setVisible(true);
 						EcranClientPrincipal.this.dispose();
