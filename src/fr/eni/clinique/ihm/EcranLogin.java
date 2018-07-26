@@ -113,7 +113,7 @@ public class EcranLogin extends JFrame {
                     role=loginMger.connection(login, pass);
                         if (role != null) {
                             JOptionPane.showMessageDialog(EcranLogin.this, "Connexion reussie");
-                            EcranAccueil ecranA = new EcranAccueil(role);
+                            EcranAccueil ecranA = new EcranAccueil(role, login);
                             ecranA.setVisible(true);
                             EcranLogin.this.dispose();
                         }
