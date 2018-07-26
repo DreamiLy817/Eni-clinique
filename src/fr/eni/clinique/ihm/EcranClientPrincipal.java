@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
+import java.awt.Image;
+
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -64,6 +66,7 @@ public class EcranClientPrincipal extends JFrame {
 	private Animal animalSelectionne;
 
 	private JButton btnEditerUnAnimal;
+	private int selectTable;
 
 	/**
 	 * Launch the application.
@@ -93,22 +96,54 @@ public class EcranClientPrincipal extends JFrame {
 		client = clientSelectionne;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 950, 950);
+		setBounds(100, 100, 895, 642);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[] { 0, 0, 136, 99, 49, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPane.rowHeights = new int[] { 0, 19, 38, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gbl_contentPane.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		gbl_contentPane.columnWidths = new int[] { 72, 0, 136, 99, 49, 0, 0, 0, 95, 0, 0, 0 };
+		gbl_contentPane.rowHeights = new int[] { 0, 38, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		gbl_contentPane.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
-		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0,
+		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
-		/**
-		 * Bouton ajouter un client
-		 */
+
+		ImageIcon logo = new ImageIcon(EcranClientPrincipal.class.getResource("/images/ani.png"));
+		Image imageLogo = logo.getImage();
+		Image imageN = imageLogo.getScaledInstance(130, 130, java.awt.Image.SCALE_SMOOTH);
+		logo = new ImageIcon(imageN);
+
+	
+				
+				JLabel lblNewLabel = new JLabel("");
+				lblNewLabel.setIcon(logo);
+				GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+				gbc_lblNewLabel.anchor = GridBagConstraints.NORTH;
+				gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+				gbc_lblNewLabel.gridx = 1;
+				gbc_lblNewLabel.gridy = 0;
+				contentPane.add(lblNewLabel, gbc_lblNewLabel);
+		
+				JButton btnRechercher = new JButton("rechercher");
+				btnRechercher.setForeground(new Color(255, 255, 255));
+				btnRechercher.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						EcranClientRecherche panelRecherche = new EcranClientRecherche();
+						panelRecherche.setVisible(true);
+						EcranClientPrincipal.this.dispose();
+					}
+				});
+				btnRechercher.setBackground(new Color(0, 204, 153));
+				btnRechercher.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/loupe.png")));
+				GridBagConstraints gbc_btnRechercher = new GridBagConstraints();
+				gbc_btnRechercher.fill = GridBagConstraints.HORIZONTAL;
+				gbc_btnRechercher.insets = new Insets(0, 0, 5, 5);
+				gbc_btnRechercher.gridx = 3;
+				gbc_btnRechercher.gridy = 0;
+				contentPane.add(btnRechercher, gbc_btnRechercher);
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -117,48 +152,15 @@ public class EcranClientPrincipal extends JFrame {
 				EcranClientPrincipal.this.dispose();
 			}
 		});
-		
-		/**
-		 * Bouton rechercher un client
-		 */
-
-		JButton btnRechercher = new JButton("rechercher");
-		btnRechercher.setForeground(new Color(255, 255, 255));
-		btnRechercher.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EcranClientRecherche panelRecherche = new EcranClientRecherche();
-				panelRecherche.setVisible(true);
-				EcranClientPrincipal.this.dispose();
-			}
-		});
-		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/ani.png")));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 0;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
-		btnRechercher.setBackground(new Color(0, 204, 153));
-		btnRechercher.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/loupe.png")));
-		GridBagConstraints gbc_btnRechercher = new GridBagConstraints();
-		gbc_btnRechercher.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnRechercher.insets = new Insets(0, 0, 5, 5);
-		gbc_btnRechercher.gridx = 3;
-		gbc_btnRechercher.gridy = 0;
-		contentPane.add(btnRechercher, gbc_btnRechercher);
 		btnAjouter.setForeground(new Color(255, 255, 255));
 		btnAjouter.setBackground(new Color(0, 204, 153));
 		btnAjouter.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/plus.png")));
 		GridBagConstraints gbc_btnAjouter = new GridBagConstraints();
+		gbc_btnAjouter.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnAjouter.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAjouter.gridx = 5;
+		gbc_btnAjouter.gridx = 4;
 		gbc_btnAjouter.gridy = 0;
 		contentPane.add(btnAjouter, gbc_btnAjouter);
-
-		/**
-		 * Bouton supprimer un client
-		 */
 		JButton btnSupprimer = new JButton("Supprimer");
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -189,13 +191,9 @@ public class EcranClientPrincipal extends JFrame {
 		GridBagConstraints gbc_btnSupprimer = new GridBagConstraints();
 		gbc_btnSupprimer.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnSupprimer.insets = new Insets(0, 0, 5, 5);
-		gbc_btnSupprimer.gridx = 6;
+		gbc_btnSupprimer.gridx = 5;
 		gbc_btnSupprimer.gridy = 0;
 		contentPane.add(btnSupprimer, gbc_btnSupprimer);
-
-		/**
-		 * Bouton valider un client
-		 */
 		JButton btnValider = new JButton("valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -257,15 +255,11 @@ public class EcranClientPrincipal extends JFrame {
 		btnValider.setBackground(new Color(0, 204, 153));
 		btnValider.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/check.png")));
 		GridBagConstraints gbc_btnValider = new GridBagConstraints();
-		gbc_btnValider.anchor = GridBagConstraints.EAST;
+		gbc_btnValider.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnValider.insets = new Insets(0, 0, 5, 5);
-		gbc_btnValider.gridx = 7;
+		gbc_btnValider.gridx = 6;
 		gbc_btnValider.gridy = 0;
 		contentPane.add(btnValider, gbc_btnValider);
-
-		/**
-		 * Bouton annuler un client
-		 */
 		JButton btnAnnuler = new JButton("annuler");
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -287,20 +281,18 @@ public class EcranClientPrincipal extends JFrame {
 		btnAnnuler.setForeground(new Color(255, 255, 255));
 		btnAnnuler.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/back.png")));
 		GridBagConstraints gbc_btnAnnuler = new GridBagConstraints();
+		gbc_btnAnnuler.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnAnnuler.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAnnuler.gridx = 8;
+		gbc_btnAnnuler.gridx = 7;
 		gbc_btnAnnuler.gridy = 0;
 		contentPane.add(btnAnnuler, gbc_btnAnnuler);
-
-		/**
-		 * Label de l'input code
-		 */
 		JLabel lblCode = new JLabel("Code");
 		GridBagConstraints gbc_lblCode = new GridBagConstraints();
-		gbc_lblCode.fill = GridBagConstraints.BOTH;
+		gbc_lblCode.anchor = GridBagConstraints.EAST;
+		gbc_lblCode.fill = GridBagConstraints.VERTICAL;
 		gbc_lblCode.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCode.gridx = 1;
-		gbc_lblCode.gridy = 2;
+		gbc_lblCode.gridy = 1;
 		contentPane.add(lblCode, gbc_lblCode);
 
 		/**
@@ -311,7 +303,7 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textFieldCode.fill = GridBagConstraints.BOTH;
 		gbc_textFieldCode.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldCode.gridx = 2;
-		gbc_textFieldCode.gridy = 2;
+		gbc_textFieldCode.gridy = 1;
 		contentPane.add(getTextFieldCodeClient(), gbc_textFieldCode);
 		textFieldCodePersClient.setColumns(10);
 
@@ -324,13 +316,14 @@ public class EcranClientPrincipal extends JFrame {
 		/**
 		 * Label de l'input nom
 		 */
+	
 
 		JLabel lblNom = new JLabel("Nom");
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
-		gbc_lblNom.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblNom.anchor = GridBagConstraints.EAST;
 		gbc_lblNom.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNom.gridx = 1;
-		gbc_lblNom.gridy = 3;
+		gbc_lblNom.gridy = 2;
 		contentPane.add(lblNom, gbc_lblNom);
 
 		/**
@@ -341,7 +334,7 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textFieldNom.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldNom.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldNom.gridx = 2;
-		gbc_textFieldNom.gridy = 3;
+		gbc_textFieldNom.gridy = 2;
 		contentPane.add(getTextFieldNom(), gbc_textFieldNom);
 		textFieldNom.setColumns(10);
 
@@ -350,10 +343,10 @@ public class EcranClientPrincipal extends JFrame {
 		 */
 		JLabel lblPrenom = new JLabel("Prenom");
 		GridBagConstraints gbc_lblPrenom = new GridBagConstraints();
-		gbc_lblPrenom.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblPrenom.anchor = GridBagConstraints.EAST;
 		gbc_lblPrenom.insets = new Insets(0, 0, 5, 5);
 		gbc_lblPrenom.gridx = 1;
-		gbc_lblPrenom.gridy = 4;
+		gbc_lblPrenom.gridy = 3;
 		contentPane.add(lblPrenom, gbc_lblPrenom);
 
 		/**
@@ -364,7 +357,7 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textFieldPrenom.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldPrenom.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldPrenom.gridx = 2;
-		gbc_textFieldPrenom.gridy = 4;
+		gbc_textFieldPrenom.gridy = 3;
 		contentPane.add(getTextFieldPrenom(), gbc_textFieldPrenom);
 		textFieldPrenom.setColumns(10);
 
@@ -373,10 +366,10 @@ public class EcranClientPrincipal extends JFrame {
 		 */
 		JLabel lblAdresse = new JLabel("Adresse");
 		GridBagConstraints gbc_lblAdresse = new GridBagConstraints();
-		gbc_lblAdresse.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblAdresse.anchor = GridBagConstraints.EAST;
 		gbc_lblAdresse.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAdresse.gridx = 1;
-		gbc_lblAdresse.gridy = 5;
+		gbc_lblAdresse.gridy = 4;
 		contentPane.add(lblAdresse, gbc_lblAdresse);
 
 		/**
@@ -387,7 +380,7 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textFieldAdresse1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldAdresse1.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldAdresse1.gridx = 2;
-		gbc_textFieldAdresse1.gridy = 5;
+		gbc_textFieldAdresse1.gridy = 4;
 		contentPane.add(getTextFieldAdresse1(), gbc_textFieldAdresse1);
 		textFieldAdresse1.setColumns(10);
 
@@ -399,7 +392,7 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textFieldAdresse2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldAdresse2.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldAdresse2.gridx = 2;
-		gbc_textFieldAdresse2.gridy = 6;
+		gbc_textFieldAdresse2.gridy = 5;
 		contentPane.add(getTextFieldAdresse2(), gbc_textFieldAdresse2);
 		textFieldAdresse2.setColumns(10);
 
@@ -408,10 +401,10 @@ public class EcranClientPrincipal extends JFrame {
 		 */
 		JLabel lblCodePostal = new JLabel("Code postal");
 		GridBagConstraints gbc_lblCodePostal = new GridBagConstraints();
-		gbc_lblCodePostal.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblCodePostal.anchor = GridBagConstraints.EAST;
 		gbc_lblCodePostal.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCodePostal.gridx = 1;
-		gbc_lblCodePostal.gridy = 7;
+		gbc_lblCodePostal.gridy = 6;
 		contentPane.add(lblCodePostal, gbc_lblCodePostal);
 
 		/**
@@ -422,7 +415,7 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textFieldCodeP.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldCodeP.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldCodeP.gridx = 2;
-		gbc_textFieldCodeP.gridy = 7;
+		gbc_textFieldCodeP.gridy = 6;
 		contentPane.add(getTextFieldCodePostal(), gbc_textFieldCodeP);
 		textFieldCodeP.setColumns(10);
 
@@ -431,10 +424,10 @@ public class EcranClientPrincipal extends JFrame {
 		 */
 		JLabel lblVille = new JLabel("Ville");
 		GridBagConstraints gbc_lblVille = new GridBagConstraints();
-		gbc_lblVille.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblVille.anchor = GridBagConstraints.EAST;
 		gbc_lblVille.insets = new Insets(0, 0, 5, 5);
 		gbc_lblVille.gridx = 1;
-		gbc_lblVille.gridy = 8;
+		gbc_lblVille.gridy = 7;
 		contentPane.add(lblVille, gbc_lblVille);
 
 		/**
@@ -445,7 +438,7 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textFieldVille.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldVille.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldVille.gridx = 2;
-		gbc_textFieldVille.gridy = 8;
+		gbc_textFieldVille.gridy = 7;
 		contentPane.add(getTextFieldVille(), gbc_textFieldVille);
 		textFieldVille.setColumns(10);
 
@@ -454,10 +447,10 @@ public class EcranClientPrincipal extends JFrame {
 		 */
 		JLabel lblNum = new JLabel("Num");
 		GridBagConstraints gbc_lblNum = new GridBagConstraints();
-		gbc_lblNum.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblNum.anchor = GridBagConstraints.EAST;
 		gbc_lblNum.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNum.gridx = 1;
-		gbc_lblNum.gridy = 9;
+		gbc_lblNum.gridy = 8;
 		contentPane.add(lblNum, gbc_lblNum);
 
 		/**
@@ -468,7 +461,7 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textFieldNum.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldNum.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldNum.gridx = 2;
-		gbc_textFieldNum.gridy = 9;
+		gbc_textFieldNum.gridy = 8;
 		contentPane.add(getTextFieldNumero(), gbc_textFieldNum);
 		textFieldNum.setColumns(10);
 
@@ -477,10 +470,10 @@ public class EcranClientPrincipal extends JFrame {
 		 */
 		JLabel lblAssurance = new JLabel("Assurance");
 		GridBagConstraints gbc_lblAssurance = new GridBagConstraints();
-		gbc_lblAssurance.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblAssurance.anchor = GridBagConstraints.EAST;
 		gbc_lblAssurance.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAssurance.gridx = 1;
-		gbc_lblAssurance.gridy = 10;
+		gbc_lblAssurance.gridy = 9;
 		contentPane.add(lblAssurance, gbc_lblAssurance);
 
 		/**
@@ -491,59 +484,59 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textFieldAssurance.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldAssurance.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldAssurance.gridx = 2;
-		gbc_textFieldAssurance.gridy = 10;
+		gbc_textFieldAssurance.gridy = 9;
 		contentPane.add(getTextFieldAssurance(), gbc_textFieldAssurance);
 		textFieldAssurance.setColumns(10);
 
-		/**
-		 * Bouton ajouter un animal au client sélectionné
-		 */
-
-		JButton btnAjouterUnAnimal = new JButton("Ajouter un animal");
-		if (clientSelectionne == null) {
-			btnAjouterUnAnimal.setEnabled(false);
-		}
-		btnAjouterUnAnimal.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				EcranAnimal ecranA = new EcranAnimal(animalSelectionne, clientSelectionne);
-				ecranA.getTextClient().setText(clientSelectionne.getNomClient());
-				ecranA.setVisible(true);
-				EcranClientPrincipal.this.dispose();
-			}
-		});
-		btnAjouterUnAnimal.setForeground(new Color(255, 255, 255));
-		btnAjouterUnAnimal.setBackground(new Color(0, 204, 153));
-		btnAjouterUnAnimal.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/plus.png")));
-		GridBagConstraints gbc_btnAjouterUnAnimal = new GridBagConstraints();
-		gbc_btnAjouterUnAnimal.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnAjouterUnAnimal.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAjouterUnAnimal.gridx = 6;
-		gbc_btnAjouterUnAnimal.gridy = 10;
-		contentPane.add(btnAjouterUnAnimal, gbc_btnAjouterUnAnimal);
+				JButton btnAjouterUnAnimal = new JButton("Ajouter un animal");
+				btnAjouterUnAnimal.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						EcranAnimal ecranA = new EcranAnimal(animalSelectionne, clientSelectionne);
+						ecranA.getTextClient().setText(clientSelectionne.getNomClient());
+						ecranA.setVisible(true);
+						EcranClientPrincipal.this.dispose();
+					}
+				});
+				btnAjouterUnAnimal.setForeground(new Color(255, 255, 255));
+				btnAjouterUnAnimal.setBackground(new Color(0, 204, 153));
+				btnAjouterUnAnimal.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/plus.png")));
+				GridBagConstraints gbc_btnAjouterUnAnimal = new GridBagConstraints();
+				gbc_btnAjouterUnAnimal.fill = GridBagConstraints.HORIZONTAL;
+				gbc_btnAjouterUnAnimal.insets = new Insets(0, 0, 5, 5);
+				gbc_btnAjouterUnAnimal.gridx = 5;
+				gbc_btnAjouterUnAnimal.gridy = 9;
+				contentPane.add(btnAjouterUnAnimal, gbc_btnAjouterUnAnimal);
 
 		/**
 		 * Bouton supprimer un animal au client sélectionné
 		 */
+		
 		JButton btnSupprimerAnimal = new JButton("Supprimer un animal");
-		if (clientSelectionne == null) {
-			btnSupprimerAnimal.setEnabled(false);
-		}
 		btnSupprimerAnimal.setForeground(new Color(255, 255, 255));
 		btnSupprimerAnimal.setBackground(new Color(0, 204, 153));
 		btnSupprimerAnimal.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/minus.png")));
 		btnSupprimerAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				selectTable = ((int)table.getValueAt(table.getSelectedRow(), 0));
+				try {
+					animalMger.archivageViaCodeClient(client.getCodeClient(), selectTable);
+					int recupRow = table.getSelectedRow();
+					((DefaultTableModel) table.getModel()).removeRow(recupRow);
+				} catch (BLLException e1) {
+					JOptionPane.showMessageDialog(EcranClientPrincipal.this,
+							"Echec de l'archivage de l'animal." + e1.getMessage());
+					e1.printStackTrace();
+				}
 			}
 		});
 		GridBagConstraints gbc_btnSupprimerAnimal = new GridBagConstraints();
 		gbc_btnSupprimerAnimal.insets = new Insets(0, 0, 5, 5);
-		gbc_btnSupprimerAnimal.gridx = 7;
-		gbc_btnSupprimerAnimal.gridy = 10;
+		gbc_btnSupprimerAnimal.gridx = 6;
+		gbc_btnSupprimerAnimal.gridy = 9;
 		contentPane.add(btnSupprimerAnimal, gbc_btnSupprimerAnimal);
 
 		/**
-		 * Bouton éditer un animal au client sélectionné
+		 * Label de l'input email
 		 */
 		btnEditerUnAnimal = new JButton("Editer un animal");
 		btnEditerUnAnimal.addActionListener(new ActionListener() {
@@ -576,27 +569,20 @@ public class EcranClientPrincipal extends JFrame {
 	             
 			}
 		});
-		if (clientSelectionne == null) {
-			btnEditerUnAnimal.setEnabled(false);
-		}
-
+		
 		btnEditerUnAnimal.setForeground(new Color(255, 255, 255));
 		btnEditerUnAnimal.setBackground(new Color(0, 204, 153));
 		GridBagConstraints gbc_btnEditerUnAnimal = new GridBagConstraints();
 		gbc_btnEditerUnAnimal.insets = new Insets(0, 0, 5, 5);
-		gbc_btnEditerUnAnimal.gridx = 8;
-		gbc_btnEditerUnAnimal.gridy = 10;
+		gbc_btnEditerUnAnimal.gridx = 7;
+		gbc_btnEditerUnAnimal.gridy = 9;
 		contentPane.add(btnEditerUnAnimal, gbc_btnEditerUnAnimal);
-
-		/**
-		 * Label de l'input email
-		 */
 		JLabel lblEmail = new JLabel("Email");
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
-		gbc_lblEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblEmail.anchor = GridBagConstraints.EAST;
 		gbc_lblEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEmail.gridx = 1;
-		gbc_lblEmail.gridy = 11;
+		gbc_lblEmail.gridy = 10;
 		contentPane.add(lblEmail, gbc_lblEmail);
 
 		/**
@@ -607,7 +593,7 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textFieldEmail.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textFieldEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_textFieldEmail.gridx = 2;
-		gbc_textFieldEmail.gridy = 11;
+		gbc_textFieldEmail.gridy = 10;
 		contentPane.add(getTextFieldEmail(), gbc_textFieldEmail);
 		textFieldEmail.setColumns(10);
 
@@ -616,49 +602,27 @@ public class EcranClientPrincipal extends JFrame {
 		 */
 		JLabel lblRemarque = new JLabel("Remarque");
 		GridBagConstraints gbc_lblRemarque = new GridBagConstraints();
-		gbc_lblRemarque.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblRemarque.anchor = GridBagConstraints.EAST;
 		gbc_lblRemarque.insets = new Insets(0, 0, 0, 5);
 		gbc_lblRemarque.gridx = 1;
-		gbc_lblRemarque.gridy = 12;
+		gbc_lblRemarque.gridy = 11;
 		contentPane.add(lblRemarque, gbc_lblRemarque);
 
 		/**
 		 * Textarea de remarque
 		 */
 		GridBagConstraints gbc_textAreaRemarque = new GridBagConstraints();
+		gbc_textAreaRemarque.anchor = GridBagConstraints.NORTH;
 		gbc_textAreaRemarque.gridwidth = 3;
 		gbc_textAreaRemarque.insets = new Insets(0, 0, 0, 5);
-		gbc_textAreaRemarque.fill = GridBagConstraints.BOTH;
+		gbc_textAreaRemarque.fill = GridBagConstraints.HORIZONTAL;
 		gbc_textAreaRemarque.gridx = 2;
-		gbc_textAreaRemarque.gridy = 12;
+		gbc_textAreaRemarque.gridy = 11;
 		contentPane.add(getTextRemarque(), gbc_textAreaRemarque);
 
 	}
 
-	public void afficherTableauAnimaux(List<Animal> listeAnimauxClient) {
-		if (listeAnimauxClient != null) {
-			// TODO HEADER
-			String col[] = { "numero", "nom", "sexe", "couleur", "race", "espece", "tatouage" };
-			DefaultTableModel tableModel = new DefaultTableModel(col, 0);
-			table = new JTable(tableModel);
-			for (Animal animal : listeAnimauxClient) {
-				Object[] obj = { animal.getCodeAnimal(), animal.getNomAnimal(), animal.getSexe(), animal.getCouleur(),
-						animal.getRace(), animal.getEspece(), animal.getTatouage() };
-				tableModel.addRow(obj);
-			}
-			table.setDefaultEditor(Object.class, null);
-			GridBagConstraints gbc_table = new GridBagConstraints();
-			gbc_table.gridwidth = 3;
-			gbc_table.gridheight = 7;
-			gbc_table.insets = new Insets(0, 0, 5, 5);
-			gbc_table.fill = GridBagConstraints.BOTH;
-			gbc_table.gridx = 6;
-			gbc_table.gridy = 2;
-
-			contentPane.add(table, gbc_table);
-
-		}
-	}
+	
 
 	/**
 	 * Méthode pour recupérer le texte dans l'input code client
@@ -795,6 +759,31 @@ public class EcranClientPrincipal extends JFrame {
 			textAreaRemarque = new TextArea();
 		}
 		return textAreaRemarque;
+	}
+	
+	public void afficherTableauAnimaux(List<Animal> listeAnimauxClient) {
+		if (listeAnimauxClient != null) {
+			// TODO HEADER
+			String col[] = { "numero", "nom", "sexe", "couleur", "race", "espece", "tatouage" };
+			DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+			table = new JTable(tableModel);
+			for (Animal animal : listeAnimauxClient) {
+				Object[] obj = { animal.getCodeAnimal(), animal.getNomAnimal(), animal.getSexe(), animal.getCouleur(),
+						animal.getRace(), animal.getEspece(), animal.getTatouage() };
+				tableModel.addRow(obj);
+			}
+			table.setDefaultEditor(Object.class, null);
+			GridBagConstraints gbc_table = new GridBagConstraints();
+			gbc_table.gridwidth = 3;
+			gbc_table.gridheight = 7;
+			gbc_table.insets = new Insets(0, 0, 5, 5);
+			gbc_table.fill = GridBagConstraints.BOTH;
+			gbc_table.gridx = 5;
+			gbc_table.gridy = 1;
+
+			contentPane.add(table, gbc_table);
+
+		}
 	}
 
 }
