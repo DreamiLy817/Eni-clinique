@@ -34,6 +34,10 @@ import fr.eni.clinique.bo.Client;
 import java.awt.Panel;
 import javax.swing.SwingConstants;
 
+/**
+ * @author lbaltimore2017
+ *
+ */
 public class EcranAnimal extends JFrame {
 
 	private JPanel contentPane;
@@ -57,9 +61,12 @@ public class EcranAnimal extends JFrame {
 	private Client client;
 	private Animal animal;
 	private AnimalMger animalMger = AnimalMger.getInstance();
+
 	private List<String> listeEspece = null;
 	private List<String> listeRace = null;
 	private String[] tabRace = new String[] {"Choisissez une espèce"};
+	private List<Animal> listeAnimauxClient;
+
 
 	/**
 	 * Launch the application.
@@ -78,35 +85,10 @@ public class EcranAnimal extends JFrame {
 		});
 	}
 
+	
 	public JButton getBoutonValider() {
 		if (boutonValider == null) {
-			boutonValider = new JButton("Valider");
-			boutonValider.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					char tamponSexe;
-					String tamponNomAnimal = textNom.getText();
-					String tamponCouleur = textCouleur.getText();
-					String tamponEspece = ((String) especeComboBox.getSelectedItem());
-					String tamponRace = ((String) raceComboBox.getSelectedItem());
-					String tamponTatouage = textTatouage.getText();
-					int tamponCodeClient = client.getCodeClient();
-					if (((String) sexeComboBox.getSelectedItem()) == "Male") {
-						tamponSexe = 'M';
-					} else {
-						tamponSexe = 'F';
-					}
-					Animal nouvelAnimal = new Animal(tamponNomAnimal, tamponSexe, tamponCouleur, tamponRace,
-							tamponEspece, tamponCodeClient, tamponTatouage);
-					try {
-						animalMger.ajoutAnimal(nouvelAnimal);
-						JOptionPane.showMessageDialog(EcranAnimal.this, "Ajout effectué");
-					} catch (BLLException e1) {
-						JOptionPane.showMessageDialog(EcranAnimal.this,
-								"Erreur lors de l'ajout d'un animal" + e1.getMessage());
-						e1.printStackTrace();
-					}
-				}
-			});
+		
 		}
 		return boutonValider;
 	}
@@ -268,7 +250,8 @@ public class EcranAnimal extends JFrame {
 						"Echec de la génération de la liste déroulante Espèce." + e.getMessage());
 				e.printStackTrace();
 			}
-
+  
+			
 		}
 		return especeComboBox;
 	}
@@ -296,7 +279,7 @@ public class EcranAnimal extends JFrame {
 	 * 
 	 * @param animalSelectionne
 	 */
-	public EcranAnimal(Animal animalSelectionne, Client clientSelectionne) {
+	public EcranAnimal(Animal animalSelectionne, final Client clientSelectionne) {
 		ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("images/logo.png"));
 		this.setIconImage(img.getImage());
 		client = clientSelectionne;
@@ -324,6 +307,33 @@ public class EcranAnimal extends JFrame {
 		contentPane.add(getBoutonValider(), gbc_boutonValider);
 
 		getBoutonAnnuler().setForeground(new Color(0, 0, 0));
+		getBoutonAnnuler().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				  EcranClientPrincipal ecranP = new EcranClientPrincipal(clientSelectionne, listeAnimauxClient);
+                  ecranP.setVisible(true);
+                  EcranAnimal.this.dispose();
+                  try {
+						listeAnimauxClient = animalMger.listeAnimauxParClient(clientSelectionne.getCodeClient());
+					} catch (BLLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                  ecranP.afficherTableauAnimaux(listeAnimauxClient);
+	              ecranP.getTextFieldCodeClient().setText(String.valueOf(clientSelectionne.getCodeClient()));
+	  				ecranP.getTextFieldNom().setText(clientSelectionne.getNomClient());
+	  				ecranP.getTextFieldPrenom().setText(clientSelectionne.getPrenomClient());
+	  				ecranP.getTextFieldAdresse1().setText(clientSelectionne.getAdresse1());
+	  				ecranP.getTextFieldAdresse2().setText(clientSelectionne.getAdresse2());
+	  				ecranP.getTextFieldCodePostal().setText(clientSelectionne.getCodePostal());
+	  				ecranP.getTextFieldVille().setText(clientSelectionne.getVille());
+	  				ecranP.getTextFieldNumero().setText(clientSelectionne.getNumTel());
+	  				ecranP.getTextFieldAssurance().setText(clientSelectionne.getAssurance());
+	  				ecranP.getTextFieldEmail().setText(clientSelectionne.getEmail());
+	  				ecranP.getTextRemarque().setText(clientSelectionne.getRemarque());
+	  				
+	  		
+			}
+		});
 		getBoutonAnnuler().setBackground(new Color(0, 204, 153));
 		getBoutonAnnuler().setIcon(new ImageIcon(EcranAnimal.class.getResource("/images/back.png")));
 		GridBagConstraints gbc_boutonAnnuler = new GridBagConstraints();
