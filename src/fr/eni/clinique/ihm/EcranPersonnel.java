@@ -283,6 +283,8 @@ public class EcranPersonnel extends JFrame {
 
 	public EcranPersonnel() {
 		super();
+		ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("images/logo.png"));
+		this.setIconImage(img.getImage());
 		try {
 			setBounds(100,100,600,700);
 			initIHM();

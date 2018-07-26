@@ -94,8 +94,8 @@ public class EcranLogin extends JFrame {
 
 	public EcranLogin() {
 		super();
-		//ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("images/logo.png"));
-		//this.setIconImage(img.getImage());
+		ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("images/logo.png"));
+		this.setIconImage(img.getImage());
 		initIhm();
 	}
 

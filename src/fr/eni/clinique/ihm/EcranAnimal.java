@@ -213,7 +213,7 @@ public class EcranAnimal extends JFrame {
 
 	public JComboBox getSexeComboBox() {
 		if (sexeComboBox == null) {
-			String[] listeSexe = { "Male", "Femelle" };
+			String[] listeSexe = { "Male", "Femelle", "Hermaphrodite" };
 			sexeComboBox = new JComboBox<String>(listeSexe);
 		}
 		return sexeComboBox;
@@ -254,6 +254,8 @@ public class EcranAnimal extends JFrame {
 	 * @param animalSelectionne
 	 */
 	public EcranAnimal(Animal animalSelectionne, Client clientSelectionne) {
+		ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("images/logo.png"));
+		this.setIconImage(img.getImage());
 		client = clientSelectionne;
 		animal = animalSelectionne;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
