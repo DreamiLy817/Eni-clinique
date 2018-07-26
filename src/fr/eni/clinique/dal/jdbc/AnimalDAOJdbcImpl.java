@@ -169,25 +169,27 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 	 *      java.lang.String, java.lang.String, int)
 	 */
 	@Override
-	public void modifier(String nom, char sexe, String couleur, String race, String espece, String tatouage,
-			String antecedents, int codeAnimal) throws DALException {
+	public void modifier(Animal animal) throws DALException {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
+		
 		try {
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(sqlModifAnimal);
-			rqt.setString(1, nom);
-			rqt.setString(2, String.valueOf(sexe));
-			rqt.setString(3, couleur);
-			rqt.setString(4, race);
-			rqt.setString(5, espece);
-			rqt.setString(6, tatouage);
-			rqt.setString(7, antecedents);
-			rqt.setInt(8, codeAnimal);
+			
+			rqt.setString(1, animal.getNomAnimal());
+			rqt.setString(2, String.valueOf(animal.getSexe()));
+			rqt.setString(3, animal.getCouleur());
+			rqt.setString(4, animal.getRace());
+			rqt.setString(5, animal.getEspece());
+			rqt.setString(6, animal.getTatouage());
+			rqt.setString(7, animal.getAntecedents());
+			rqt.setInt(8, animal.getCodeAnimal());
+			
 			rqt.executeUpdate();
 		} catch (SQLException e) {
 			// TO DO DALException
-			throw new DALException("Archivage echoue - ", e);
+			throw new DALException("Modification echoue - ", e);
 		} finally {
 			try {
 				if (rqt != null) {

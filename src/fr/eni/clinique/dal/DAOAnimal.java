@@ -25,8 +25,7 @@ public interface DAOAnimal extends DAO<Animal>{
 	 * @param codeAnimal
 	 * @throws DALException
 	 */
-	public void modifier(String nom, char sexe, String couleur, String race, String espece, String tatouage,
-			String antecedents, int codeAnimal) throws DALException;
+	public void modifier(Animal animal) throws DALException;
 
 	/**
 	 * Fonction en charge d'archiver un animal (en passant son archive a True)

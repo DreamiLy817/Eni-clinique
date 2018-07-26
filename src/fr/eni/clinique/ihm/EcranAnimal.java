@@ -65,75 +65,14 @@ public class EcranAnimal extends JFrame {
 	
 	private List<Animal> listeAnimauxClient;
 
-	/**
-	 * Launch the application.
-	 */
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					EcranAnimal frame = new EcranAnimal(null, null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	
+	/**
+	 * Avoir une instance de bouton valider
+	 * @return boutonValider
+	 */
 	public JButton getBoutonValider() {
 		if (boutonValider == null) {
 			boutonValider = new JButton("Valider");
-			boutonValider.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					char tamponSexe;
-					String tamponNomAnimal = textNom.getText();
-					String tamponCouleur = textCouleur.getText();
-					String tamponEspece = ((String) especeComboBox.getSelectedItem());
-					String tamponRace = ((String) raceComboBox.getSelectedItem());
-					String tamponTatouage = textTatouage.getText();
-					int tamponCodeClient = client.getCodeClient();
-					if (((String) sexeComboBox.getSelectedItem()) == "Male") {
-						tamponSexe = 'M';
-					} else if ((String) sexeComboBox.getSelectedItem() == "Femelle") {
-						tamponSexe = 'F';
-					}
-					else {
-						tamponSexe = 'H';
-					}
-					Animal nouvelAnimal = new Animal(tamponNomAnimal, tamponSexe, tamponCouleur, tamponRace, tamponEspece, tamponCodeClient, tamponTatouage);
-					try {
-						animalMger.ajoutAnimal(nouvelAnimal);
-						JOptionPane.showMessageDialog(EcranAnimal.this, "Ajout effectué");
-						EcranClientPrincipal ecranP = new EcranClientPrincipal(client, null);
-						   try {
-								listeAnimauxClient = animalMger.listeAnimauxParClient(client.getCodeClient());
-							} catch (BLLException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-		                  ecranP.afficherTableauAnimaux(listeAnimauxClient);
-						  ecranP.getTextFieldCodeClient().setText(String.valueOf(client.getCodeClient()));
-			  				ecranP.getTextFieldNom().setText(client.getNomClient());
-			  				ecranP.getTextFieldPrenom().setText(client.getPrenomClient());
-			  				ecranP.getTextFieldAdresse1().setText(client.getAdresse1());
-			  				ecranP.getTextFieldAdresse2().setText(client.getAdresse2());
-			  				ecranP.getTextFieldCodePostal().setText(client.getCodePostal());
-			  				ecranP.getTextFieldVille().setText(client.getVille());
-			  				ecranP.getTextFieldNumero().setText(client.getNumTel());
-			  				ecranP.getTextFieldAssurance().setText(client.getAssurance());
-			  				ecranP.getTextFieldEmail().setText(client.getEmail());
-			  				ecranP.getTextRemarque().setText(client.getRemarque());
-						ecranP.setVisible(true);
-						EcranAnimal.this.dispose();
-					} catch (BLLException e1) {
-						JOptionPane.showMessageDialog(EcranAnimal.this, "Erreur lors de l'ajout d'un animal" + e1.getMessage());
-						e1.printStackTrace();
-					}
-				}
-			});
 		}
 		return boutonValider;
 	}
@@ -307,7 +246,82 @@ public class EcranAnimal extends JFrame {
 				Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
+		/**
+		 * Bouton pour valider l'ajout d'un animal ou sa modification
+		 */
+		
 		getBoutonValider().setForeground(new Color(0, 0, 0));
+		getBoutonValider().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if((Integer) animal.getCodeAnimal() == null) {
+					animal.setNomAnimal(getTextNom().getText());
+					animal.setCouleur(getTextCouleur().getText());
+					switch ((String)getSexeComboBox().getSelectedItem()) {
+					case "Male" :
+						animal.setSexe('M');
+					case "Femelle":
+						animal.setSexe('F');
+					case "Hermaphrodite":
+						animal.setSexe('H');
+					}
+					animal.setCouleur(getTextCouleur().getText());
+					animal.setEspece((String)getEspeceComboBox().getSelectedItem());
+					animal.setRace((String)getRaceComboBox().getSelectedItem());
+					animal.setTatouage(getTextTatouage().getText());
+					
+					try {
+						
+						
+						animalMger.ajoutAnimal(animal);
+                        JOptionPane.showMessageDialog(EcranAnimal.this, "Ajout effectué");
+                        listeAnimauxClient = animalMger.listeAnimauxParClient(client.getCodeClient());
+                        
+                        EcranClientPrincipal ecranP = new EcranClientPrincipal(client, listeAnimauxClient);
+                             
+                          ecranP.afficherTableauAnimaux(listeAnimauxClient);
+                          ecranP.getTextFieldCodeClient().setText(String.valueOf(client.getCodeClient()));
+                            ecranP.getTextFieldNom().setText(client.getNomClient());
+                            ecranP.getTextFieldPrenom().setText(client.getPrenomClient());
+                            ecranP.getTextFieldAdresse1().setText(client.getAdresse1());
+                            ecranP.getTextFieldAdresse2().setText(client.getAdresse2());
+                            ecranP.getTextFieldCodePostal().setText(client.getCodePostal());
+                            ecranP.getTextFieldVille().setText(client.getVille());
+                            ecranP.getTextFieldNumero().setText(client.getNumTel());
+                            ecranP.getTextFieldAssurance().setText(client.getAssurance());
+                            ecranP.getTextFieldEmail().setText(client.getEmail());
+                            ecranP.getTextRemarque().setText(client.getRemarque());
+                        ecranP.setVisible(true);
+                        EcranAnimal.this.dispose();
+						  
+						  
+						  
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				
+				} else {
+					if(animal.getNomAnimal() != getTextNom().getText()) {
+                        animal.setNomAnimal(getTextNom().getText());
+                    }
+                    if(animal.getCouleur() != getTextCouleur().getText()) {
+                        animal.setCouleur(getTextCouleur().getText());
+                    }
+                    
+                    if(animal.getTatouage() != getTextTatouage().getText()) {
+                        animal.setTatouage(getTextTatouage().getText());
+                    }
+                    try {
+                        animalMger.modifierAnimal(animal);
+                    } catch (BLLException e2) {
+                        // TODO Auto-generated catch block
+                        e2.printStackTrace();
+                    }	
+				}
+			}
+		});
 		getBoutonValider().setBackground(new Color(0, 204, 153));
 		getBoutonValider().setIcon(new ImageIcon(EcranAnimal.class.getResource("/images/check.png")));
 		GridBagConstraints gbc_boutonValider = new GridBagConstraints();

@@ -51,10 +51,9 @@ public class AnimalMger {
 		return listeAnimaux;
 	}
 	
-	public void modifierAnimal(String nom, char sexe, String couleur, String race, String espece, String tatouage,
-			String antecedents, int codeAnimal) throws BLLException {
+	public void modifierAnimal(Animal animal) throws BLLException {
 		try {
-			animalDAO.modifier(nom, sexe, couleur, race, espece, tatouage, antecedents, codeAnimal);
+			animalDAO.modifier(animal);
 		} catch (DALException e) {
 			throw new BLLException("Erreur lors de la modification des infos d'un animal - " + e);
 		}
