@@ -564,7 +564,16 @@ public class EcranClientPrincipal extends JFrame {
 		 */
 		 btnEditerUnAnimal = new JButton("Editer un animal");
 		//TODO
-		
+		 
+		 
+		if(animalInt == null) {
+			btnEditerUnAnimal.setEnabled(false);
+		}
+		else {
+			//btnEditerUnAnimal.firePropertyChange(setEnabled(b);, oldValue, newValue);
+			btnEditerUnAnimal.setEnabled(true);
+		pack();
+		}
 		btnEditerUnAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO
