@@ -20,10 +20,10 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 	private static final String sqlInsertAnimal = "INSERT INTO Animaux (NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String sqlSelectAllAnimals = "SELECT CodeAnimal, NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive FROM Animaux WHERE CodeClient = ?";
 	private static final String sqlModifAnimal = "UPDATE Animaux SET NomAnimal=?, Sexe=?, Couleur=?, Race=?, Espece=?, Tatouage=?, Antecedents=? FROM Animaux WHERE CodeAnimal = ?";
-	private static final String sqlSelectRace = "SELECT DISTINCT Race FROM Animaux";
-	private static final String sqlSelectEspece = "SELECT DISTINCT Espece FROM Animaux";
+	private static final String sqlSelectRace = "SELECT DISTINCT Race FROM Races WHERE Espece=?";
+	private static final String sqlSelectEspece = "SELECT DISTINCT Espece FROM Races";
 	private static final String sqlSelectionByCodeAnimal = "SELECT CodeAnimal, NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive FROM Animaux WHERE CodeAnimal = ?";
-
+	
 	@Override
 	public Animal selectbyID(Integer id) {
 		// TODO Auto-generated method stub
@@ -242,15 +242,16 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 	 * @see fr.eni.clinique.dal.DAOAnimal#getRaceList()
 	 */
 	@Override
-	public List<String> getRaceList() throws DALException {
+	public List<String> getRaceList(String espece) throws DALException {
 		Connection cnx = null;
-		Statement rqt = null;
+		PreparedStatement rqt = null;
 		ResultSet rs = null;
 		List<String> listeRace = null;
 		try {
 			cnx = JdbcTools.getConnection();
-			rqt = cnx.createStatement();
-			rs = rqt.executeQuery(sqlSelectRace);
+			rqt = cnx.prepareStatement(sqlSelectRace);
+			rqt.setString(1, espece);
+			rs = rqt.executeQuery();
 			listeRace = new ArrayList<String>();
 			while (rs.next()) {
 				String race = rs.getString("race");

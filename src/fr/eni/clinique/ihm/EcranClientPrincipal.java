@@ -109,7 +109,7 @@ public class EcranClientPrincipal extends JFrame {
 		/**
 		 * Bouton rechercher un client
 		 */
-		JButton btnRechercher = new JButton("rechercher");
+		JButton btnRechercher = new JButton("Rechercher");
 		btnRechercher.setForeground(new Color(255, 255, 255));
 		btnRechercher.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -150,7 +150,7 @@ public class EcranClientPrincipal extends JFrame {
 		/**
 		 * Bouton supprimer un client
 		 */
-		JButton btnSupprimer = new JButton("supprimer");
+		JButton btnSupprimer = new JButton("Supprimer");
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -508,7 +508,7 @@ public class EcranClientPrincipal extends JFrame {
 		textFieldAssurance.setColumns(10);
 
 		/**
-		 * Bouton ajouter un animal au client selectionné
+		 * Bouton ajouter un animal au client sélectionné
 		 */
 
 		JButton btnAjouterUnAnimal = new JButton("Ajouter un animal");
@@ -559,15 +559,6 @@ public class EcranClientPrincipal extends JFrame {
 		 */
 		btnEditerUnAnimal = new JButton("Editer un animal");
 		// TODO
-
-		if (animalInt == null) {
-			btnEditerUnAnimal.setEnabled(false);
-		} else {
-			// btnEditerUnAnimal.firePropertyChange(setEnabled(b);, oldValue,
-			// newValue);
-			btnEditerUnAnimal.setEnabled(true);
-			pack();
-		}
 		btnEditerUnAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 

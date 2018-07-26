@@ -57,6 +57,9 @@ public class EcranAnimal extends JFrame {
 	private Client client;
 	private Animal animal;
 	private AnimalMger animalMger = AnimalMger.getInstance();
+	private List<String> listeEspece = null;
+	private List<String> listeRace = null;
+	private String[] tabRace = new String[] {"Choisissez une espèce"};
 
 	/**
 	 * Launch the application.
@@ -92,12 +95,14 @@ public class EcranAnimal extends JFrame {
 					} else {
 						tamponSexe = 'F';
 					}
-					Animal nouvelAnimal = new Animal(tamponNomAnimal, tamponSexe, tamponCouleur, tamponRace, tamponEspece, tamponCodeClient, tamponTatouage);
+					Animal nouvelAnimal = new Animal(tamponNomAnimal, tamponSexe, tamponCouleur, tamponRace,
+							tamponEspece, tamponCodeClient, tamponTatouage);
 					try {
 						animalMger.ajoutAnimal(nouvelAnimal);
 						JOptionPane.showMessageDialog(EcranAnimal.this, "Ajout effectué");
 					} catch (BLLException e1) {
-						JOptionPane.showMessageDialog(EcranAnimal.this, "Erreur lors de l'ajout d'un animal" + e1.getMessage());
+						JOptionPane.showMessageDialog(EcranAnimal.this,
+								"Erreur lors de l'ajout d'un animal" + e1.getMessage());
 						e1.printStackTrace();
 					}
 				}
@@ -109,6 +114,11 @@ public class EcranAnimal extends JFrame {
 	public JButton getBoutonAnnuler() {
 		if (boutonAnnuler == null) {
 			boutonAnnuler = new JButton("Annuler");
+			boutonAnnuler.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+				}
+			});
 		}
 		return boutonAnnuler;
 	}
@@ -222,13 +232,40 @@ public class EcranAnimal extends JFrame {
 	public JComboBox<String> getEspeceComboBox() {
 		if (especeComboBox == null) {
 			try {
-				List<String> listeEspece = null;
 				listeEspece = animalMger.recupListeEspece();
 				String[] tabEspece = listeEspece.toArray(new String[0]);
 				especeComboBox = new JComboBox<String>(tabEspece);
+				especeComboBox.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						getRaceComboBox().removeAllItems();
+						try {
+							listeRace = animalMger.recupListeRace((String)especeComboBox.getSelectedItem());
+						} catch (BLLException e1) {
+							JOptionPane.showMessageDialog(EcranAnimal.this,
+									"Erreur dans le chargement des races des animaux" + e1.getMessage());
+							e1.printStackTrace();
+						}
+						String[] newListeRace = new String[listeRace.size()];
+						for (int i = 0; i < listeRace.size(); i++) {
+							newListeRace[i] = listeRace.get(i);
+						}
+						if (newListeRace == null) {
+							getRaceComboBox().addItem("autre");
+
+						} else {
+							for (int i = 0; i < newListeRace.length; i++) {
+								getRaceComboBox().addItem(newListeRace[i]);
+							}
+
+						}
+					}
+				});
+
 			} catch (BLLException e) {
 				JOptionPane.showMessageDialog(EcranAnimal.this,
-						"Echec de la génération de la liste déroulante Espèce." +e.getMessage());
+						"Echec de la génération de la liste déroulante Espèce." + e.getMessage());
 				e.printStackTrace();
 			}
 
@@ -237,17 +274,19 @@ public class EcranAnimal extends JFrame {
 	}
 
 	public JComboBox getRaceComboBox() {
+		try {
+			String espece = getEspeceComboBox().getSelectedItem().toString().trim();
+			List<String> listeRace = null;
+			listeRace = animalMger.recupListeRace(espece);
+			String[] tabRace = listeRace.toArray(new String[0]);
+		} catch (BLLException e) {
+			JOptionPane.showMessageDialog(EcranAnimal.this,
+					"Echec de la génération de la liste déroulante Race." + e.getMessage());
+			e.printStackTrace();
+		}
 		if (raceComboBox == null) {
-			try {
-				List<String> listeRace = null;
-				listeRace = animalMger.recupListeRace();
-				String[] tabRace = listeRace.toArray(new String[0]);
-				raceComboBox = new JComboBox<String>(tabRace);
-			} catch (BLLException e) {
-				JOptionPane.showMessageDialog(EcranAnimal.this,
-						"Echec de la génération de la liste déroulante Race." +e.getMessage());
-				e.printStackTrace();
-			}
+			raceComboBox = new JComboBox<String>(tabRace);
+			raceComboBox.setPrototypeDisplayValue("ttttttttttttt");
 		}
 		return raceComboBox;
 	}
