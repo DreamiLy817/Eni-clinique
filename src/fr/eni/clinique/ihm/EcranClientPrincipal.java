@@ -66,6 +66,7 @@ public class EcranClientPrincipal extends JFrame {
 	private Animal animalSelectionne;
 
 	private JButton btnEditerUnAnimal;
+	private int selectTable;
 
 	/**
 	 * Launch the application.
@@ -96,6 +97,7 @@ public class EcranClientPrincipal extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 895, 642);
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -506,7 +508,7 @@ public class EcranClientPrincipal extends JFrame {
 				contentPane.add(btnAjouterUnAnimal, gbc_btnAjouterUnAnimal);
 
 		/**
-		 * Bouton éditer un animal au client sélectionné
+		 * Bouton supprimer un animal au client sélectionné
 		 */
 		
 		JButton btnSupprimerAnimal = new JButton("Supprimer un animal");
@@ -515,7 +517,16 @@ public class EcranClientPrincipal extends JFrame {
 		btnSupprimerAnimal.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/minus.png")));
 		btnSupprimerAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				selectTable = ((int)table.getValueAt(table.getSelectedRow(), 0));
+				try {
+					animalMger.archivageViaCodeClient(client.getCodeClient(), selectTable);
+					int recupRow = table.getSelectedRow();
+					((DefaultTableModel) table.getModel()).removeRow(recupRow);
+				} catch (BLLException e1) {
+					JOptionPane.showMessageDialog(EcranClientPrincipal.this,
+							"Echec de l'archivage de l'animal." + e1.getMessage());
+					e1.printStackTrace();
+				}
 			}
 		});
 		GridBagConstraints gbc_btnSupprimerAnimal = new GridBagConstraints();
