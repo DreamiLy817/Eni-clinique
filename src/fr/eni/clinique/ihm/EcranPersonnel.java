@@ -42,11 +42,11 @@ public class EcranPersonnel extends JFrame {
 	private JButton buttonOkReinit;
 	private JLabel labelUtilisateur = new JLabel("Nom:");
 	private JLabel labelNewPassword = new JLabel("Nouveau mot de passe:");
-	private JLabel labelPrenom = new JLabel("Pr�nom:");
+	private JLabel labelPrenom = new JLabel("Prenom:");
 	private JTextField zoneTexteUtilisateur = new JTextField(20);
 	private JLabel labelNewPass = new JLabel("Mot de passe:");
 	private JTextField zoneTexteRole = new JTextField(20);
-	private JLabel labelNewRole = new JLabel("R�le:");
+	private JLabel labelNewRole = new JLabel("Role:");
 	private JFrame frame = new JFrame("Ajout d'utilisateur");
 	private JFrame frame1 = new JFrame("Reinitialisation du mot de passe");
 	private PersonnelMger pm = PersonnelMger.getInstance();
