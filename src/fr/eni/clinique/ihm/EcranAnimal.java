@@ -284,7 +284,7 @@ public class EcranAnimal extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 
 		/**
-		 * Bouton pour valider l'ajout d'un animal ou sa modification
+		 * Bouton pour valider la modification d'un animal
 		 */
 		
 		getBoutonValider().setForeground(new Color(0, 0, 0));
@@ -292,8 +292,8 @@ public class EcranAnimal extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					animal.setNomAnimal(getTextNom().getText());
-					animal.setCouleur(getTextCouleur().getText());
+				animal.setNomAnimal(getTextNom().getText());
+				animal.setCouleur(getTextCouleur().getText());
 					switch ((String)getSexeComboBox().getSelectedItem()) {
 					case "Male" :
 						animal.setSexe('M');
@@ -308,8 +308,8 @@ public class EcranAnimal extends JFrame {
 					animal.setTatouage(getTextTatouage().getText());
 					
 					try {
-						animalMger.ajoutAnimal(animal);
-                        JOptionPane.showMessageDialog(EcranAnimal.this, "Ajout effectué");
+						animalMger.modifierAnimal(animal);
+                        JOptionPane.showMessageDialog(EcranAnimal.this, "Modification effectué");
                         listeAnimauxClient = animalMger.listeAnimauxParClient(client.getCodeClient());
                         
                         EcranClientPrincipal ecranP = new EcranClientPrincipal(client, listeAnimauxClient);
