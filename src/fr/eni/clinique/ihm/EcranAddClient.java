@@ -89,7 +89,7 @@ public class EcranAddClient extends JFrame {
 					
 						//EcranAddClient.this.dispose();
 				} catch (DALException e) {
-					JOptionPane.showMessageDialog(EcranAddClient.this, "Le client n'a pas pu etre ajoute");
+					JOptionPane.showMessageDialog(EcranAddClient.this, "Le client n'a pas pu être ajouté"+e.getMessage());
 					e.printStackTrace();
 				}
 			}

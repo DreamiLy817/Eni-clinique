@@ -42,11 +42,11 @@ public class EcranPersonnel extends JFrame {
 	private JButton buttonOkReinit;
 	private JLabel labelUtilisateur = new JLabel("Nom:");
 	private JLabel labelNewPassword = new JLabel("Nouveau mot de passe:");
-	private JLabel labelPrenom = new JLabel("Prenom:");
+	private JLabel labelPrenom = new JLabel("Prénom:");
 	private JTextField zoneTexteUtilisateur = new JTextField(20);
 	private JLabel labelNewPass = new JLabel("Mot de passe:");
 	private JTextField zoneTexteRole = new JTextField(20);
-	private JLabel labelNewRole = new JLabel("Role:");
+	private JLabel labelNewRole = new JLabel("Rôle:");
 	private JFrame frame = new JFrame("Ajout d'utilisateur");
 	private JFrame frame1 = new JFrame("Reinitialisation du mot de passe");
 	private PersonnelMger pm = PersonnelMger.getInstance();
@@ -68,7 +68,9 @@ public class EcranPersonnel extends JFrame {
 					try {
 						pm.archivagePersonnel(pm.selectNomID(selectTable));
 						deleteRow();
+						JOptionPane.showMessageDialog(EcranPersonnel.this, "Archivage d'un employé effectué");
 					} catch (BLLException e1) {
+						JOptionPane.showMessageDialog(EcranPersonnel.this, "Echec de l'archivage d'un employé" + e1.getMessage());
 						e1.printStackTrace();
 					}
 				}
@@ -100,8 +102,10 @@ public class EcranPersonnel extends JFrame {
 						System.out.println(nouveau.getNom().toString());
 						pm.ajoutPersonnel(nouveau);
 						addRow(tamponNom, tamponRole);
+						JOptionPane.showMessageDialog(EcranPersonnel.this, "Ajout d'un nouvel employé effectué");
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(EcranPersonnel.this, "Echec de l'ajout d'un nouvel employé" + e1.getMessage());
 						e1.printStackTrace();
 					}
 
@@ -135,6 +139,7 @@ public class EcranPersonnel extends JFrame {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				} catch (Exception e) {
+					JOptionPane.showMessageDialog(EcranPersonnel.this, "Echec lors de l'initialisation de la fenêtre" + e.getMessage());
 					e.printStackTrace();
 				}
 				JPanel panelAjout = new JPanel();
@@ -146,7 +151,7 @@ public class EcranPersonnel extends JFrame {
 				frame.setVisible(true);
 				frame.setResizable(false);
 
-				// Cr�ation du panel AjoutUtilisateur
+				// Création du panel AjoutUtilisateur
 				gbc.gridx = 0;
 				gbc.gridy = 0;
 				panelAjout.add(labelUtilisateur, gbc);
@@ -190,6 +195,7 @@ public class EcranPersonnel extends JFrame {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				} catch (Exception e) {
+					JOptionPane.showMessageDialog(EcranPersonnel.this, "Echec lors de l'initialisation de la fenêtre" + e.getMessage());
 					e.printStackTrace();
 				}
 				JPanel panelReinit = new JPanel();
@@ -201,7 +207,7 @@ public class EcranPersonnel extends JFrame {
 				frame1.setVisible(true);
 				frame1.setResizable(false);
 
-				// Cr�ation du panel R�initialiser Mot de Passe
+				// Création du panel Réinitialiser Mot de Passe
 				gbc.gridx = 0;
 				gbc.gridy = 0;
 				panelReinit.add(labelNewPassword);
@@ -233,12 +239,12 @@ public class EcranPersonnel extends JFrame {
 						try {
 							pm.changementPasse(pm.selectNom(selectTable), tampon);
 						} catch (BLLException e1) {
-							// TODO Auto-generated catch block
+							JOptionPane.showMessageDialog(EcranPersonnel.this, "Echec lors de la réinitialisation du mot de passe" + e1.getMessage());
 							e1.printStackTrace();
 						}
 					} else {
 						JOptionPane.showMessageDialog(EcranPersonnel.this,
-								"Veuillez s�lectionner un employ� dans la liste avant de changer son mot de passe.");
+								"Veuillez selectionner un employé dans la liste avant de changer son mot de passe.");
 					}
 				}
 			});
@@ -289,12 +295,14 @@ public class EcranPersonnel extends JFrame {
 			setBounds(100,100,600,700);
 			initIHM();
 		} catch (BLLException e) {
+			JOptionPane.showMessageDialog(EcranPersonnel.this,
+					"Echec de l'affichage de la fenêtre, veuillez contacter Leslie pour un débugage en règle" + e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
 	private void initIHM() throws BLLException {
-		// Initialisation de l'IHM, d�claration des panneaux
+		// Initialisation de l'IHM, déclaration des panneaux
 		JPanel panelPrincipal = new JPanel();
 		JPanel panelBoutons = new JPanel();
 		panelTable = new JPanel();
@@ -306,13 +314,13 @@ public class EcranPersonnel extends JFrame {
 		updateTable();
 		table.setDefaultEditor(Object.class, null);
 
-		// Int�gration de la table dans le panneau principal
+		// Intégration de la table dans le panneau principal
 		panelTable.setLayout(new BorderLayout());
 		panelTable.add(new JScrollPane(table), BorderLayout.CENTER);
 		panelTable.add(table.getTableHeader(), BorderLayout.NORTH);
 		panelTable.setVisible(true);
 
-		// Cr�ation du panneau des boutons
+		// Création du panneau des boutons
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		panelBoutons.add(getAjouterButton(), gbc);
@@ -323,7 +331,7 @@ public class EcranPersonnel extends JFrame {
 		gbc.gridy = 0;
 		panelBoutons.add(getReinitialiserButton(), gbc);
 
-		// Cr�ation du panel principal
+		// Création du panel principal
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.anchor = GridBagConstraints.WEST;
@@ -345,7 +353,7 @@ public class EcranPersonnel extends JFrame {
 
 	public void updateTable() throws BLLException {
 		List<Personnel> catalogue = pm.affichagePersonnel();
-		final String[] colonne = new String[] { "Nom", "Role", "Mot de Passe" };
+		final String[] colonne = new String[] { "Nom", "Rôle", "Mot de Passe" };
 		int taille = catalogue.size();
 		final String[][] data = new String[taille][3];
 		int i = 0;
@@ -358,7 +366,7 @@ public class EcranPersonnel extends JFrame {
 			data[i][2] = tamponPass;
 			i++;
 		}
-		// Cr�ation d'un mod�le personnalis� de JTable
+		// Création d'un modèle personnalisé de JTable
 		TableModel tableModel = new DefaultTableModel(data, colonne);
 		table = new JTable(tableModel);
 	}
