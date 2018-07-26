@@ -93,7 +93,7 @@ public class EcranClientPrincipal extends JFrame {
 		client = clientSelectionne;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 893, 818);
+		setBounds(100, 100, 950, 950);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
