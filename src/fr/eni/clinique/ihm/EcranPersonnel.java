@@ -64,6 +64,8 @@ public class EcranPersonnel extends JFrame {
 			supprimerButton.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					int x = table.getSelectedRow();
+					if (x>=0) {
 					selectTable = table.getValueAt(table.getSelectedRow(), table.getSelectedColumn()).toString();
 					try {
 						pm.archivagePersonnel(pm.selectNomID(selectTable));
@@ -73,6 +75,11 @@ public class EcranPersonnel extends JFrame {
 						JOptionPane.showMessageDialog(EcranPersonnel.this, "Echec de l'archivage d'un employé" + e1.getMessage());
 						e1.printStackTrace();
 					}
+				} else {
+					JOptionPane.showMessageDialog(EcranPersonnel.this, "Veuillez sélectionner un employé avant de tenter de le supprimer.");
+				}
+				
+					
 				}
 			});
 		}
