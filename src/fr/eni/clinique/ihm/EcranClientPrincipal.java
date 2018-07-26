@@ -107,11 +107,6 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 
 		/**
-		 * Bouton rechercher un client
-		 */
-
-
-		/**
 		 * Bouton ajouter un client
 		 */
 		JButton btnAjouter = new JButton("Ajouter");
@@ -122,6 +117,11 @@ public class EcranClientPrincipal extends JFrame {
 				EcranClientPrincipal.this.dispose();
 			}
 		});
+		
+		/**
+		 * Bouton rechercher un client
+		 */
+
 		JButton btnRechercher = new JButton("rechercher");
 		btnRechercher.setForeground(new Color(255, 255, 255));
 		btnRechercher.addActionListener(new ActionListener() {
