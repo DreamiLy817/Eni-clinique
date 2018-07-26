@@ -110,40 +110,37 @@ public class EcranClientPrincipal extends JFrame {
 				Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
-
 		ImageIcon logo = new ImageIcon(EcranClientPrincipal.class.getResource("/images/ani.png"));
 		Image imageLogo = logo.getImage();
 		Image imageN = imageLogo.getScaledInstance(130, 130, java.awt.Image.SCALE_SMOOTH);
 		logo = new ImageIcon(imageN);
 
-	
-				
-				JLabel lblNewLabel = new JLabel("");
-				lblNewLabel.setIcon(logo);
-				GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-				gbc_lblNewLabel.anchor = GridBagConstraints.NORTH;
-				gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-				gbc_lblNewLabel.gridx = 1;
-				gbc_lblNewLabel.gridy = 0;
-				contentPane.add(lblNewLabel, gbc_lblNewLabel);
-		
-				JButton btnRechercher = new JButton("rechercher");
-				btnRechercher.setForeground(new Color(255, 255, 255));
-				btnRechercher.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						EcranClientRecherche panelRecherche = new EcranClientRecherche();
-						panelRecherche.setVisible(true);
-						EcranClientPrincipal.this.dispose();
-					}
-				});
-				btnRechercher.setBackground(new Color(0, 204, 153));
-				btnRechercher.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/loupe.png")));
-				GridBagConstraints gbc_btnRechercher = new GridBagConstraints();
-				gbc_btnRechercher.fill = GridBagConstraints.HORIZONTAL;
-				gbc_btnRechercher.insets = new Insets(0, 0, 5, 5);
-				gbc_btnRechercher.gridx = 3;
-				gbc_btnRechercher.gridy = 0;
-				contentPane.add(btnRechercher, gbc_btnRechercher);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(logo);
+		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.anchor = GridBagConstraints.NORTH;
+		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel.gridx = 1;
+		gbc_lblNewLabel.gridy = 0;
+		contentPane.add(lblNewLabel, gbc_lblNewLabel);
+
+		JButton btnRechercher = new JButton("rechercher");
+		btnRechercher.setForeground(new Color(255, 255, 255));
+		btnRechercher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EcranClientRecherche panelRecherche = new EcranClientRecherche();
+				panelRecherche.setVisible(true);
+				EcranClientPrincipal.this.dispose();
+			}
+		});
+		btnRechercher.setBackground(new Color(0, 204, 153));
+		btnRechercher.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/loupe.png")));
+		GridBagConstraints gbc_btnRechercher = new GridBagConstraints();
+		gbc_btnRechercher.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnRechercher.insets = new Insets(0, 0, 5, 5);
+		gbc_btnRechercher.gridx = 3;
+		gbc_btnRechercher.gridy = 0;
+		contentPane.add(btnRechercher, gbc_btnRechercher);
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -180,7 +177,7 @@ public class EcranClientPrincipal extends JFrame {
 
 				} catch (BLLException e1) {
 					JOptionPane.showMessageDialog(EcranClientPrincipal.this,
-							"Echec de l'archivage d'un client" +e1.getMessage());
+							"Echec de l'archivage d'un client" + e1.getMessage());
 					e1.printStackTrace();
 				}
 			}
@@ -316,7 +313,6 @@ public class EcranClientPrincipal extends JFrame {
 		/**
 		 * Label de l'input nom
 		 */
-	
 
 		JLabel lblNom = new JLabel("Nom");
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
@@ -488,36 +484,38 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(getTextFieldAssurance(), gbc_textFieldAssurance);
 		textFieldAssurance.setColumns(10);
 
-				JButton btnAjouterUnAnimal = new JButton("Ajouter un animal");
-				btnAjouterUnAnimal.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						EcranAnimalAjout ecranA = new EcranAnimalAjout(animalSelectionne, clientSelectionne);
-						ecranA.getTextClient().setText(clientSelectionne.getNomClient());
-						ecranA.setVisible(true);
-						EcranClientPrincipal.this.dispose();
-					}
-				});
-				btnAjouterUnAnimal.setForeground(new Color(255, 255, 255));
-				btnAjouterUnAnimal.setBackground(new Color(0, 204, 153));
-				btnAjouterUnAnimal.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/plus.png")));
-				GridBagConstraints gbc_btnAjouterUnAnimal = new GridBagConstraints();
-				gbc_btnAjouterUnAnimal.fill = GridBagConstraints.HORIZONTAL;
-				gbc_btnAjouterUnAnimal.insets = new Insets(0, 0, 5, 5);
-				gbc_btnAjouterUnAnimal.gridx = 5;
-				gbc_btnAjouterUnAnimal.gridy = 9;
-				contentPane.add(btnAjouterUnAnimal, gbc_btnAjouterUnAnimal);
+		JButton btnAjouterUnAnimal = new JButton("Ajouter un animal");
+		btnAjouterUnAnimal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				EcranAnimalAjout ecranA = new EcranAnimalAjout(animalSelectionne, clientSelectionne);
+				ecranA.getTextClient().setText(clientSelectionne.getNomClient());
+				ecranA.setVisible(true);
+				EcranClientPrincipal.this.dispose();
+			}
+		});
+		btnAjouterUnAnimal.setForeground(new Color(255, 255, 255));
+		btnAjouterUnAnimal.setBackground(new Color(0, 204, 153));
+		btnAjouterUnAnimal.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/plus.png")));
+		GridBagConstraints gbc_btnAjouterUnAnimal = new GridBagConstraints();
+		gbc_btnAjouterUnAnimal.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnAjouterUnAnimal.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAjouterUnAnimal.gridx = 5;
+		gbc_btnAjouterUnAnimal.gridy = 9;
+		contentPane.add(btnAjouterUnAnimal, gbc_btnAjouterUnAnimal);
 
 		/**
 		 * Bouton supprimer un animal au client sélectionné
 		 */
-		
+
 		JButton btnSupprimerAnimal = new JButton("Supprimer un animal");
 		btnSupprimerAnimal.setForeground(new Color(255, 255, 255));
 		btnSupprimerAnimal.setBackground(new Color(0, 204, 153));
 		btnSupprimerAnimal.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/minus.png")));
 		btnSupprimerAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				selectTable = ((int)table.getValueAt(table.getSelectedRow(), 0));
+				int x = table.getSelectedRow();
+				if (x>=0) {
+				selectTable = ((int) table.getValueAt(table.getSelectedRow(), 0));
 				try {
 					animalMger.archivageViaCodeClient(client.getCodeClient(), selectTable);
 					int recupRow = table.getSelectedRow();
@@ -526,6 +524,10 @@ public class EcranClientPrincipal extends JFrame {
 					JOptionPane.showMessageDialog(EcranClientPrincipal.this,
 							"Echec de l'archivage de l'animal." + e1.getMessage());
 					e1.printStackTrace();
+				}
+				} else {JOptionPane.showMessageDialog(EcranClientPrincipal.this,
+						"Veuillez sélectionner un animal avant de le supprimer.");
+					
 				}
 			}
 		});
@@ -541,35 +543,41 @@ public class EcranClientPrincipal extends JFrame {
 		btnEditerUnAnimal = new JButton("Editer un animal");
 		btnEditerUnAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO
-			     animalInt = (Integer) table.getValueAt(table.getSelectedRow(),0);
-	                try {
+				//table.setRowSelectionInterval(0, 0);
+				// TODO
+				int x = table.getSelectedRow();
+				if (x>=0) {
+				animalInt = (Integer) table.getValueAt(table.getSelectedRow(), 0);
+					try {
 						animalSelectionne = animalMger.selectionByCodeAnimal(animalInt);
 						System.out.println(animalInt);
 						System.out.println(animalSelectionne);
-						 EcranAnimal ecranA = new EcranAnimal(animalSelectionne, clientSelectionne);
-						 ecranA.setVisible(true);
-						 EcranClientPrincipal.this.dispose();
-						 
-						 
-							ecranA.getLabelCodeAnimal().setText(String.valueOf(animalSelectionne.getCodeAnimal()));
-								ecranA.getTextClient().setText(clientSelectionne.getNomClient());
-				                ecranA.getTextNom().setText(animalSelectionne.getNomAnimal());
-								ecranA.getSexeComboBox().setSelectedItem(animalSelectionne.getSexe());
-								ecranA.getTextCouleur().setText(animalSelectionne.getCouleur());
-								ecranA.getEspeceComboBox().setSelectedItem(animalSelectionne.getEspece());
-								ecranA.getRaceComboBox().setSelectedItem(animalSelectionne.getRace());
-								ecranA.getTextTatouage().setText(animalSelectionne.getTatouage());
+						EcranAnimal ecranA = new EcranAnimal(animalSelectionne, clientSelectionne);
+						ecranA.setVisible(true);
+						EcranClientPrincipal.this.dispose();
+
+						ecranA.getLabelCodeAnimal().setText(String.valueOf(animalSelectionne.getCodeAnimal()));
+						ecranA.getTextClient().setText(clientSelectionne.getNomClient());
+						ecranA.getTextNom().setText(animalSelectionne.getNomAnimal());
+						ecranA.getSexeComboBox().setSelectedItem(animalSelectionne.getSexe());
+						ecranA.getTextCouleur().setText(animalSelectionne.getCouleur());
+						ecranA.getEspeceComboBox().setSelectedItem(animalSelectionne.getEspece());
+						ecranA.getRaceComboBox().setSelectedItem(animalSelectionne.getRace());
+						ecranA.getTextTatouage().setText(animalSelectionne.getTatouage());
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(EcranClientPrincipal.this,
 								"Echec de l'édition des informations de l'animal." + e1.getMessage());
 						e1.printStackTrace();
 					}
-	             
+				} else {
+					JOptionPane.showMessageDialog(EcranClientPrincipal.this,
+							"Veuillez sélectionner un animal avant de l'éditer.");
+				}
+				
 			}
 		});
-		
+
 		btnEditerUnAnimal.setForeground(new Color(255, 255, 255));
 		btnEditerUnAnimal.setBackground(new Color(0, 204, 153));
 		GridBagConstraints gbc_btnEditerUnAnimal = new GridBagConstraints();
@@ -621,8 +629,6 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(getTextRemarque(), gbc_textAreaRemarque);
 
 	}
-
-	
 
 	/**
 	 * Méthode pour recupérer le texte dans l'input code client
@@ -760,7 +766,7 @@ public class EcranClientPrincipal extends JFrame {
 		}
 		return textAreaRemarque;
 	}
-	
+
 	public void afficherTableauAnimaux(List<Animal> listeAnimauxClient) {
 		if (listeAnimauxClient != null) {
 			// TODO HEADER
