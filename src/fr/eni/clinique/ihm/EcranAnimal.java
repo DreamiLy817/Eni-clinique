@@ -97,7 +97,7 @@ public class EcranAnimal extends JFrame {
 						animalMger.ajoutAnimal(nouvelAnimal);
 						JOptionPane.showMessageDialog(EcranAnimal.this, "Ajout effectué");
 					} catch (BLLException e1) {
-						JOptionPane.showMessageDialog(EcranAnimal.this, "Erreur lors de l'ajout d'un animal");
+						JOptionPane.showMessageDialog(EcranAnimal.this, "Erreur lors de l'ajout d'un animal" + e1.getMessage());
 						e1.printStackTrace();
 					}
 				}
@@ -211,7 +211,7 @@ public class EcranAnimal extends JFrame {
 		return lblTatouage;
 	}
 
-	public JComboBox getSexeComboBox() {
+	public JComboBox<String> getSexeComboBox() {
 		if (sexeComboBox == null) {
 			String[] listeSexe = { "Male", "Femelle" };
 			sexeComboBox = new JComboBox<String>(listeSexe);
@@ -219,7 +219,7 @@ public class EcranAnimal extends JFrame {
 		return sexeComboBox;
 	}
 
-	public JComboBox getEspeceComboBox() {
+	public JComboBox<String> getEspeceComboBox() {
 		if (especeComboBox == null) {
 			try {
 				List<String> listeEspece = null;
@@ -227,6 +227,8 @@ public class EcranAnimal extends JFrame {
 				String[] tabEspece = listeEspece.toArray(new String[0]);
 				especeComboBox = new JComboBox<String>(tabEspece);
 			} catch (BLLException e) {
+				JOptionPane.showMessageDialog(EcranAnimal.this,
+						"Echec de la génération de la liste déroulante Espèce." +e.getMessage());
 				e.printStackTrace();
 			}
 
@@ -242,6 +244,8 @@ public class EcranAnimal extends JFrame {
 				String[] tabRace = listeRace.toArray(new String[0]);
 				raceComboBox = new JComboBox<String>(tabRace);
 			} catch (BLLException e) {
+				JOptionPane.showMessageDialog(EcranAnimal.this,
+						"Echec de la génération de la liste déroulante Race." +e.getMessage());
 				e.printStackTrace();
 			}
 		}

@@ -52,7 +52,7 @@ public class EcranLogin extends JFrame {
 							}
 					} catch (BLLException e1) {
 						e1.printStackTrace();
-						JOptionPane.showMessageDialog(EcranLogin.this, "Erreur de connexion");
+						JOptionPane.showMessageDialog(EcranLogin.this, "Erreur de connexion" + e1.getMessage());
 						
 					}
 				}

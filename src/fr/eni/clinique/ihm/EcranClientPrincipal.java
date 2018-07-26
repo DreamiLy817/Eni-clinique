@@ -59,10 +59,10 @@ public class EcranClientPrincipal extends JFrame {
 
 	private Client client;
 	private JTable table;
-	
+
 	private Integer animalInt;
 	private Animal animalSelectionne;
-	
+
 	private JButton btnEditerUnAnimal;
 
 	/**
@@ -105,7 +105,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.setLayout(gbl_contentPane);
 
 		/**
-		 * button rechercher un client
+		 * Bouton rechercher un client
 		 */
 		JButton btnRechercher = new JButton("rechercher");
 		btnRechercher.setForeground(new Color(255, 255, 255));
@@ -126,7 +126,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(btnRechercher, gbc_btnRechercher);
 
 		/**
-		 * button ajouter un client
+		 * Bouton ajouter un client
 		 */
 		JButton btnAjouter = new JButton("Ajouter");
 		btnAjouter.addActionListener(new ActionListener() {
@@ -146,7 +146,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(btnAjouter, gbc_btnAjouter);
 
 		/**
-		 * button supprimer un client
+		 * Bouton supprimer un client
 		 */
 		JButton btnSupprimer = new JButton("supprimer");
 		btnSupprimer.addActionListener(new ActionListener() {
@@ -166,6 +166,8 @@ public class EcranClientPrincipal extends JFrame {
 					textAreaRemarque.setText("");
 
 				} catch (BLLException e1) {
+					JOptionPane.showMessageDialog(EcranClientPrincipal.this,
+							"Echec de l'archivage d'un client" +e1.getMessage());
 					e1.printStackTrace();
 				}
 			}
@@ -181,50 +183,50 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(btnSupprimer, gbc_btnSupprimer);
 
 		/**
-		 * button valider un client
+		 * Bouton valider un client
 		 */
 		JButton btnValider = new JButton("valider");
 		btnValider.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// verification que la nouvelle saisie n'est pas egale a celle
+				// Vérification que la nouvelle saisie n'est pas égale a celle
 				// de base du client
-				// nom
+				// Nom
 				if (clientSelectionne.getNomClient() != (getTextFieldNom().getText())) {
 					clientSelectionne.setNomClient(getTextFieldNom().getText());
 				}
-				// prenom
+				// Prénom
 				if (clientSelectionne.getPrenomClient() != (getTextFieldPrenom().getText())) {
 					clientSelectionne.setPrenomClient(getTextFieldPrenom().getText());
 				}
-				// adresse 1
+				// Adresse 1
 				if (clientSelectionne.getAdresse1() != (getTextFieldAdresse1().getText())) {
 					clientSelectionne.setAdresse1(getTextFieldAdresse1().getText());
 				}
-				// adresse 2
+				// Adresse 2
 				if (clientSelectionne.getAdresse2() != (getTextFieldAdresse2().getText())) {
 					clientSelectionne.setAdresse2(getTextFieldAdresse2().getText());
 				}
-				// code postal
+				// Code Postal
 				if (clientSelectionne.getCodePostal() != (getTextFieldCodePostal().getText())) {
 					clientSelectionne.setCodePostal(getTextFieldCodePostal().getText());
 				}
-				// ville
+				// Ville
 				if (clientSelectionne.getVille() != (getTextFieldVille().getText())) {
 					clientSelectionne.setVille(getTextFieldVille().getText());
 				}
-				// numero de telephone
+				// Numéro de téléphone
 				if (clientSelectionne.getNumTel() != (getTextFieldNumero().getText())) {
 					clientSelectionne.setNumTel(getTextFieldNumero().getText());
 				}
-				// assurance
+				// Assurance
 				if (clientSelectionne.getAssurance() != (getTextFieldAssurance().getText())) {
 					clientSelectionne.setAssurance(getTextFieldAssurance().getText());
 				}
-				// email
+				// Email
 				if (clientSelectionne.getEmail() != (getTextFieldEmail().getText())) {
 					clientSelectionne.setEmail(getTextFieldEmail().getText());
 				}
-				// remarque
+				// Remarque
 				if (clientSelectionne.getRemarque() != (getTextRemarque().getText())) {
 					clientSelectionne.setRemarque(getTextRemarque().getText());
 				}
@@ -234,6 +236,8 @@ public class EcranClientPrincipal extends JFrame {
 					// sont pareils
 					clientMger.miseAJourClient(clientSelectionne);
 				} catch (BLLException e1) {
+					JOptionPane.showMessageDialog(EcranClientPrincipal.this,
+							"Echec de la validation des informations." + e1.getMessage());
 					e1.printStackTrace();
 				}
 			}
@@ -249,7 +253,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(btnValider, gbc_btnValider);
 
 		/**
-		 * button annuler un client
+		 * Bouton annuler un client
 		 */
 		JButton btnAnnuler = new JButton("annuler");
 		btnAnnuler.addActionListener(new ActionListener() {
@@ -278,7 +282,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(btnAnnuler, gbc_btnAnnuler);
 
 		/**
-		 * label de l'input code
+		 * Label de l'input code
 		 */
 		JLabel lblCode = new JLabel("Code");
 		GridBagConstraints gbc_lblCode = new GridBagConstraints();
@@ -289,7 +293,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(lblCode, gbc_lblCode);
 
 		/**
-		 * input code client
+		 * Input code client
 		 */
 		GridBagConstraints gbc_textFieldCode = new GridBagConstraints();
 		gbc_textFieldCode.gridwidth = 3;
@@ -300,31 +304,21 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(getTextFieldCodeClient(), gbc_textFieldCode);
 		textFieldCodePersClient.setColumns(10);
 
-
-
-
 		/**
 		 * Jtable liste des animaux
 		 */
 
-		if(listeAnimauxClient != null) {
-			//TODO HEADER 
-		String col[] = {"numero", "nom", "sexe", "couleur", "race", "espece", "tatouage"};
-		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
-		table = new JTable(tableModel);
+		if (listeAnimauxClient != null) {
+			// TODO HEADER
+			String col[] = { "numero", "nom", "sexe", "couleur", "race", "espece", "tatouage" };
+			DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+			table = new JTable(tableModel);
 			for (Animal animal : listeAnimauxClient) {
-				Object[] obj = {
-						animal.getCodeAnimal(),
-						animal.getNomAnimal(),
-						animal.getSexe(), 
-						animal.getCouleur(),
-						animal.getRace(),
-						animal.getEspece(),
-						animal.getTatouage()	
-				};
+				Object[] obj = { animal.getCodeAnimal(), animal.getNomAnimal(), animal.getSexe(), animal.getCouleur(),
+						animal.getRace(), animal.getEspece(), animal.getTatouage() };
 				tableModel.addRow(obj);
-				}
-		table.setDefaultEditor(Object.class, null);
+			}
+			table.setDefaultEditor(Object.class, null);
 			GridBagConstraints gbc_table = new GridBagConstraints();
 			gbc_table.gridwidth = 3;
 			gbc_table.gridheight = 7;
@@ -332,16 +326,15 @@ public class EcranClientPrincipal extends JFrame {
 			gbc_table.fill = GridBagConstraints.BOTH;
 			gbc_table.gridx = 6;
 			gbc_table.gridy = 2;
-		
+
 			contentPane.add(table, gbc_table);
-		
+
 		}
 
-
 		/**
-		 * label de l'input nom
+		 * Label de l'input nom
 		 */
-		
+
 		JLabel lblNom = new JLabel("Nom");
 		GridBagConstraints gbc_lblNom = new GridBagConstraints();
 		gbc_lblNom.fill = GridBagConstraints.HORIZONTAL;
@@ -351,7 +344,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(lblNom, gbc_lblNom);
 
 		/**
-		 * input du nom du client
+		 * Input du nom du client
 		 */
 		GridBagConstraints gbc_textFieldNom = new GridBagConstraints();
 		gbc_textFieldNom.gridwidth = 3;
@@ -363,7 +356,7 @@ public class EcranClientPrincipal extends JFrame {
 		textFieldNom.setColumns(10);
 
 		/**
-		 * label de l'input prenom
+		 * Label de l'input prénom
 		 */
 		JLabel lblPrenom = new JLabel("Prenom");
 		GridBagConstraints gbc_lblPrenom = new GridBagConstraints();
@@ -374,7 +367,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(lblPrenom, gbc_lblPrenom);
 
 		/**
-		 * inpu du prenom du client
+		 * Input du prenom du client
 		 */
 		GridBagConstraints gbc_textFieldPrenom = new GridBagConstraints();
 		gbc_textFieldPrenom.gridwidth = 3;
@@ -386,7 +379,7 @@ public class EcranClientPrincipal extends JFrame {
 		textFieldPrenom.setColumns(10);
 
 		/**
-		 * label de l'input adresse 1
+		 * Label de l'input adresse 1
 		 */
 		JLabel lblAdresse = new JLabel("Adresse");
 		GridBagConstraints gbc_lblAdresse = new GridBagConstraints();
@@ -397,7 +390,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(lblAdresse, gbc_lblAdresse);
 
 		/**
-		 * input 1 de l'adresse du client
+		 * Input 1 de l'adresse du client
 		 */
 		GridBagConstraints gbc_textFieldAdresse1 = new GridBagConstraints();
 		gbc_textFieldAdresse1.gridwidth = 3;
@@ -409,7 +402,7 @@ public class EcranClientPrincipal extends JFrame {
 		textFieldAdresse1.setColumns(10);
 
 		/**
-		 * input 2 de l'adresse du client
+		 * Input 2 de l'adresse du client
 		 */
 		GridBagConstraints gbc_textFieldAdresse2 = new GridBagConstraints();
 		gbc_textFieldAdresse2.gridwidth = 3;
@@ -421,7 +414,7 @@ public class EcranClientPrincipal extends JFrame {
 		textFieldAdresse2.setColumns(10);
 
 		/**
-		 * label de l'input code postal
+		 * Label de l'input code postal
 		 */
 		JLabel lblCodePostal = new JLabel("Code postal");
 		GridBagConstraints gbc_lblCodePostal = new GridBagConstraints();
@@ -432,7 +425,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(lblCodePostal, gbc_lblCodePostal);
 
 		/**
-		 * input du code postal
+		 * Input du code postal
 		 */
 		GridBagConstraints gbc_textFieldCodeP = new GridBagConstraints();
 		gbc_textFieldCodeP.gridwidth = 3;
@@ -444,7 +437,7 @@ public class EcranClientPrincipal extends JFrame {
 		textFieldCodeP.setColumns(10);
 
 		/**
-		 * label de l'input ville
+		 * Label de l'input ville
 		 */
 		JLabel lblVille = new JLabel("Ville");
 		GridBagConstraints gbc_lblVille = new GridBagConstraints();
@@ -455,7 +448,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(lblVille, gbc_lblVille);
 
 		/**
-		 * input de ville
+		 * Input de ville
 		 */
 		GridBagConstraints gbc_textFieldVille = new GridBagConstraints();
 		gbc_textFieldVille.gridwidth = 3;
@@ -467,7 +460,7 @@ public class EcranClientPrincipal extends JFrame {
 		textFieldVille.setColumns(10);
 
 		/**
-		 * label de l'input numero de telephone
+		 * Label de l'input numero de téléphone
 		 */
 		JLabel lblNum = new JLabel("Num");
 		GridBagConstraints gbc_lblNum = new GridBagConstraints();
@@ -478,7 +471,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(lblNum, gbc_lblNum);
 
 		/**
-		 * input du numero de tel
+		 * Input du numero de tel
 		 */
 		GridBagConstraints gbc_textFieldNum = new GridBagConstraints();
 		gbc_textFieldNum.gridwidth = 3;
@@ -490,7 +483,7 @@ public class EcranClientPrincipal extends JFrame {
 		textFieldNum.setColumns(10);
 
 		/**
-		 * label de l'input assurance
+		 * Label de l'input assurance
 		 */
 		JLabel lblAssurance = new JLabel("Assurance");
 		GridBagConstraints gbc_lblAssurance = new GridBagConstraints();
@@ -501,7 +494,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(lblAssurance, gbc_lblAssurance);
 
 		/**
-		 * input de l'assurance
+		 * Input de l'assurance
 		 */
 		GridBagConstraints gbc_textFieldAssurance = new GridBagConstraints();
 		gbc_textFieldAssurance.gridwidth = 3;
@@ -513,11 +506,11 @@ public class EcranClientPrincipal extends JFrame {
 		textFieldAssurance.setColumns(10);
 
 		/**
-		 * button ajouter un animal au client selectionne
+		 * Bouton ajouter un animal au client selectionné
 		 */
-		
+
 		JButton btnAjouterUnAnimal = new JButton("Ajouter un animal");
-		if(clientSelectionne == null) {
+		if (clientSelectionne == null) {
 			btnAjouterUnAnimal.setEnabled(false);
 		}
 		btnAjouterUnAnimal.addActionListener(new ActionListener() {
@@ -539,10 +532,10 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(btnAjouterUnAnimal, gbc_btnAjouterUnAnimal);
 
 		/**
-		 * button supprime un animal au client selectionne
+		 * Bouton supprimer un animal au client sélectionné
 		 */
 		JButton btnSupprimerAnimal = new JButton("Supprimer un animal");
-		if(clientSelectionne == null) {
+		if (clientSelectionne == null) {
 			btnSupprimerAnimal.setEnabled(false);
 		}
 		btnSupprimerAnimal.setForeground(new Color(255, 255, 255));
@@ -550,7 +543,7 @@ public class EcranClientPrincipal extends JFrame {
 		btnSupprimerAnimal.setIcon(new ImageIcon(EcranClientPrincipal.class.getResource("/images/minus.png")));
 		btnSupprimerAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 			}
 		});
 		GridBagConstraints gbc_btnSupprimerAnimal = new GridBagConstraints();
@@ -560,51 +553,50 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(btnSupprimerAnimal, gbc_btnSupprimerAnimal);
 
 		/**
-		 * button editer un animal au client selectionne
+		 * Bouton éditer un animal au client sélectionné
 		 */
-		 btnEditerUnAnimal = new JButton("Editer un animal");
-		//TODO
-		 
-		 
-		if(animalInt == null) {
+		btnEditerUnAnimal = new JButton("Editer un animal");
+		// TODO
+
+		if (animalInt == null) {
 			btnEditerUnAnimal.setEnabled(false);
-		}
-		else {
-			//btnEditerUnAnimal.firePropertyChange(setEnabled(b);, oldValue, newValue);
+		} else {
+			// btnEditerUnAnimal.firePropertyChange(setEnabled(b);, oldValue,
+			// newValue);
 			btnEditerUnAnimal.setEnabled(true);
-		pack();
+			pack();
 		}
 		btnEditerUnAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO
-			     animalInt = (Integer) table.getValueAt(table.getSelectedRow(),0);
-	                try {
-						animalSelectionne = animalMger.selectionByCodeAnimal(animalInt);
-						System.out.println(animalInt);
-						System.out.println(animalSelectionne);
-						 EcranAnimal ecranA = new EcranAnimal(animalSelectionne, clientSelectionne);
-						 
-						 
-					
-							ecranA.getLblCode().setText(String.valueOf(animalSelectionne.getCodeAnimal()));
-								ecranA.getTextClient().setText("no se");
-				                //ecranA.getTextFieldPrenom().setText(clientSelectionne.getPrenomClient());
-								//ecranA.getTextFieldAdresse1().setText(clientSelectionne.getAdresse1());
-								//ecranA.getTextFieldAdresse2().setText(clientSelectionne.getAdresse2());
-								//ecranA.getTextFieldCodePostal().setText(clientSelectionne.getCodePostal());
-								//ecranA.getTextFieldVille().setText(clientSelectionne.getVille());
-								//ecranA.getTextFieldNumero().setText(clientSelectionne.getNumTel());
-								//ecranA.getTextFieldAssurance().setText(clientSelectionne.getAssurance());
-								//ecranA.getTextFieldEmail().setText(clientSelectionne.getEmail());
-								//ecranA.getTextRemarque().setText(clientSelectionne.getRemarque());
-					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-	             
+				// TODO
+				animalInt = (Integer) table.getValueAt(table.getSelectedRow(), 0);
+				try {
+					animalSelectionne = animalMger.selectionByCodeAnimal(animalInt);
+					System.out.println(animalInt);
+					System.out.println(animalSelectionne);
+					EcranAnimal ecranA = new EcranAnimal(animalSelectionne, clientSelectionne);
+
+					ecranA.getLblCode().setText(String.valueOf(animalSelectionne.getCodeAnimal()));
+					ecranA.getTextClient().setText("no se");
+					// ecranA.getTextFieldPrenom().setText(clientSelectionne.getPrenomClient());
+					// ecranA.getTextFieldAdresse1().setText(clientSelectionne.getAdresse1());
+					// ecranA.getTextFieldAdresse2().setText(clientSelectionne.getAdresse2());
+					// ecranA.getTextFieldCodePostal().setText(clientSelectionne.getCodePostal());
+					// ecranA.getTextFieldVille().setText(clientSelectionne.getVille());
+					// ecranA.getTextFieldNumero().setText(clientSelectionne.getNumTel());
+					// ecranA.getTextFieldAssurance().setText(clientSelectionne.getAssurance());
+					// ecranA.getTextFieldEmail().setText(clientSelectionne.getEmail());
+					// ecranA.getTextRemarque().setText(clientSelectionne.getRemarque());
+				} catch (BLLException e1) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(EcranClientPrincipal.this,
+							"Echec de l'édition des informations de l'animal." + e1.getMessage());
+					e1.printStackTrace();
+				}
+
 			}
 		});
-		if(clientSelectionne == null) {
+		if (clientSelectionne == null) {
 			btnEditerUnAnimal.setEnabled(false);
 		}
 		btnEditerUnAnimal.setForeground(new Color(255, 255, 255));
@@ -616,7 +608,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(btnEditerUnAnimal, gbc_btnEditerUnAnimal);
 
 		/**
-		 * label de l'input email
+		 * Label de l'input email
 		 */
 		JLabel lblEmail = new JLabel("Email");
 		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
@@ -627,7 +619,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(lblEmail, gbc_lblEmail);
 
 		/**
-		 * input de email
+		 * Input de l'email
 		 */
 		GridBagConstraints gbc_textFieldEmail = new GridBagConstraints();
 		gbc_textFieldEmail.gridwidth = 3;
@@ -639,7 +631,7 @@ public class EcranClientPrincipal extends JFrame {
 		textFieldEmail.setColumns(10);
 
 		/**
-		 * label de l'input remarque
+		 * Label de l'input remarque
 		 */
 		JLabel lblRemarque = new JLabel("Remarque");
 		GridBagConstraints gbc_lblRemarque = new GridBagConstraints();
@@ -650,7 +642,7 @@ public class EcranClientPrincipal extends JFrame {
 		contentPane.add(lblRemarque, gbc_lblRemarque);
 
 		/**
-		 * textarea de remarque
+		 * Textarea de remarque
 		 */
 		GridBagConstraints gbc_textAreaRemarque = new GridBagConstraints();
 		gbc_textAreaRemarque.gridwidth = 3;
@@ -659,12 +651,11 @@ public class EcranClientPrincipal extends JFrame {
 		gbc_textAreaRemarque.gridx = 2;
 		gbc_textAreaRemarque.gridy = 12;
 		contentPane.add(getTextRemarque(), gbc_textAreaRemarque);
-		
-		
+
 	}
 
 	/**
-	 * methode pour recup�rer le texte dans le input code client
+	 * Méthode pour recupérer le texte dans l'input code client
 	 * 
 	 * @return textFieldCodePers
 	 */
@@ -677,7 +668,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recup�rer le texte dans le input du nom
+	 * Méthode pour recupérer le texte dans l'input du nom
 	 * 
 	 * @return textFieldNom
 	 */
@@ -690,7 +681,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recup�rer le texte dans le input du prenom
+	 * Méthode pour recupérer le texte dans l'input du prenom
 	 * 
 	 * @return textFieldPrenom
 	 */
@@ -703,7 +694,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recup�rer le texte dans le input de ladresse 1
+	 * Méthode pour recupérer le texte dans l'input de ladresse 1
 	 * 
 	 * @return textFieldAdresse1
 	 */
@@ -716,7 +707,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recup�rer le texte dans le input de l'adresse 2
+	 * Méthode pour recupérer le texte dans l'input de l'adresse 2
 	 * 
 	 * @return textFieldAdresse2
 	 */
@@ -729,7 +720,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recup�rer le texte dans le input du code postal
+	 * Méthode pour recupérer le texte dans l'input du code postal
 	 * 
 	 * @return textFieldCodePostal
 	 */
@@ -741,7 +732,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recup�rer le texte dans le input de ville
+	 * Méthode pour recupérer le texte dans l'input de ville
 	 * 
 	 * @return textFieldVille
 	 */
@@ -753,7 +744,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recup�rer le texte dans le input du numero
+	 * Méthode pour recupérer le texte dans l'input du numero
 	 * 
 	 * @return textFieldNumero
 	 */
@@ -765,7 +756,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recup�rer le texte dans le input de l'assurance
+	 * Méthode pour recupérer le texte dans l'input de l'assurance
 	 * 
 	 * @return textFieldAssurance
 	 */
@@ -777,7 +768,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recup�rer le texte dans le input du mail
+	 * Méthode pour recupérer le texte dans l'input du mail
 	 * 
 	 * @return textFieldEmail
 	 */
@@ -789,7 +780,7 @@ public class EcranClientPrincipal extends JFrame {
 	}
 
 	/**
-	 * methode pour recup�rer le texte dans le input de remarque
+	 * Méthode pour recupérer le texte dans le input de remarque
 	 * 
 	 * @return textArea
 	 */
