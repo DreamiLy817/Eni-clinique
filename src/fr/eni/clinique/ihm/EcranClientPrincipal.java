@@ -110,6 +110,7 @@ public class EcranClientPrincipal extends JFrame {
 		 * Bouton rechercher un client
 		 */
 
+
 		/**
 		 * Bouton ajouter un client
 		 */
@@ -158,7 +159,7 @@ public class EcranClientPrincipal extends JFrame {
 		/**
 		 * Bouton supprimer un client
 		 */
-		JButton btnSupprimer = new JButton("supprimer");
+		JButton btnSupprimer = new JButton("Supprimer");
 		btnSupprimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -495,7 +496,7 @@ public class EcranClientPrincipal extends JFrame {
 		textFieldAssurance.setColumns(10);
 
 		/**
-		 * Bouton ajouter un animal au client selectionné
+		 * Bouton ajouter un animal au client sélectionné
 		 */
 
 		JButton btnAjouterUnAnimal = new JButton("Ajouter un animal");

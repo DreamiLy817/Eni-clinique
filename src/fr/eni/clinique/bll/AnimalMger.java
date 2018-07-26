@@ -67,9 +67,9 @@ public class AnimalMger {
 		}
 	}
 	
-	public List<String> recupListeRace() throws BLLException {
+	public List<String> recupListeRace(String espece) throws BLLException {
 		try {
-			listeRaces = animalDAO.getRaceList();
+			listeRaces = animalDAO.getRaceList(espece);
 		} catch (DALException e) {
 			throw new BLLException("Erreur lors de l'obtention de la liste des races - " + e);
 		}

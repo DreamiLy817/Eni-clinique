@@ -45,7 +45,7 @@ public interface DAOAnimal extends DAO<Animal>{
 	 *         donn�es.
 	 * @throws DALException
 	 */
-	public List<String> getRaceList() throws DALException;
+	public List<String> getRaceList(String espece) throws DALException;
 
 	/**
 	 * Fonction en charge de faire un select en BDD pour en retirer une liste
