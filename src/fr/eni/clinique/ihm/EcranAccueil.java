@@ -3,6 +3,7 @@ package fr.eni.clinique.ihm;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -42,7 +43,8 @@ public class EcranAccueil extends JFrame {
 	 * @param role 
 	 */
 	public EcranAccueil(String role) {
-		System.out.println(role);
+		ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("images/logo.png"));
+		this.setIconImage(img.getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 689, 491);
 		

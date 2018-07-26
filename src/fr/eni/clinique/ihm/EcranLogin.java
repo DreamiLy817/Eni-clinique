@@ -4,6 +4,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -92,6 +94,8 @@ public class EcranLogin extends JFrame {
 
 	public EcranLogin() {
 		super();
+		ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("images/logo.png"));
+		this.setIconImage(img.getImage());
 		initIhm();
 	}
 

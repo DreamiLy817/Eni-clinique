@@ -50,6 +50,8 @@ public class EcranAddClient extends JFrame {
 	 * 
 	 */
 	public EcranAddClient() {
+		ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("images/logo.png"));
+		this.setIconImage(img.getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 758, 659);
 		contentPane = new JPanel();

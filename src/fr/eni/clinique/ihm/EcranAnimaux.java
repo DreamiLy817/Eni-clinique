@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -18,6 +19,7 @@ import fr.eni.clinique.bll.AnimalMger;
 import fr.eni.clinique.bll.BLLException;
 
 public class EcranAnimaux extends JFrame {
+
 	private AnimalMger animalMger = AnimalMger.getInstance();
 	// D�claration des boutons, variables, zone de textes
 	private JButton boutonValider;
@@ -282,6 +284,8 @@ public class EcranAnimaux extends JFrame {
 	 */
 	public EcranAnimaux() {
 		super();
+		ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("images/logo.png"));
+		this.setIconImage(img.getImage());
 		initIHM();
 	}
 

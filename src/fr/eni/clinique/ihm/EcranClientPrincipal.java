@@ -88,6 +88,8 @@ public class EcranClientPrincipal extends JFrame {
 	 * @param listeAnimauxClient
 	 */
 	public EcranClientPrincipal(final Client clientSelectionne, List<Animal> listeAnimauxClient) {
+		ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("images/logo.png"));
+		this.setIconImage(img.getImage());
 		client = clientSelectionne;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -568,37 +570,38 @@ public class EcranClientPrincipal extends JFrame {
 		}
 		btnEditerUnAnimal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO
-				animalInt = (Integer) table.getValueAt(table.getSelectedRow(), 0);
-				try {
-					animalSelectionne = animalMger.selectionByCodeAnimal(animalInt);
-					System.out.println(animalInt);
-					System.out.println(animalSelectionne);
-					EcranAnimal ecranA = new EcranAnimal(animalSelectionne, clientSelectionne);
 
-					ecranA.getLblCode().setText(String.valueOf(animalSelectionne.getCodeAnimal()));
-					ecranA.getTextClient().setText("no se");
-					// ecranA.getTextFieldPrenom().setText(clientSelectionne.getPrenomClient());
-					// ecranA.getTextFieldAdresse1().setText(clientSelectionne.getAdresse1());
-					// ecranA.getTextFieldAdresse2().setText(clientSelectionne.getAdresse2());
-					// ecranA.getTextFieldCodePostal().setText(clientSelectionne.getCodePostal());
-					// ecranA.getTextFieldVille().setText(clientSelectionne.getVille());
-					// ecranA.getTextFieldNumero().setText(clientSelectionne.getNumTel());
-					// ecranA.getTextFieldAssurance().setText(clientSelectionne.getAssurance());
-					// ecranA.getTextFieldEmail().setText(clientSelectionne.getEmail());
-					// ecranA.getTextRemarque().setText(clientSelectionne.getRemarque());
-				} catch (BLLException e1) {
-					// TODO Auto-generated catch block
-					JOptionPane.showMessageDialog(EcranClientPrincipal.this,
-							"Echec de l'édition des informations de l'animal." + e1.getMessage());
-					e1.printStackTrace();
-				}
-
+				//TODO
+			     animalInt = (Integer) table.getValueAt(table.getSelectedRow(),0);
+	                try {
+						animalSelectionne = animalMger.selectionByCodeAnimal(animalInt);
+						System.out.println(animalInt);
+						System.out.println(animalSelectionne);
+						 EcranAnimal ecranA = new EcranAnimal(animalSelectionne, clientSelectionne);
+						 ecranA.setVisible(true);
+						 
+						 
+							ecranA.getLabelCodeAnimal().setText(String.valueOf(animalSelectionne.getCodeAnimal()));
+								ecranA.getTextClient().setText(clientSelectionne.getNomClient());
+				                ecranA.getTextNom().setText(animalSelectionne.getNomAnimal());
+								ecranA.getSexeComboBox().setSelectedItem(animalSelectionne.getSexe());
+								ecranA.getTextCouleur().setText(animalSelectionne.getCouleur());
+								ecranA.getEspeceComboBox().setSelectedItem(animalSelectionne.getEspece());
+								ecranA.getRaceComboBox().setSelectedItem(animalSelectionne.getRace());
+								ecranA.getTextTatouage().setText(animalSelectionne.getTatouage());
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(EcranClientPrincipal.this,
+								"Echec de l'édition des informations de l'animal." + e1.getMessage());
+						e1.printStackTrace();
+					}
+	             
 			}
 		});
 		if (clientSelectionne == null) {
 			btnEditerUnAnimal.setEnabled(false);
 		}
+
 		btnEditerUnAnimal.setForeground(new Color(255, 255, 255));
 		btnEditerUnAnimal.setBackground(new Color(0, 204, 153));
 		GridBagConstraints gbc_btnEditerUnAnimal = new GridBagConstraints();
