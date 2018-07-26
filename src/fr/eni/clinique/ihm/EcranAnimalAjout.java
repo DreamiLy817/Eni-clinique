@@ -308,7 +308,7 @@ public class EcranAnimalAjout extends JFrame {
 
 				try {
 					animalMger.ajoutAnimal(animalAj);
-					JOptionPane.showMessageDialog(EcranAnimalAjout.this, "Modification effectué");
+					JOptionPane.showMessageDialog(EcranAnimalAjout.this, "Ajout effectué");
 					EcranAnimalAjout.this.dispose();
 
 					listeAnimauxClient = animalMger.listeAnimauxParClient(client.getCodeClient());
