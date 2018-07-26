@@ -227,7 +227,6 @@ public class EcranAnimal extends JFrame {
 				String[] tabEspece = listeEspece.toArray(new String[0]);
 				especeComboBox = new JComboBox<String>(tabEspece);
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -243,7 +242,6 @@ public class EcranAnimal extends JFrame {
 				String[] tabRace = listeRace.toArray(new String[0]);
 				raceComboBox = new JComboBox<String>(tabRace);
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

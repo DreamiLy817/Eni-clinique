@@ -82,7 +82,7 @@ public class AnimalMger {
 		try {
 			listeEspeces = animalDAO.getEspeceList();
 		} catch (DALException e) {
-			throw new BLLException("Erreur lors de l'obtention de la liste des esp�ces - " + e);
+			throw new BLLException("Erreur lors de l'obtention de la liste des especes - " + e);
 		}
 
 		return listeEspeces;
