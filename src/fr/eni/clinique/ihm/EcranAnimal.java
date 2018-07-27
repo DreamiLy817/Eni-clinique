@@ -64,13 +64,12 @@ public class EcranAnimal extends JFrame {
 
 	private List<String> listeEspece = null;
 	private List<String> listeRace = null;
-	private String[] tabRace = new String[] {"Choisissez une espèce"};
+	private String[] tabRace = new String[] { "Choisissez une espèce" };
 	private List<Animal> listeAnimauxClient;
 
-
-	
 	/**
 	 * Avoir une instance de bouton valider
+	 * 
 	 * @return boutonValider
 	 */
 	public JButton getBoutonValider() {
@@ -85,7 +84,7 @@ public class EcranAnimal extends JFrame {
 			boutonAnnuler = new JButton("Annuler");
 			boutonAnnuler.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+
 				}
 			});
 		}
@@ -210,7 +209,7 @@ public class EcranAnimal extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						getRaceComboBox().removeAllItems();
 						try {
-							listeRace = animalMger.recupListeRace((String)especeComboBox.getSelectedItem());
+							listeRace = animalMger.recupListeRace((String) especeComboBox.getSelectedItem());
 						} catch (BLLException e1) {
 							JOptionPane.showMessageDialog(EcranAnimal.this,
 									"Erreur dans le chargement des races des animaux" + e1.getMessage());
@@ -237,8 +236,7 @@ public class EcranAnimal extends JFrame {
 						"Echec de la génération de la liste déroulante Espèce." + e.getMessage());
 				e.printStackTrace();
 			}
-  
-			
+
 		}
 		return especeComboBox;
 	}
@@ -286,54 +284,54 @@ public class EcranAnimal extends JFrame {
 		/**
 		 * Bouton pour valider la modification d'un animal
 		 */
-		
+
 		getBoutonValider().setForeground(new Color(0, 0, 0));
 		getBoutonValider().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				animal.setNomAnimal(getTextNom().getText());
 				animal.setCouleur(getTextCouleur().getText());
-					switch ((String)getSexeComboBox().getSelectedItem()) {
-					case "Male" :
-						animal.setSexe('M');
-					case "Femelle":
-						animal.setSexe('F');
-					case "Hermaphrodite":
-						animal.setSexe('H');
-					}
-					animal.setCouleur(getTextCouleur().getText());
-					animal.setEspece((String)getEspeceComboBox().getSelectedItem());
-					animal.setRace((String)getRaceComboBox().getSelectedItem());
-					animal.setTatouage(getTextTatouage().getText());
-					
-					try {
-						animalMger.modifierAnimal(animal);
-                        JOptionPane.showMessageDialog(EcranAnimal.this, "Modification effectué");
-                        listeAnimauxClient = animalMger.listeAnimauxParClient(client.getCodeClient());
-                        
-                        EcranClientPrincipal ecranP = new EcranClientPrincipal(client, listeAnimauxClient);
-                             
-                          ecranP.afficherTableauAnimaux(listeAnimauxClient);
-                          ecranP.getTextFieldCodeClient().setText(String.valueOf(client.getCodeClient()));
-                            ecranP.getTextFieldNom().setText(client.getNomClient());
-                            ecranP.getTextFieldPrenom().setText(client.getPrenomClient());
-                            ecranP.getTextFieldAdresse1().setText(client.getAdresse1());
-                            ecranP.getTextFieldAdresse2().setText(client.getAdresse2());
-                            ecranP.getTextFieldCodePostal().setText(client.getCodePostal());
-                            ecranP.getTextFieldVille().setText(client.getVille());
-                            ecranP.getTextFieldNumero().setText(client.getNumTel());
-                            ecranP.getTextFieldAssurance().setText(client.getAssurance());
-                            ecranP.getTextFieldEmail().setText(client.getEmail());
-                            ecranP.getTextRemarque().setText(client.getRemarque());
-                        ecranP.setVisible(true);
-                        EcranAnimal.this.dispose();
-  
-					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				
+				String sexe = (String) getSexeComboBox().getSelectedItem();
+				if ("Male".equals(sexe)) {
+					animal.setSexe('M');
+				} else if ("Femelle".equals(sexe)) {
+					animal.setSexe('F');
+				} else {
+					animal.setSexe('H');
+				}
+				animal.setCouleur(getTextCouleur().getText());
+				animal.setEspece((String) getEspeceComboBox().getSelectedItem());
+				animal.setRace((String) getRaceComboBox().getSelectedItem());
+				animal.setTatouage(getTextTatouage().getText());
+
+				try {
+					animalMger.modifierAnimal(animal);
+					JOptionPane.showMessageDialog(EcranAnimal.this, "Modification effectué");
+					listeAnimauxClient = animalMger.listeAnimauxParClient(client.getCodeClient());
+
+					EcranClientPrincipal ecranP = new EcranClientPrincipal(client, listeAnimauxClient);
+
+					ecranP.afficherTableauAnimaux(listeAnimauxClient);
+					ecranP.getTextFieldCodeClient().setText(String.valueOf(client.getCodeClient()));
+					ecranP.getTextFieldNom().setText(client.getNomClient());
+					ecranP.getTextFieldPrenom().setText(client.getPrenomClient());
+					ecranP.getTextFieldAdresse1().setText(client.getAdresse1());
+					ecranP.getTextFieldAdresse2().setText(client.getAdresse2());
+					ecranP.getTextFieldCodePostal().setText(client.getCodePostal());
+					ecranP.getTextFieldVille().setText(client.getVille());
+					ecranP.getTextFieldNumero().setText(client.getNumTel());
+					ecranP.getTextFieldAssurance().setText(client.getAssurance());
+					ecranP.getTextFieldEmail().setText(client.getEmail());
+					ecranP.getTextRemarque().setText(client.getRemarque());
+					ecranP.setVisible(true);
+					EcranAnimal.this.dispose();
+
+				} catch (BLLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
 			}
 		});
 		getBoutonValider().setBackground(new Color(0, 204, 153));
@@ -348,29 +346,28 @@ public class EcranAnimal extends JFrame {
 		getBoutonAnnuler().setForeground(new Color(0, 0, 0));
 		getBoutonAnnuler().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				  EcranClientPrincipal ecranP = new EcranClientPrincipal(clientSelectionne, listeAnimauxClient);
-                  ecranP.setVisible(true);
-                  EcranAnimal.this.dispose();
-                  try {
-						listeAnimauxClient = animalMger.listeAnimauxParClient(clientSelectionne.getCodeClient());
-					} catch (BLLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-                  ecranP.afficherTableauAnimaux(listeAnimauxClient);
-	              ecranP.getTextFieldCodeClient().setText(String.valueOf(clientSelectionne.getCodeClient()));
-	  				ecranP.getTextFieldNom().setText(clientSelectionne.getNomClient());
-	  				ecranP.getTextFieldPrenom().setText(clientSelectionne.getPrenomClient());
-	  				ecranP.getTextFieldAdresse1().setText(clientSelectionne.getAdresse1());
-	  				ecranP.getTextFieldAdresse2().setText(clientSelectionne.getAdresse2());
-	  				ecranP.getTextFieldCodePostal().setText(clientSelectionne.getCodePostal());
-	  				ecranP.getTextFieldVille().setText(clientSelectionne.getVille());
-	  				ecranP.getTextFieldNumero().setText(clientSelectionne.getNumTel());
-	  				ecranP.getTextFieldAssurance().setText(clientSelectionne.getAssurance());
-	  				ecranP.getTextFieldEmail().setText(clientSelectionne.getEmail());
-	  				ecranP.getTextRemarque().setText(clientSelectionne.getRemarque());
-	  				
-	  		
+				EcranClientPrincipal ecranP = new EcranClientPrincipal(clientSelectionne, listeAnimauxClient);
+				ecranP.setVisible(true);
+				EcranAnimal.this.dispose();
+				try {
+					listeAnimauxClient = animalMger.listeAnimauxParClient(clientSelectionne.getCodeClient());
+				} catch (BLLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				ecranP.afficherTableauAnimaux(listeAnimauxClient);
+				ecranP.getTextFieldCodeClient().setText(String.valueOf(clientSelectionne.getCodeClient()));
+				ecranP.getTextFieldNom().setText(clientSelectionne.getNomClient());
+				ecranP.getTextFieldPrenom().setText(clientSelectionne.getPrenomClient());
+				ecranP.getTextFieldAdresse1().setText(clientSelectionne.getAdresse1());
+				ecranP.getTextFieldAdresse2().setText(clientSelectionne.getAdresse2());
+				ecranP.getTextFieldCodePostal().setText(clientSelectionne.getCodePostal());
+				ecranP.getTextFieldVille().setText(clientSelectionne.getVille());
+				ecranP.getTextFieldNumero().setText(clientSelectionne.getNumTel());
+				ecranP.getTextFieldAssurance().setText(clientSelectionne.getAssurance());
+				ecranP.getTextFieldEmail().setText(clientSelectionne.getEmail());
+				ecranP.getTextRemarque().setText(clientSelectionne.getRemarque());
+
 			}
 		});
 		getBoutonAnnuler().setBackground(new Color(0, 204, 153));
