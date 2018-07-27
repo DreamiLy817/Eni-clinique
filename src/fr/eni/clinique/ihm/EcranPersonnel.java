@@ -111,6 +111,8 @@ public class EcranPersonnel extends JFrame {
 						addRow(tamponNom, tamponRole);
 						JOptionPane.showMessageDialog(EcranPersonnel.this, "Ajout d'un nouvel employé effectué");
 						dispose();
+
+
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(EcranPersonnel.this, "Echec de l'ajout d'un nouvel employé" + e1.getMessage());
@@ -265,10 +267,9 @@ public class EcranPersonnel extends JFrame {
 
 	private JButton getReinitialiserButton() {
 		if (reinitialiserButton == null) {
-			reinitialiserButton = new JButton();
+			reinitialiserButton = new JButton("Reinitialiser mot de passe");
 			reinitialiserButton.setBackground(new Color(0, 204, 153));
 			reinitialiserButton.setForeground(Color.WHITE);
-			reinitialiserButton.setIcon(new ImageIcon(EcranClientRecherche.class.getResource("/images/refresh.png")));
 			reinitialiserButton.addActionListener(new ActionListener() {
 
 				@Override

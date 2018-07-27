@@ -77,14 +77,19 @@ public class EcranAccueil extends JFrame {
 		mntmDconnexion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		mntmDconnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EcranPersonnel ecranPerso = new EcranPersonnel();
-				ecranPerso.setVisible(true);
+				EcranLogin ecranL = new EcranLogin();
+				ecranL.setVisible(true);
 				EcranAccueil.this.dispose();
 			}
 		});
 		menuFichier.add(mntmDconnexion);
 		
 		JMenuItem mntmFermer = new JMenuItem("Fermer");
+		mntmFermer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
 		mntmFermer.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		menuFichier.add(mntmFermer);
 		
@@ -158,7 +163,7 @@ public class EcranAccueil extends JFrame {
 			gbc_lblNewLabel.gridy = 0;
 			getContentPane().add(lblNewLabel, gbc_lblNewLabel);
 			
-			JLabel lblBienvenueLeGestionnaire = new JLabel("Bienvenue "+ login +" sur le gestionnaire de la Clinique Ani'Forme");
+			JLabel lblBienvenueLeGestionnaire = new JLabel("Bienvenue Dr "+ login +" sur le gestionnaire de la Clinique Ani'Forme");
 			lblBienvenueLeGestionnaire.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			GridBagConstraints gbc_lblBienvenueLeGestionnaire = new GridBagConstraints();
 			gbc_lblBienvenueLeGestionnaire.insets = new Insets(0, 0, 0, 5);
@@ -196,7 +201,7 @@ public class EcranAccueil extends JFrame {
 			gbc_lblNewLabel.gridy = 0;
 			getContentPane().add(lblNewLabel, gbc_lblNewLabel);
 			
-			JLabel lblBienvenueLeGestionnaire = new JLabel("Bienvenue "+ login.toUpperCase() +" sur le gestionnaire de la Clinique Ani'Forme");
+			JLabel lblBienvenueLeGestionnaire = new JLabel("Bienvenue "+ login +" sur le gestionnaire de la Clinique Ani'Forme");
 			lblBienvenueLeGestionnaire.setFont(new Font("Tahoma", Font.PLAIN, 16));
 			GridBagConstraints gbc_lblBienvenueLeGestionnaire = new GridBagConstraints();
 			gbc_lblBienvenueLeGestionnaire.insets = new Insets(0, 0, 0, 5);
