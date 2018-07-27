@@ -119,7 +119,9 @@ public class EcranPersonnel extends JFrame {
 						pm.ajoutPersonnel(nouveau);
 						addRow(tamponNom, tamponRole);
 						JOptionPane.showMessageDialog(EcranPersonnel.this, "Ajout d'un nouvel employé effectué");
-						
+						dispose();
+
+
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(EcranPersonnel.this, "Echec de l'ajout d'un nouvel employé" + e1.getMessage());
@@ -153,6 +155,7 @@ public class EcranPersonnel extends JFrame {
 			@Override
 			public void run() {
 				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				frame.repaint();
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				} catch (Exception e) {
@@ -255,6 +258,8 @@ public class EcranPersonnel extends JFrame {
 						tampon = zoneTexteNouveauPass.getText();
 						try {
 							pm.changementPasse(pm.selectNom(selectTable), tampon);
+							JOptionPane.showMessageDialog(EcranPersonnel.this, "Mot de passe réinitialisé.");
+							frame1.dispose();
 						} catch (BLLException e1) {
 							JOptionPane.showMessageDialog(EcranPersonnel.this, "Echec lors de la réinitialisation du mot de passe" + e1.getMessage());
 							e1.printStackTrace();
