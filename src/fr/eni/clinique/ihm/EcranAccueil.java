@@ -24,6 +24,7 @@ import javax.swing.JLabel;
 import java.awt.Insets;
 import java.awt.Dimension;
 import java.awt.Cursor;
+import java.awt.SystemColor;
 
 public class EcranAccueil extends JFrame {
 
@@ -49,6 +50,7 @@ public class EcranAccueil extends JFrame {
 	 * @param login 
 	 */
 	public EcranAccueil(String role, String login) {
+		getContentPane().setBackground(SystemColor.menu);
 		setTitle("Clinique vétérinaire");
 		ImageIcon img = new ImageIcon(getClass().getClassLoader().getResource("images/logo.png"));
 		this.setIconImage(img.getImage());
@@ -66,14 +68,12 @@ public class EcranAccueil extends JFrame {
 		JMenu menuFichier = new JMenu("Fichier");
 		menuFichier.setBorder(null);
 		menuFichier.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		menuFichier.setBackground(new Color(0, 153, 255));
 		menuFichier.setForeground(new Color(255, 255, 255));
 		menuBar.add(menuFichier);
 		
 		JMenuItem mntmDconnexion = new JMenuItem("D\u00E9connexion");
 		mntmDconnexion.setOpaque(true);
 		mntmDconnexion.setBorder(null);
-		mntmDconnexion.setBackground(new Color(0, 204, 102));
 		mntmDconnexion.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		mntmDconnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
