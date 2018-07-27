@@ -18,7 +18,7 @@ public class AnimalDAOJdbcImpl implements DAOAnimal {
 	private static final String sqlSupprAnimal = "UPDATE Animaux SET Archive= ? WHERE CodeClient= ? and CodeAnimal= ?";
 	private static final String sqlArchivToutAnimaux = "UPDATE Animaux SET Archive = ? WHERE CodeClient = ?";
 	private static final String sqlInsertAnimal = "INSERT INTO Animaux (NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-	private static final String sqlSelectAllAnimals = "SELECT CodeAnimal, NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive FROM Animaux WHERE CodeClient = ? AND Archive = 'false'";
+	private static final String sqlSelectAllAnimals = "SELECT CodeAnimal, NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive FROM Animaux WHERE CodeClient = ? AND Archive = 'false' ORDER BY CodeAnimal ASC";
 	private static final String sqlModifAnimal = "UPDATE Animaux SET NomAnimal=?, Sexe=?, Couleur=?, Race=?, Espece=?, Tatouage=?, Antecedents=? FROM Animaux WHERE CodeAnimal = ?";
 	private static final String sqlSelectRace = "SELECT DISTINCT Race FROM Races WHERE Espece=?";
 	private static final String sqlSelectEspece = "SELECT DISTINCT Espece FROM Races";
