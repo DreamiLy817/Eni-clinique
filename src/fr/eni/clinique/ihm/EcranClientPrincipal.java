@@ -2,6 +2,7 @@ package fr.eni.clinique.ihm;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,10 +17,17 @@ import java.awt.Insets;
 import java.awt.TextArea;
 
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +105,77 @@ public class EcranClientPrincipal extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 895, 642);
+
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setMaximumSize(new Dimension(0, 4));
+		menuBar.setMinimumSize(new Dimension(0, 4));
+		menuBar.setBorderPainted(false);
+		menuBar.setBackground(new Color(0, 204, 153));
+		setJMenuBar(menuBar);
+		
+		
+		JMenu menuFichier = new JMenu("Fichier");
+		menuFichier.setBorder(null);
+		menuFichier.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		menuFichier.setBackground(new Color(0, 153, 255));
+		menuFichier.setForeground(new Color(255, 255, 255));
+		menuBar.add(menuFichier);
+		
+		JMenuItem mntmDconnexion = new JMenuItem("D\u00E9connexion");
+		mntmDconnexion.setOpaque(true);
+		mntmDconnexion.setBorder(null);
+		mntmDconnexion.setBackground(new Color(0, 204, 102));
+		mntmDconnexion.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		mntmDconnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EcranLogin ecranL = new EcranLogin();
+				ecranL.setVisible(true);
+				EcranClientPrincipal.this.dispose();
+			}
+		});
+		menuFichier.add(mntmDconnexion);
+		
+		JMenuItem mntmFermer = new JMenuItem("Fermer");
+		mntmFermer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		mntmFermer.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		menuFichier.add(mntmFermer);
+		
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		getContentPane().setLayout(gridBagLayout);
+		
+			JMenu menuGestionrdv = new JMenu("Gestion des rendez-vous");
+			menuGestionrdv.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			menuGestionrdv.setBackground(new Color(0, 153, 255));
+			menuGestionrdv.setForeground(new Color(255, 255, 255));
+			menuBar.add(menuGestionrdv);
+			
+			JMenuItem mntmPriseDeRendez = new JMenuItem("Prise de rendez vous");
+			mntmPriseDeRendez.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			mntmPriseDeRendez.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
+			menuGestionrdv.add(mntmPriseDeRendez);
+			
+			JMenuItem mntmGestionDesClients = new JMenuItem("Gestion des clients");
+			mntmGestionDesClients.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			mntmGestionDesClients.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					EcranClientPrincipal ecranP = new EcranClientPrincipal(null, null);
+					ecranP.setVisible(true);
+					EcranClientPrincipal.this.dispose();
+				}
+			});
+			menuGestionrdv.add(mntmGestionDesClients);
+		
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

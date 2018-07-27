@@ -2,9 +2,14 @@ package fr.eni.clinique.ihm;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,12 +19,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -320,7 +329,77 @@ public class EcranPersonnel extends JFrame {
 		GridBagConstraints gbc = new GridBagConstraints();
 		updateTable();
 		table.setDefaultEditor(Object.class, null);
+		
+		
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setMaximumSize(new Dimension(0, 4));
+		menuBar.setMinimumSize(new Dimension(0, 4));
+		menuBar.setBorderPainted(false);
+		menuBar.setBackground(new Color(0, 204, 153));
+		setJMenuBar(menuBar);
+		
+		
+		JMenu menuFichier = new JMenu("Fichier");
+		menuFichier.setBorder(null);
+		menuFichier.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		menuFichier.setBackground(new Color(0, 153, 255));
+		menuFichier.setForeground(new Color(255, 255, 255));
+		menuBar.add(menuFichier);
+		
+		JMenuItem mntmDconnexion = new JMenuItem("D\u00E9connexion");
+		mntmDconnexion.setOpaque(true);
+		mntmDconnexion.setBorder(null);
+		mntmDconnexion.setBackground(new Color(0, 204, 102));
+		mntmDconnexion.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		mntmDconnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EcranLogin ecranL = new EcranLogin();
+				ecranL.setVisible(true);
+				EcranPersonnel.this.dispose();
+			}
+		});
+		menuFichier.add(mntmDconnexion);
+		
+		JMenuItem mntmFermer = new JMenuItem("Fermer");
+		mntmFermer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		mntmFermer.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		menuFichier.add(mntmFermer);
+		
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		getContentPane().setLayout(gridBagLayout);
 
+		
+			JMenuItem mntmGestionDuPersonnel = new JMenuItem("Gestion du personnel");
+			mntmGestionDuPersonnel.setPreferredSize(new Dimension(87, 22));
+			mntmGestionDuPersonnel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+			mntmGestionDuPersonnel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					EcranPersonnel ecranPerso = new EcranPersonnel();
+					ecranPerso.setVisible(true);
+					EcranPersonnel.this.dispose();
+					
+				}
+			});
+			mntmGestionDuPersonnel.setAlignmentX(Component.LEFT_ALIGNMENT);
+			mntmGestionDuPersonnel.setBorder(null);
+			mntmGestionDuPersonnel.setHorizontalAlignment(SwingConstants.RIGHT);
+			mntmGestionDuPersonnel.setForeground(new Color(255, 255, 255));
+			mntmGestionDuPersonnel.setBackground(new Color(0, 204, 153));
+			menuBar.add(mntmGestionDuPersonnel);
+			
+		
+		
+		
+		
 		// Intégration de la table dans le panneau principal
 		panelTable.setLayout(new BorderLayout());
 		panelTable.add(new JScrollPane(table), BorderLayout.CENTER);
